@@ -1,0 +1,52 @@
+#1. Vérifier que l'API fonctionne (route racine)
+curl http://localhost:8000/
+Tu devrais recevoir une réponse comme celle-ci :
+json{"message":"Bienvenue sur l'API Calculatrice"}
+
+
+#2. Tester l'opération d'addition
+curl -X POST http://localhost:8000/add \
+  -H "Content-Type: application/json" \
+  -d '{"a": 10, "b": 5}'
+Résultat attendu :
+json{"operation":"10.0 + 5.0","result":15.0}
+
+
+#3. Tester l'opération de soustraction
+curl -X POST http://localhost:8000/subtract \
+  -H "Content-Type: application/json" \
+  -d '{"a": 10, "b": 5}'
+Résultat attendu :
+json{"operation":"10.0 - 5.0","result":5.0}
+
+
+#4. Tester l'opération de multiplication
+curl -X POST http://localhost:8000/multiply \
+  -H "Content-Type: application/json" \
+  -d '{"a": 10, "b": 5}'
+Résultat attendu :
+json{"operation":"10.0 * 5.0","result":50.0}
+
+
+#5. Tester l'opération de modulo
+curl -X POST http://localhost:8000/modulo \
+  -H "Content-Type: application/json" \
+  -d '{"a": 10, "b": 3}'
+Résultat attendu :
+json{"operation":"10.0 % 3.0","result":1.0}
+Conseils supplémentaires
+
+#Si tu veux une sortie formatée plus jolie, tu peux ajouter | json_pp à la fin de tes commandes curl :
+curl -X POST http://localhost:8000/add -H "Content-Type: application/json" -d '{"a": 10, "b": 5}' | json_pp
+
+#Pour tester un cas d'erreur (division par zéro) :
+curl -X POST http://localhost:8000/modulo \
+  -H "Content-Type: application/json" \
+  -d '{"a": 10, "b": 0}'
+Résultat attendu (code erreur 400) :
+json{"detail":"Division par zéro impossible"}
+
+#Pour enregistrer la sortie dans un fichier :
+curl -X POST http://localhost:8000/add \
+  -H "Content-Type: application/json" \
+  -d '{"a": 10, "b": 5}' > resultat.json

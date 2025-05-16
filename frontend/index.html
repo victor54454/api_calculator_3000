@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Calculatrice</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="calculator-container">
+        <div class="calculator-card">
+            <div class="calculator-header">
+                <h1>Calculatrice 3000</h1>
+                <p class="tagline">Propulsée par FastAPI</p>
+            </div>
+            
+            <div class="tab-navigation">
+                <a href="index.html" class="tab-button active">
+                    <i class="fas fa-calculator"></i> Calculatrice
+                </a>
+                <a href="graph.html" class="tab-button">
+                    <i class="fas fa-chart-line"></i> Graphiques
+                </a>
+            </div>
+            
+            <div class="input-row">
+                <label for="num1">Premier nombre</label>
+                <input type="number" id="num1" placeholder="0">
+            </div>
+            
+            <div class="operation-selector">
+                <button class="op-button active" data-op="add" id="add-op">+</button>
+                <button class="op-button" data-op="subtract" id="subtract-op">-</button>
+                <button class="op-button" data-op="multiply" id="multiply-op">×</button>
+                <button class="op-button" data-op="divide" id="divide-op">÷</button>
+                <button class="op-button" data-op="modulo" id="modulo-op">%</button>
+            </div>
+            
+            <div class="input-row">
+                <label for="num2">Second nombre</label>
+                <input type="number" id="num2" placeholder="0">
+            </div>
+            
+            <button id="calculate" class="calculate-btn">
+                <i class="fas fa-equals"></i> Calculer
+            </button>
+            
+            <div class="result-container">
+                <div class="result-label">Résultat</div>
+                <div class="result-value" id="result">-</div>
+                <div class="operation-text" id="operation-text"></div>
+            </div>
+            
+            <div class="history-section">
+                <h3><i class="fas fa-history"></i> Historique des calculs</h3>
+                <div class="history-list" id="history-list">
+                    <!-- L'historique des calculs s'affichera ici -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="api-info-card">
+            <h3>Information API</h3>
+            <p>Cette calculatrice utilise l'API FastAPI sur le backend.</p>
+            
+            <div class="api-status">
+                <div class="status-indicator">
+                    <span class="status-dot" id="api-status-dot"></span>
+                    <span id="api-status">Vérification...</span>
+                </div>
+            </div>
+            
+            <div class="api-url" id="api-url-container">
+                http://172.20.10.3:8000
+            </div>
+            
+            <div class="api-routes">
+                <p class="route-title">Routes disponibles:</p>
+                <ul>
+                    <li><code>POST /add</code> - Addition</li>
+                    <li><code>POST /subtract</code> - Soustraction</li>
+                    <li><code>POST /multiply</code> - Multiplication</li>
+                    <li><code>POST /divide</code> - Division</li>
+                    <li><code>POST /modulo</code> - Modulo</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        © 2025 Super Calculatrice API - Créée avec ❤️ et FastAPI
+    </footer>
+    
+    <script>
+        // Configuration
+        const API_URL = 'http://172.20.10.3:8000';
+
+        // Éléments DOM
+        const num1Input = document.getElementById('num1');
+        const num2Input = document.getElementById('num2');
+        const calculateButton = document.getElementById('calculate');
+        const resultDisplay = document.getElementById('result');
+        const operationText = document.getElementById('operation-text');
+        const apiStatusElement = document.getElementById('api-status');
+        const apiStatusDot = document.getElementById('api-status-dot');
+        const apiUrlContainer = document.getElementById('api-url-container');
+        const historyList = document.getElementById('history-list');
+        const operationButtons = document.querySelectorAll('.op-button');
+
+        // Opération sélectionnée par défaut
+        let selectedOperation = 'add';
+
+        // Historique des calculs
+        let calculationHistory = [];
+
+        // Initialisation
+        function init() {
+            // Afficher l'URL de l'API
+            apiUrlContainer.textContent = API_URL;
+            
+            // Vérifier la connexion avec l'API
+            checkApiStatus();
+            
+            // Ajouter des écouteurs d'événements pour les boutons d'opération
+            operationButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Supprimer la classe active de tous les boutons
+                    operationButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Ajouter la classe active au bouton cliqué
+                    this.classList.add('active');
+                    
+                    // Mettre à jour l'opération sélectionnée
+                    selectedOperation = this.getAttribute('data-op');
+                });
+            });
+        }
+
+        // Vérification de la connexion avec l'API
+        async function checkApiStatus() {
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 5000);
+                
+                const response = await fetch(API_URL, {
+                    signal: controller.signal,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                clearTimeout(timeoutId);
+                
+                if (response.ok) {
+                    apiStatusElement.textContent = 'En ligne';
+                    apiStatusDot.classList.add('online');
+                    apiStatusDot.classList.remove('offline');
+                } else {
+                    apiStatusElement.textContent = 'Erreur de connexion';
+                    apiStatusDot.classList.add('offline');
+                    apiStatusDot.classList.remove('online');
+                }
+            } catch (error) {
+                console.error('Erreur de connexion à l\'API:', error);
+                apiStatusElement.textContent = 'Hors ligne';
+                apiStatusDot.classList.add('offline');
+                apiStatusDot.classList.remove('online');
+            }
+        }
+
+        // Effectuer le calcul
+        async function performCalculation() {
+            // Récupérer les valeurs
+            const a = parseFloat(num1Input.value);
+            const b = parseFloat(num2Input.value);
+            
+            // Vérifier que les entrées sont valides
+            if (isNaN(a) || isNaN(b)) {
+                showError('Veuillez entrer des nombres valides');
+                return;
+            }
+            
+            // Vérifier si l'opération est modulo/division et b est 0
+            if ((selectedOperation === 'modulo' || selectedOperation === 'divide') && b === 0) {
+                showError('Division par zéro impossible');
+                return;
+            }
+            
+            // Afficher l'animation de chargement
+            resultDisplay.textContent = '...';
+            
+            try {
+                // Envoyer la requête à l'API
+                const response = await fetch(`${API_URL}/${selectedOperation}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ a, b })
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.detail || 'Erreur de calcul');
+                }
+                
+                const data = await response.json();
+                
+                // Afficher le résultat avec animation
+                resultDisplay.textContent = data.result;
+                operationText.textContent = data.operation;
+                
+                // Ajouter l'effet d'animation
+                resultDisplay.classList.add('updated');
+                setTimeout(() => {
+                    resultDisplay.classList.remove('updated');
+                }, 500);
+                
+                // Ajouter à l'historique
+                addToHistory(data.operation, data.result);
+                
+            } catch (error) {
+                showError(error.message);
+                console.error('Erreur lors du calcul:', error);
+            }
+        }
+
+        // Afficher une erreur
+        function showError(message) {
+            resultDisplay.textContent = 'Erreur';
+            operationText.textContent = message;
+        }
+
+        // Ajouter un calcul à l'historique
+        function addToHistory(operation, result) {
+            // Créer un objet pour le calcul
+            const calculation = {
+                operation,
+                result,
+                timestamp: new Date().toLocaleTimeString()
+            };
+            
+            // Ajouter au début de l'historique
+            calculationHistory.unshift(calculation);
+            
+            // Limiter l'historique à 10 entrées
+            if (calculationHistory.length > 10) {
+                calculationHistory.pop();
+            }
+            
+            // Mettre à jour l'affichage de l'historique
+            updateHistoryDisplay();
+        }
+
+        // Mettre à jour l'affichage de l'historique
+        function updateHistoryDisplay() {
+            // Vider la liste
+            historyList.innerHTML = '';
+            
+            // Créer un élément pour chaque calcul
+            calculationHistory.forEach(calc => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                
+                const operation = document.createElement('div');
+                operation.className = 'history-operation';
+                operation.textContent = calc.operation;
+                
+                const result = document.createElement('div');
+                result.className = 'history-result';
+                result.textContent = calc.result;
+                
+                historyItem.appendChild(operation);
+                historyItem.appendChild(result);
+                
+                historyList.appendChild(historyItem);
+            });
+            
+            // Si l'historique est vide, afficher un message
+            if (calculationHistory.length === 0) {
+                const emptyMessage = document.createElement('div');
+                emptyMessage.className = 'history-item';
+                emptyMessage.textContent = 'Aucun calcul dans l\'historique';
+                historyList.appendChild(emptyMessage);
+            }
+        }
+
+        // Événements
+        calculateButton.addEventListener('click', performCalculation);
+
+        // Permettre l'utilisation de la touche "Entrée" pour calculer
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                performCalculation();
+            }
+        });
+
+        // Initialiser
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
