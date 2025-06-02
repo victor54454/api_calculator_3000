@@ -26,6 +26,6 @@ jobs:
         continue-on-error: false
       - name: Restart Kubernetes Deployment
         run: |
-          kubectl rollout restart deployment backend -n api-calculator
-          kubectl rollout restart deployment frontend -n api-calculator
+          kubectl rollout restart deployment backend-deployment -n api-calculator
+          kubectl rollout restart deployment frontend-deployment -n api-calculator
         continue-on-error: false
