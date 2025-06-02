@@ -1,0 +1,32 @@
+name: CI MAIN
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Build & Push & Restart
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build Docker image php-fpm
+        run: |
+          buildah build -t victor54454/api_calculatrice:frontend -f dockerfile-frontend .
+          buildah build -t victor54454/api_calculatrice:back -f dockerfile .
+        continue-on-error: false
+
+      - name: Push Docker image to DockerHub
+        run: |
+          buildah push victor54454/api_calculatrice:back
+          buildah push victor54454/api_calculatrice:frontend
+        continue-on-error: false
+
+      - name: Restart Kubernetes Deployment
+        run: |
+          kubectl rollout restart deployment backend -n api-calculator
+          kubectl rollout restart deployment frontend -n api-calculator
+        continue-on-error: false
