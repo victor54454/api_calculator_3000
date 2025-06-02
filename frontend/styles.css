@@ -169,6 +169,11 @@ body {
     background-color: #e5e7eb;
 }
 
+/* Animation pour les raccourcis clavier */
+.op-button.keyboard-active {
+    animation: keyboardPulse 0.3s ease-out;
+}
+
 /* Boutons principaux */
 .calculate-btn {
     background-color: var(--success-color);
@@ -184,10 +189,31 @@ body {
     align-items: center;
     justify-content: center;
     gap: 8px;
+    transition: var(--transition);
 }
 
 .calculate-btn:hover {
     background-color: #22c55e;
+}
+
+/* Animation de loading pour le bouton calculer */
+.calculate-btn.loading {
+    position: relative;
+    color: transparent;
+}
+
+.calculate-btn.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid transparent;
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
 }
 
 .plot-btn {
@@ -210,6 +236,23 @@ body {
     background-color: #22c55e;
 }
 
+/* Bouton pour vider l'historique */
+.clear-history-btn {
+    background: var(--danger-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+}
+
+.clear-history-btn:hover {
+    background: #ef4444;
+    transform: scale(1.05);
+}
+
 /* Affichage des résultats */
 .result-container {
     background-color: var(--bg-light);
@@ -230,6 +273,17 @@ body {
     font-weight: 700;
     color: var(--primary-color);
     margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.result-value:hover {
+    transform: scale(1.02);
+    color: var(--accent-color);
+}
+
+.result-value.copied {
+    animation: pulse 0.6s ease-out;
 }
 
 .operation-text {
@@ -266,14 +320,21 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .history-item:last-child {
     border-bottom: none;
 }
 
-.history-item:hover {
+.history-item:hover:not(.empty-message) {
     background-color: var(--bg-light);
+    transform: translateX(5px);
+}
+
+.history-item.new-item {
+    animation: slideInLeft 0.5s ease-out;
 }
 
 .history-operation {
@@ -283,6 +344,33 @@ body {
 .history-result {
     font-weight: 600;
     color: var(--primary-color);
+}
+
+/* Notifications */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+    font-weight: 500;
+    max-width: 300px;
+    animation: slideInRight 0.3s ease-out;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.notification.success {
+    background: var(--success-color);
+    color: white;
+}
+
+.notification.error {
+    background: var(--danger-color);
+    color: white;
 }
 
 /* Informations sur l'API */
@@ -328,7 +416,7 @@ body {
     word-break: break-all;
 }
 
-.api-routes, .graph-info {
+.api-routes, .graph-info, .keyboard-shortcuts {
     margin-top: 1.5rem;
 }
 
@@ -337,21 +425,26 @@ body {
     font-weight: 500;
 }
 
-.api-routes ul, .graph-info ul {
+.api-routes ul, .graph-info ul, .keyboard-shortcuts ul {
     list-style: none;
 }
 
-.api-routes li, .graph-info li {
+.api-routes li, .graph-info li, .keyboard-shortcuts li {
     margin-bottom: 0.5rem;
     padding-left: 1rem;
     border-left: 2px solid var(--primary-color);
 }
 
-.api-routes code, .graph-info code {
+.api-routes code, .graph-info code, .keyboard-shortcuts code {
     font-family: monospace;
     background-color: var(--bg-light);
     padding: 0.25rem 0.5rem;
     border-radius: 0.25rem;
+}
+
+.keyboard-shortcuts {
+    opacity: 0.8;
+    font-size: 0.9rem;
 }
 
 /* Mise en page du graphique */
@@ -444,6 +537,39 @@ footer {
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); background-color: var(--success-color); color: white; }
+    100% { transform: scale(1); }
+}
+
+@keyframes slideInLeft {
+    from { 
+        opacity: 0; 
+        transform: translateX(-20px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateX(0); 
+    }
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes keyboardPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.3); }
+    100% { transform: scale(1); }
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 .result-value.updated {
