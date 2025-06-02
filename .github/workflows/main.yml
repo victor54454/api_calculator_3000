@@ -15,7 +15,7 @@ jobs:
 
       - name: Build Docker image php-fpm
         run: |
-          buildah build -t victor54454/api_calculatrice:frontend -f dockerfile-frontend .
+          buildah build -t victor54454/api_calculatrice:frontend -f dockerfile.frontend .
           buildah build -t victor54454/api_calculatrice:back -f dockerfile .
         continue-on-error: false
 
