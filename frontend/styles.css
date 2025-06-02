@@ -115,27 +115,48 @@ body {
 
 /* Formulaires et entrées */
 .input-row {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .input-row label {
-    display: inline-block;
-    width: 150px;
-    margin-right: 10px;
+    display: block;
+    font-weight: 500;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    font-size: 0.9rem;
 }
 
 .input-row input {
-    border: none;
-    border-bottom: 1px solid #ddd;
-    padding: 5px 0;
-    width: 200px;
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
     font-size: 1rem;
-    background-color: transparent;
+    background-color: var(--bg-white);
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
 }
 
 .input-row input:focus {
     outline: none;
-    border-bottom-color: var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+    transform: translateY(-1px);
+}
+
+.input-row input:hover {
+    border-color: var(--accent-color);
+}
+
+/* Styles spéciaux pour les inputs de type number */
+.input-row input[type="number"] {
+    appearance: textfield;
+}
+
+.input-row input[type="number"]::-webkit-outer-spin-button,
+.input-row input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* Boutons d'opération */
@@ -450,8 +471,8 @@ body {
 /* Mise en page du graphique */
 .graph-layout {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 30px;
     margin-bottom: 20px;
 }
 
@@ -464,14 +485,20 @@ body {
 .graph-controls {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
 }
 
 .graph-container {
-    background-color: var(--bg-light);
-    border-radius: 8px;
-    padding: 15px;
-    height: 350px;
+    background-color: var(--bg-white);
+    border-radius: 12px;
+    padding: 20px;
+    height: 400px;
+    border: 1px solid #e5e7eb;
+    box-shadow: var(--shadow-sm);
 }
 
 .graph-title {
@@ -520,9 +547,13 @@ body {
 
 /* Astuces d'utilisation */
 .usage-tips {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--text-light);
-    margin-top: 5px;
+    margin-top: 8px;
+    padding: 8px 12px;
+    background-color: #f0f9ff;
+    border-left: 3px solid var(--accent-color);
+    border-radius: 4px;
     font-style: italic;
 }
 
