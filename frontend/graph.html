@@ -16,7 +16,7 @@
                 <h1>Graphiques 3000</h1>
                 <p class="tagline">Propulsée par FastAPI</p>
             </div>
-            
+
             <div class="tab-navigation">
                 <a href="index.html" class="tab-button">
                     <i class="fas fa-calculator"></i> Calculatrice
@@ -25,7 +25,7 @@
                     <i class="fas fa-chart-line"></i> Graphiques
                 </a>
             </div>
-            
+
             <div class="graph-layout">
                 <div class="graph-controls">
                     <div>
@@ -35,34 +35,34 @@
                             Utilisez * pour la multiplication et ^ pour les puissances.
                         </div>
                     </div>
-                    
+
                     <div>
                         <label for="x-min">X Minimum</label>
                         <input type="number" id="x-min" value="-10">
                     </div>
-                    
+
                     <div>
                         <label for="x-max">X Maximum</label>
                         <input type="number" id="x-max" value="10">
                     </div>
-                    
+
                     <div>
                         <label for="points">Nombre de points</label>
                         <input type="number" id="points" value="100" min="10" max="1000">
                     </div>
-                    
+
                     <button id="plot-btn" class="plot-btn">
                         <i class="fas fa-chart-line"></i> Tracer le graphique
                     </button>
                 </div>
-                
+
                 <div class="graph-container">
                     <canvas id="graph-canvas"></canvas>
                 </div>
             </div>
-            
+
             <div class="graph-title" id="graph-title">Graphique de f(x) = sqrt(x^2+4)</div>
-            
+
             <h3>Exemples d'expressions</h3>
             <div class="function-examples">
                 <div class="function-card" data-expr="x^2">
@@ -91,22 +91,22 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="api-info-card">
             <h3>Information API</h3>
             <p>Cette application utilise l'API FastAPI pour générer des graphiques.</p>
-            
+
             <div class="api-status">
                 <div class="status-indicator">
                     <span class="status-dot" id="api-status-dot"></span>
                     <span id="api-status">Vérification...</span>
                 </div>
             </div>
-            
+
             <div class="api-url" id="api-url-container">
                 http://217.154.17.85
             </div>
-            
+
             <div class="graph-info">
                 <h4>Fonctions Supportées</h4>
                 <ul>
@@ -120,15 +120,15 @@
             </div>
         </div>
     </div>
-    
+
     <footer>
         © 2025 Super Calculatrice API - Créée avec ❤️ et FastAPI
     </footer>
-    
+
     <script>
-        // Configuration
+        // Configuration - Nginx reverse proxy gère le routing
         const API_URL = 'http://217.154.17.85';
-        
+
         // Éléments DOM
         const expressionInput = document.getElementById('expression');
         const xMinInput = document.getElementById('x-min');
@@ -141,21 +141,21 @@
         const apiStatusDot = document.getElementById('api-status-dot');
         const apiUrlContainer = document.getElementById('api-url-container');
         const functionCards = document.querySelectorAll('.function-card');
-        
+
         // Variable pour le graphique
         let chartInstance = null;
-        
+
         // Initialisation
         function init() {
             // Afficher l'URL de l'API
             apiUrlContainer.textContent = API_URL;
-            
+
             // Vérifier la connexion avec l'API
             checkApiStatus();
-            
+
             // Ajouter des écouteurs d'événements
             plotBtn.addEventListener('click', plotGraph);
-            
+
             // Ajouter des écouteurs pour les boutons d'exemple
             functionCards.forEach(card => {
                 card.addEventListener('click', function() {
@@ -163,26 +163,26 @@
                     plotGraph();
                 });
             });
-            
+
             // Tracer le graphique initial
             plotGraph();
         }
-        
+
         // Vérification de la connexion avec l'API
         async function checkApiStatus() {
             try {
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => controller.abort(), 5000);
-                
-                const response = await fetch(API_URL, {
+
+                const response = await fetch(`${API_URL}/docs`, {
                     signal: controller.signal,
                     headers: {
                         'Accept': 'application/json'
                     }
                 });
-                
+
                 clearTimeout(timeoutId);
-                
+
                 if (response.ok) {
                     apiStatusElement.textContent = 'En ligne';
                     apiStatusDot.classList.add('online');
@@ -199,31 +199,31 @@
                 apiStatusDot.classList.remove('online');
             }
         }
-        
+
         // Tracer le graphique
         async function plotGraph() {
             const expression = expressionInput.value;
             const xMin = parseFloat(xMinInput.value);
             const xMax = parseFloat(xMaxInput.value);
             const points = parseInt(pointsInput.value);
-            
+
             // Vérifier que les entrées sont valides
             if (!expression || isNaN(xMin) || isNaN(xMax) || isNaN(points)) {
                 showError('Veuillez entrer des valeurs valides');
                 return;
             }
-            
+
             // Vérifier que xMin < xMax
             if (xMin >= xMax) {
                 showError('X Minimum doit être inférieur à X Maximum');
                 return;
             }
-            
+
             try {
                 // Désactiver le bouton pendant le chargement
                 plotBtn.disabled = true;
                 plotBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Chargement...';
-                
+
                 // Envoyer la requête à l'API
                 const response = await fetch(`${API_URL}/graph`, {
                     method: 'POST',
@@ -237,22 +237,22 @@
                         points
                     })
                 });
-                
+
                 if (!response.ok) {
                     const errorData = await response.json();
                     throw new Error(errorData.detail || 'Erreur lors de la génération du graphique');
                 }
-                
+
                 const data = await response.json();
-                
+
                 // Vérifier s'il y a une erreur
                 if (data.error) {
                     throw new Error(data.error);
                 }
-                
+
                 // Mettre à jour le titre du graphique
                 graphTitle.textContent = `Graphique de f(x) = ${data.expression}`;
-                
+
                 // Créer les données pour le graphique
                 const chartData = {
                     labels: data.x_values,
@@ -266,12 +266,12 @@
                         tension: 0.1
                     }]
                 };
-                
+
                 // Détruire le graphique existant s'il y en a un
                 if (chartInstance) {
                     chartInstance.destroy();
                 }
-                
+
                 // Créer le nouveau graphique
                 chartInstance = new Chart(graphCanvas, {
                     type: 'line',
@@ -309,7 +309,7 @@
                         }
                     }
                 });
-                
+
             } catch (error) {
                 showError(error.message);
                 console.error('Erreur lors du tracé du graphique:', error);
@@ -319,14 +319,13 @@
                 plotBtn.innerHTML = '<i class="fas fa-chart-line"></i> Tracer le graphique';
             }
         }
-        
+
         // Afficher une erreur
         function showError(message) {
             alert(`Erreur: ${message}`);
         }
-        
+
         // Initialiser
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
-</html>
