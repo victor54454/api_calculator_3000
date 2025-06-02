@@ -41,7 +41,7 @@ body {
 /* Structure principale */
 .calculator-container {
     width: 100%;
-    max-width: 1200px; /* Augmenté de 900px à 1200px */
+    max-width: 900px;
     display: grid;
     grid-template-columns: 1fr;
     gap: 2rem;
@@ -54,11 +54,15 @@ body {
     }
 }
 
-/* Pour la page graphiques spécifiquement */
+/* Page graphiques - Layout spécial */
+.calculator-container.graph-page {
+    max-width: 95vw;
+    width: 95vw;
+}
+
 @media (min-width: 768px) {
-    .calculator-container:has(.graph-layout) {
-        max-width: 95vw; /* Utilise 95% de la largeur de l'écran */
-        grid-template-columns: 1fr 350px; /* Sidebar fixe de 350px */
+    .calculator-container.graph-page {
+        grid-template-columns: 1fr 300px;
     }
 }
 
@@ -481,10 +485,10 @@ body {
 /* Mise en page du graphique */
 .graph-layout {
     display: grid;
-    grid-template-columns: 35% 1fr; /* 35% pour les contrôles, le reste pour le graphique */
+    grid-template-columns: 300px 1fr;
     gap: 25px;
     margin-bottom: 20px;
-    min-height: 500px; /* Hauteur minimale pour un beau graphique */
+    min-height: 500px;
 }
 
 @media (max-width: 768px) {
@@ -502,24 +506,17 @@ body {
     background-color: #f8f9fa;
     border-radius: 12px;
     border: 1px solid #e5e7eb;
-    max-width: 100%; /* S'assure qu'il ne déborde pas */
-    height: fit-content; /* Hauteur automatique */
+    height: fit-content;
 }
 
 .graph-container {
     background-color: var(--bg-white);
     border-radius: 12px;
     padding: 20px;
-    min-height: 500px; /* Hauteur minimale pour le graphique */
+    min-height: 500px;
     border: 1px solid #e5e7eb;
     box-shadow: var(--shadow-sm);
-    position: relative; /* Pour bien positionner le canvas */
-}
-
-/* S'assurer que le canvas remplit bien son container */
-.graph-container canvas {
-    width: 100% !important;
-    height: 100% !important;
+    position: relative;
 }
 
 .graph-title {
@@ -656,22 +653,25 @@ footer {
         padding: 1rem;
         max-width: 100%;
     }
+    
+    .calculator-container.graph-page {
+        width: 100%;
+        max-width: 100%;
+    }
 }
 
 /* Ajustements pour les grands écrans */
 @media (min-width: 1400px) {
-    .calculator-container:has(.graph-layout) {
+    .calculator-container.graph-page {
         max-width: 98vw;
+        width: 98vw;
     }
     
     .graph-container {
         min-height: 600px;
     }
-}
-
-/* Amélioration du responsive pour les tablettes */
-@media (min-width: 768px) and (max-width: 1200px) {
+    
     .graph-layout {
-        grid-template-columns: 300px 1fr; /* Largeur fixe plus petite pour les tablettes */
+        grid-template-columns: 320px 1fr;
     }
 }
