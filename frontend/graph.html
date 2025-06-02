@@ -28,7 +28,7 @@
 
             <div class="graph-layout">
                 <div class="graph-controls">
-                    <div>
+                    <div class="input-row">
                         <label for="expression">Expression mathématique</label>
                         <input type="text" id="expression" value="sqrt(x^2+4)" placeholder="Exemple: x^2, sin(x), 2*x+3">
                         <div class="usage-tips">
@@ -36,17 +36,17 @@
                         </div>
                     </div>
 
-                    <div>
+                    <div class="input-row">
                         <label for="x-min">X Minimum</label>
                         <input type="number" id="x-min" value="-10">
                     </div>
 
-                    <div>
+                    <div class="input-row">
                         <label for="x-max">X Maximum</label>
                         <input type="number" id="x-max" value="10">
                     </div>
 
-                    <div>
+                    <div class="input-row">
                         <label for="points">Nombre de points</label>
                         <input type="number" id="points" value="100" min="10" max="1000">
                     </div>
@@ -58,10 +58,9 @@
 
                 <div class="graph-container">
                     <canvas id="graph-canvas"></canvas>
+                    <div class="graph-title" id="graph-title">Graphique de f(x) = sqrt(x^2+4)</div>
                 </div>
             </div>
-
-            <div class="graph-title" id="graph-title">Graphique de f(x) = sqrt(x^2+4)</div>
 
             <h3>Exemples d'expressions</h3>
             <div class="function-examples">
@@ -88,6 +87,18 @@
                 <div class="function-card" data-expr="sqrt(x^2+4)">
                     <div class="function-name">√(x²+4)</div>
                     <div class="function-type">Racine</div>
+                </div>
+                <div class="function-card" data-expr="exp(x)">
+                    <div class="function-name">exp(x)</div>
+                    <div class="function-type">Exponentielle</div>
+                </div>
+                <div class="function-card" data-expr="log(x)">
+                    <div class="function-name">log(x)</div>
+                    <div class="function-type">Logarithme</div>
+                </div>
+                <div class="function-card" data-expr="tan(x)">
+                    <div class="function-name">tan(x)</div>
+                    <div class="function-type">Tangente</div>
                 </div>
             </div>
         </div>
@@ -116,6 +127,15 @@
                     <li><code>exp(x)</code> - Exponentielle</li>
                     <li><code>log(x)</code> - Logarithme naturel</li>
                     <li><code>pi, e</code> - Constantes</li>
+                </ul>
+            </div>
+
+            <div class="api-routes">
+                <h4 class="route-title">Routes API disponibles</h4>
+                <ul>
+                    <li><code>POST /graph</code> - Génération de graphique</li>
+                    <li><code>GET /docs</code> - Documentation API</li>
+                    <li><code>GET /</code> - Page d'accueil API</li>
                 </ul>
             </div>
         </div>
@@ -159,6 +179,11 @@
             // Ajouter des écouteurs pour les boutons d'exemple
             functionCards.forEach(card => {
                 card.addEventListener('click', function() {
+                    // Supprimer la classe active de toutes les cartes
+                    functionCards.forEach(c => c.classList.remove('active'));
+                    // Ajouter la classe active à la carte cliquée
+                    this.classList.add('active');
+                    
                     expressionInput.value = this.getAttribute('data-expr');
                     plotGraph();
                 });
@@ -259,7 +284,7 @@
                     datasets: [{
                         label: data.expression,
                         data: data.x_values.map((x, i) => ({ x, y: data.y_values[i] })),
-                        borderColor: '#4361ee',
+                        borderColor: 'var(--primary-color)',
                         backgroundColor: 'rgba(67, 97, 238, 0.1)',
                         pointRadius: 0,
                         borderWidth: 2,
@@ -285,6 +310,9 @@
                                 position: 'center',
                                 grid: {
                                     color: 'rgba(0, 0, 0, 0.1)'
+                                },
+                                ticks: {
+                                    color: '#6b7280'
                                 }
                             },
                             y: {
@@ -292,6 +320,9 @@
                                 position: 'center',
                                 grid: {
                                     color: 'rgba(0, 0, 0, 0.1)'
+                                },
+                                ticks: {
+                                    color: '#6b7280'
                                 }
                             }
                         },
@@ -305,6 +336,9 @@
                                         return `f(${context.parsed.x.toFixed(2)}) = ${context.parsed.y.toFixed(2)}`;
                                     }
                                 }
+                            },
+                            legend: {
+                                display: false
                             }
                         }
                     }
@@ -320,12 +354,68 @@
             }
         }
 
-        // Afficher une erreur
+        // Afficher une erreur (améliorée pour être plus élégante)
         function showError(message) {
-            alert(`Erreur: ${message}`);
+            // Créer une notification élégante au lieu d'une alerte
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--danger-color);
+                color: white;
+                padding: 15px 20px;
+                border-radius: 8px;
+                box-shadow: var(--shadow-lg);
+                z-index: 1000;
+                font-weight: 500;
+                max-width: 300px;
+                animation: slideIn 0.3s ease-out;
+            `;
+            
+            // Ajouter l'animation CSS
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Supprimer après 4 secondes
+            setTimeout(() => {
+                notification.style.animation = 'slideIn 0.3s ease-out reverse';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                    document.head.removeChild(style);
+                }, 300);
+            }, 4000);
         }
+
+        // Permettre l'utilisation de la touche "Entrée" pour tracer
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' && (
+                event.target === expressionInput ||
+                event.target === xMinInput ||
+                event.target === xMaxInput ||
+                event.target === pointsInput
+            )) {
+                plotGraph();
+            }
+        });
 
         // Initialiser
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
+</html>
