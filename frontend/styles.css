@@ -675,3 +675,43 @@ footer {
         grid-template-columns: 320px 1fr;
     }
 }
+
+/* ==== LAYOUT SPÉCIAL POUR LA PAGE GRAPHIQUES ==== */
+/* Ces règles forcent le nouveau layout */
+
+.graph-page {
+    max-width: 95vw !important;
+    width: 95vw !important;
+}
+
+.graph-page .calculator-card {
+    max-width: none !important;
+    width: 100% !important;
+}
+
+.graph-page .graph-layout {
+    grid-template-columns: 300px 1fr !important;
+    gap: 20px !important;
+}
+
+.graph-page .graph-container {
+    min-height: 500px !important;
+    height: 500px !important;
+}
+
+.graph-page .graph-controls {
+    max-width: 300px !important;
+    width: 300px !important;
+}
+
+/* Mobile pour la page graphiques */
+@media (max-width: 768px) {
+    .graph-page .graph-layout {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .graph-page .graph-controls {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+}
