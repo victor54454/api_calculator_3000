@@ -26,20 +26,20 @@
 
             <div class="input-row">
                 <label for="num1">Premier nombre</label>
-                <input type="number" id="num1" placeholder="0">
+                <input type="number" id="num1" placeholder="0" autocomplete="off">
             </div>
 
             <div class="operation-selector">
-                <button class="op-button active" data-op="add" id="add-op">+</button>
-                <button class="op-button" data-op="subtract" id="subtract-op">-</button>
-                <button class="op-button" data-op="multiply" id="multiply-op">×</button>
-                <button class="op-button" data-op="divide" id="divide-op">÷</button>
-                <button class="op-button" data-op="modulo" id="modulo-op">%</button>
+                <button class="op-button active" data-op="add" data-key="+" id="add-op" title="Addition (touche +)">+</button>
+                <button class="op-button" data-op="subtract" data-key="-" id="subtract-op" title="Soustraction (touche -)">-</button>
+                <button class="op-button" data-op="multiply" data-key="*" id="multiply-op" title="Multiplication (touche *)">×</button>
+                <button class="op-button" data-op="divide" data-key="/" id="divide-op" title="Division (touche /)">÷</button>
+                <button class="op-button" data-op="modulo" data-key="%" id="modulo-op" title="Modulo (touche %)">%</button>
             </div>
 
             <div class="input-row">
                 <label for="num2">Second nombre</label>
-                <input type="number" id="num2" placeholder="0">
+                <input type="number" id="num2" placeholder="0" autocomplete="off">
             </div>
 
             <button id="calculate" class="calculate-btn">
@@ -48,14 +48,19 @@
 
             <div class="result-container">
                 <div class="result-label">Résultat</div>
-                <div class="result-value" id="result">-</div>
+                <div class="result-value" id="result" title="Cliquez pour copier">-</div>
                 <div class="operation-text" id="operation-text"></div>
             </div>
 
             <div class="history-section">
-                <h3><i class="fas fa-history"></i> Historique des calculs</h3>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h3><i class="fas fa-history"></i> Historique des calculs</h3>
+                    <button id="clear-history" class="clear-history-btn" title="Vider l'historique" style="display: none;">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
                 <div class="history-list" id="history-list">
-                    <!-- L'historique des calculs s'affichera ici -->
+                    <div class="history-item">Aucun calcul dans l'historique</div>
                 </div>
             </div>
         </div>
@@ -85,12 +90,23 @@
                     <li><code>POST /modulo</code> - Modulo</li>
                 </ul>
             </div>
+
+            <div class="keyboard-shortcuts" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e5e7eb;">
+                <p class="route-title">Raccourcis clavier:</p>
+                <ul style="font-size: 0.85rem;">
+                    <li><code>+, -, *, /, %</code> - Changer d'opération</li>
+                    <li><code>Entrée</code> - Calculer</li>
+                    <li><code>Échap</code> - Effacer les champs</li>
+                </ul>
+            </div>
         </div>
     </div>
 
     <footer>
         © 2025 Calculatrice 3000 - Créée avec FastAPI
     </footer>
+
+
 
     <script>
         // Configuration - Nginx reverse proxy gère le routing
@@ -107,6 +123,7 @@
         const apiUrlContainer = document.getElementById('api-url-container');
         const historyList = document.getElementById('history-list');
         const operationButtons = document.querySelectorAll('.op-button');
+        const clearHistoryBtn = document.getElementById('clear-history');
 
         // Opération sélectionnée par défaut
         let selectedOperation = 'add';
@@ -125,16 +142,31 @@
             // Ajouter des écouteurs d'événements pour les boutons d'opération
             operationButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    // Supprimer la classe active de tous les boutons
-                    operationButtons.forEach(btn => btn.classList.remove('active'));
-
-                    // Ajouter la classe active au bouton cliqué
-                    this.classList.add('active');
-
-                    // Mettre à jour l'opération sélectionnée
-                    selectedOperation = this.getAttribute('data-op');
+                    selectOperation(this.getAttribute('data-op'));
                 });
             });
+
+            // Écouteur pour vider l'historique
+            clearHistoryBtn.addEventListener('click', clearHistory);
+
+            // Écouteur pour copier le résultat
+            resultDisplay.addEventListener('click', copyResult);
+
+            // Initialiser l'historique
+            updateHistoryDisplay();
+        }
+
+        // Sélectionner une opération
+        function selectOperation(operation) {
+            // Supprimer la classe active de tous les boutons
+            operationButtons.forEach(btn => btn.classList.remove('active'));
+
+            // Trouver et activer le bon bouton
+            const targetButton = document.querySelector(`[data-op="${operation}"]`);
+            if (targetButton) {
+                targetButton.classList.add('active');
+                selectedOperation = operation;
+            }
         }
 
         // Vérification de la connexion avec l'API
@@ -177,17 +209,18 @@
 
             // Vérifier que les entrées sont valides
             if (isNaN(a) || isNaN(b)) {
-                showError('Veuillez entrer des nombres valides');
+                showNotification('Veuillez entrer des nombres valides', 'error');
                 return;
             }
 
             // Vérifier si l'opération est modulo/division et b est 0
             if ((selectedOperation === 'modulo' || selectedOperation === 'divide') && b === 0) {
-                showError('Division par zéro impossible');
+                showNotification('Division par zéro impossible', 'error');
                 return;
             }
 
             // Afficher l'animation de chargement
+            calculateButton.classList.add('loading');
             resultDisplay.textContent = '...';
 
             try {
@@ -220,16 +253,64 @@
                 // Ajouter à l'historique
                 addToHistory(data.operation, data.result);
 
+                // Notification de succès
+                showNotification('Calcul effectué avec succès !', 'success');
+
             } catch (error) {
-                showError(error.message);
+                showNotification(error.message, 'error');
+                resultDisplay.textContent = 'Erreur';
+                operationText.textContent = error.message;
                 console.error('Erreur lors du calcul:', error);
+            } finally {
+                // Supprimer l'animation de chargement
+                calculateButton.classList.remove('loading');
             }
         }
 
-        // Afficher une erreur
-        function showError(message) {
-            resultDisplay.textContent = 'Erreur';
-            operationText.textContent = message;
+        // Afficher une notification élégante
+        function showNotification(message, type = 'info') {
+            // Supprimer les notifications existantes
+            document.querySelectorAll('.notification').forEach(n => n.remove());
+
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            
+            const icon = type === 'success' ? 'fas fa-check-circle' : 
+                        type === 'error' ? 'fas fa-exclamation-triangle' : 
+                        'fas fa-info-circle';
+            
+            notification.innerHTML = `
+                <i class="${icon}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Supprimer après 4 secondes
+            setTimeout(() => {
+                notification.style.animation = 'slideInRight 0.3s ease-out reverse';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 4000);
+        }
+
+        // Copier le résultat dans le presse-papiers
+        async function copyResult() {
+            if (resultDisplay.textContent && resultDisplay.textContent !== '-' && resultDisplay.textContent !== 'Erreur') {
+                try {
+                    await navigator.clipboard.writeText(resultDisplay.textContent);
+                    resultDisplay.classList.add('copied');
+                    showNotification('Résultat copié dans le presse-papiers !', 'success');
+                    setTimeout(() => {
+                        resultDisplay.classList.remove('copied');
+                    }, 600);
+                } catch (error) {
+                    showNotification('Impossible de copier le résultat', 'error');
+                }
+            }
         }
 
         // Ajouter un calcul à l'historique
@@ -238,7 +319,8 @@
             const calculation = {
                 operation,
                 result,
-                timestamp: new Date().toLocaleTimeString()
+                timestamp: new Date().toLocaleTimeString(),
+                id: Date.now() // ID unique pour identifier le calcul
             };
 
             // Ajouter au début de l'historique
@@ -251,6 +333,11 @@
 
             // Mettre à jour l'affichage de l'historique
             updateHistoryDisplay();
+
+            // Afficher le bouton de suppression si l'historique n'est pas vide
+            if (calculationHistory.length > 0) {
+                clearHistoryBtn.style.display = 'block';
+            }
         }
 
         // Mettre à jour l'affichage de l'historique
@@ -258,10 +345,21 @@
             // Vider la liste
             historyList.innerHTML = '';
 
+            // Si l'historique est vide, afficher un message
+            if (calculationHistory.length === 0) {
+                const emptyMessage = document.createElement('div');
+                emptyMessage.className = 'history-item empty-message';
+                emptyMessage.textContent = 'Aucun calcul dans l\'historique';
+                historyList.appendChild(emptyMessage);
+                clearHistoryBtn.style.display = 'none';
+                return;
+            }
+
             // Créer un élément pour chaque calcul
-            calculationHistory.forEach(calc => {
+            calculationHistory.forEach((calc, index) => {
                 const historyItem = document.createElement('div');
                 historyItem.className = 'history-item';
+                if (index === 0) historyItem.classList.add('new-item'); // Animation pour le nouveau
 
                 const operation = document.createElement('div');
                 operation.className = 'history-operation';
@@ -274,29 +372,140 @@
                 historyItem.appendChild(operation);
                 historyItem.appendChild(result);
 
+                // Ajouter un écouteur pour refaire le calcul
+                historyItem.addEventListener('click', () => {
+                    redoCalculation(calc);
+                });
+
+                // Ajouter un titre pour l'interactivité
+                historyItem.title = 'Cliquer pour refaire ce calcul';
+
                 historyList.appendChild(historyItem);
             });
+        }
 
-            // Si l'historique est vide, afficher un message
-            if (calculationHistory.length === 0) {
-                const emptyMessage = document.createElement('div');
-                emptyMessage.className = 'history-item';
-                emptyMessage.textContent = 'Aucun calcul dans l\'historique';
-                historyList.appendChild(emptyMessage);
+        // Refaire un calcul depuis l'historique
+        function redoCalculation(calculation) {
+            // Parser l'opération pour extraire les nombres et l'opération
+            const operationMap = {
+                '+': 'add',
+                '-': 'subtract',
+                '×': 'multiply',
+                '÷': 'divide',
+                '%': 'modulo'
+            };
+
+            // Trouver l'opérateur dans le texte
+            let operator = null;
+            let operationType = null;
+            
+            for (const [symbol, type] of Object.entries(operationMap)) {
+                if (calculation.operation.includes(symbol)) {
+                    operator = symbol;
+                    operationType = type;
+                    break;
+                }
             }
+
+            if (operator && operationType) {
+                // Extraire les nombres
+                const parts = calculation.operation.split(operator);
+                if (parts.length === 2) {
+                    const num1 = parseFloat(parts[0].trim());
+                    const num2 = parseFloat(parts[1].trim().split('=')[0]);
+
+                    // Remplir les champs
+                    num1Input.value = num1;
+                    num2Input.value = num2;
+                    
+                    // Sélectionner l'opération
+                    selectOperation(operationType);
+
+                    // Notification
+                    showNotification('Calcul restauré depuis l\'historique', 'success');
+                }
+            }
+        }
+
+        // Vider l'historique
+        function clearHistory() {
+            calculationHistory = [];
+            updateHistoryDisplay();
+            showNotification('Historique vidé', 'success');
+        }
+
+        // Gestion des raccourcis clavier
+        document.addEventListener('keydown', function(event) {
+            // Éviter les raccourcis si on est en train de taper dans un input
+            if (event.target.tagName === 'INPUT') {
+                if (event.key === 'Enter') {
+                    performCalculation();
+                }
+                return;
+            }
+
+            switch(event.key) {
+                case 'Enter':
+                    event.preventDefault();
+                    performCalculation();
+                    break;
+                case '+':
+                    event.preventDefault();
+                    selectOperation('add');
+                    animateKeyboardOperation('add');
+                    break;
+                case '-':
+                    event.preventDefault();
+                    selectOperation('subtract');
+                    animateKeyboardOperation('subtract');
+                    break;
+                case '*':
+                    event.preventDefault();
+                    selectOperation('multiply');
+                    animateKeyboardOperation('multiply');
+                    break;
+                case '/':
+                    event.preventDefault();
+                    selectOperation('divide');
+                    animateKeyboardOperation('divide');
+                    break;
+                case '%':
+                    event.preventDefault();
+                    selectOperation('modulo');
+                    animateKeyboardOperation('modulo');
+                    break;
+                case 'Escape':
+                    event.preventDefault();
+                    clearInputs();
+                    break;
+            }
+        });
+
+        // Animer le bouton d'opération lors de l'utilisation du clavier
+        function animateKeyboardOperation(operation) {
+            const button = document.querySelector(`[data-op="${operation}"]`);
+            if (button) {
+                button.classList.add('keyboard-active');
+                setTimeout(() => {
+                    button.classList.remove('keyboard-active');
+                }, 300);
+            }
+        }
+
+        // Effacer les champs de saisie
+        function clearInputs() {
+            num1Input.value = '';
+            num2Input.value = '';
+            resultDisplay.textContent = '-';
+            operationText.textContent = '';
+            showNotification('Champs effacés', 'success');
         }
 
         // Événements
         calculateButton.addEventListener('click', performCalculation);
 
-        // Permettre l'utilisation de la touche "Entrée" pour calculer
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                performCalculation();
-            }
-        });
-
         // Initialiser
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
+</html>
