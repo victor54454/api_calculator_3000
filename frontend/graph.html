@@ -6,11 +6,11 @@
     <title>Graphiques - Super Calculatrice</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Ajouter Chart.js pour les graphiques -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="calculator-container graph-page">
+        <!-- COLONNE 1: CONTRÔLES -->
         <div class="calculator-card">
             <div class="calculator-header">
                 <h1>Graphiques 3000</h1>
@@ -26,82 +26,85 @@
                 </a>
             </div>
 
-            <div class="graph-layout">
-                <div class="graph-controls">
-                    <div class="input-row">
-                        <label for="expression">Expression mathématique</label>
-                        <input type="text" id="expression" value="x^2" placeholder="Exemple: x^2, sin(x), 2*x+3">
-                        <div class="usage-tips">
-                            Utilisez * pour la multiplication et ^ pour les puissances.
-                        </div>
-                    </div>
+            <!-- CONTRÔLES SEULEMENT -->
+            <div class="input-row">
+                <label for="expression">Expression mathématique</label>
+                <input type="text" id="expression" value="x^2" placeholder="Exemple: x^2, sin(x), 2*x+3">
+                <div class="usage-tips">
+                    Utilisez * pour la multiplication et ^ pour les puissances.
+                </div>
+            </div>
 
-                    <div class="input-row">
-                        <label for="x-min">X Minimum</label>
-                        <input type="number" id="x-min" value="-10">
-                    </div>
+            <div class="input-row">
+                <label for="x-min">X Minimum</label>
+                <input type="number" id="x-min" value="-10">
+            </div>
 
-                    <div class="input-row">
-                        <label for="x-max">X Maximum</label>
-                        <input type="number" id="x-max" value="10">
-                    </div>
+            <div class="input-row">
+                <label for="x-max">X Maximum</label>
+                <input type="number" id="x-max" value="10">
+            </div>
 
-                    <div class="input-row">
-                        <label for="points">Nombre de points</label>
-                        <input type="number" id="points" value="100" min="10" max="1000">
-                    </div>
+            <div class="input-row">
+                <label for="points">Nombre de points</label>
+                <input type="number" id="points" value="100" min="10" max="1000">
+            </div>
 
-                    <button id="plot-btn" class="plot-btn">
-                        <i class="fas fa-chart-line"></i> Tracer le graphique
-                    </button>
+            <button id="plot-btn" class="plot-btn">
+                <i class="fas fa-chart-line"></i> Tracer le graphique
+            </button>
 
-                    <h3 style="margin-top: 1rem; font-size: 0.9rem;">Exemples d'expressions</h3>
-                    <div class="function-examples">
-                        <div class="function-card" data-expr="x^2">
-                            <div class="function-name">x²</div>
-                            <div class="function-type">Parabole</div>
-                        </div>
-                        <div class="function-card" data-expr="sin(x)">
-                            <div class="function-name">sin(x)</div>
-                            <div class="function-type">Sinus</div>
-                        </div>
-                        <div class="function-card" data-expr="cos(x)">
-                            <div class="function-name">cos(x)</div>
-                            <div class="function-type">Cosinus</div>
-                        </div>
-                        <div class="function-card" data-expr="2*x+3">
-                            <div class="function-name">2x+3</div>
-                            <div class="function-type">Linéaire</div>
-                        </div>
-                        <div class="function-card" data-expr="x^3">
-                            <div class="function-name">x³</div>
-                            <div class="function-type">Cubique</div>
-                        </div>
-                        <div class="function-card" data-expr="sqrt(x+5)">
-                            <div class="function-name">√(x+5)</div>
-                            <div class="function-type">Racine</div>
-                        </div>
-                    </div>
+            <h3 style="margin-top: 1rem; font-size: 0.9rem;">Exemples d'expressions</h3>
+            <div class="function-examples">
+                <div class="function-card" data-expr="x^2">
+                    <div class="function-name">x²</div>
+                    <div class="function-type">Parabole</div>
+                </div>
+                <div class="function-card" data-expr="sin(x)">
+                    <div class="function-name">sin(x)</div>
+                    <div class="function-type">Sinus</div>
+                </div>
+                <div class="function-card" data-expr="cos(x)">
+                    <div class="function-name">cos(x)</div>
+                    <div class="function-type">Cosinus</div>
+                </div>
+                <div class="function-card" data-expr="2*x+3">
+                    <div class="function-name">2x+3</div>
+                    <div class="function-type">Linéaire</div>
+                </div>
+                <div class="function-card" data-expr="x^3">
+                    <div class="function-name">x³</div>
+                    <div class="function-type">Cubique</div>
+                </div>
+                <div class="function-card" data-expr="sqrt(x+5)">
+                    <div class="function-name">√(x+5)</div>
+                    <div class="function-type">Racine</div>
+                </div>
+            </div>
 
-                    <!-- API Info intégrée -->
-                    <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb;">
-                        <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Status API</h4>
-                        <div class="api-status">
-                            <div class="status-indicator">
-                                <span class="status-dot" id="api-status-dot"></span>
-                                <span id="api-status" style="font-size: 0.8rem;">Vérification...</span>
-                            </div>
-                        </div>
-                        <div class="api-url" id="api-url-container" style="font-size: 0.7rem; margin-top: 0.5rem;">
-                            http://217.154.17.85
-                        </div>
+            <!-- Status API -->
+            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb;">
+                <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Status API</h4>
+                <div class="api-status">
+                    <div class="status-indicator">
+                        <span class="status-dot" id="api-status-dot"></span>
+                        <span id="api-status" style="font-size: 0.8rem;">Vérification...</span>
                     </div>
                 </div>
-
-                <div class="graph-container">
-                    <div class="graph-title" id="graph-title">Graphique de f(x) = x²</div>
-                    <canvas id="graph-canvas"></canvas>
+                <div class="api-url" id="api-url-container" style="font-size: 0.7rem; margin-top: 0.5rem;">
+                    http://217.154.17.85
                 </div>
+            </div>
+        </div>
+
+        <!-- COLONNE 2: GRAPHIQUE SEULEMENT -->
+        <div class="api-info-card" style="display: flex; flex-direction: column;">
+            <div class="graph-title" id="graph-title" style="text-align: center; margin-bottom: 1rem; color: var(--primary-color); font-weight: 600; font-size: 1.1rem; padding: 8px 16px; background-color: #f0f9ff; border-radius: 6px; border-left: 3px solid var(--primary-color);">
+                Graphique de f(x) = x²
+            </div>
+            
+            <div style="flex: 1; min-height: 400px; position: relative;">
+                <canvas id="graph-canvas" style="width: 100% !important; height: 100% !important;"></canvas>
             </div>
         </div>
     </div>
@@ -130,21 +133,12 @@
         // Variable pour le graphique
         let chartInstance = null;
 
-        // Fonction pour créer un graphique de test
-        function createTestGraph() {
-            console.log('Création du graphique de test...');
+        // Fonction pour créer un graphique
+        function createGraph() {
+            console.log('Création du graphique...');
             
-            // Vérifier que Chart.js est chargé
-            if (typeof Chart === 'undefined') {
-                console.error('Chart.js n\'est pas chargé !');
-                showError('Chart.js non disponible');
-                return;
-            }
-            
-            // Vérifier que le canvas existe
             if (!graphCanvas) {
-                console.error('Canvas introuvable !');
-                showError('Canvas du graphique introuvable');
+                console.error('Canvas non trouvé !');
                 return;
             }
             
@@ -153,9 +147,7 @@
             const xMax = parseFloat(xMaxInput.value) || 10;
             const points = parseInt(pointsInput.value) || 100;
             
-            console.log('Paramètres:', { expression, xMin, xMax, points });
-            
-            // Générer des données de test
+            // Générer des données
             const data = [];
             const step = (xMax - xMin) / points;
             
@@ -163,7 +155,6 @@
                 const x = xMin + i * step;
                 let y;
                 
-                // Calculer y selon l'expression
                 try {
                     if (expression === 'x^2') {
                         y = x * x;
@@ -200,10 +191,6 @@
                 chartInstance = null;
             }
             
-            // Forcer les dimensions du canvas
-            graphCanvas.style.width = '100%';
-            graphCanvas.style.height = '400px';
-            
             // Créer le nouveau graphique
             try {
                 chartInstance = new Chart(graphCanvas, {
@@ -223,146 +210,19 @@
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
-                        interaction: {
-                            intersect: false,
-                            mode: 'index'
-                        },
-                        scales: {
-                            x: {
-                                type: 'linear',
-                                position: 'bottom',
-                                grid: {
-                                    color: 'rgba(0, 0, 0, 0.1)'
-                                },
-                                ticks: {
-                                    color: '#6b7280'
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'x'
-                                }
-                            },
-                            y: {
-                                type: 'linear',
-                                grid: {
-                                    color: 'rgba(0, 0, 0, 0.1)'
-                                },
-                                ticks: {
-                                    color: '#6b7280'
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'f(x)'
-                                }
-                            }
-                        },
-                        plugins: {
-                            title: {
-                                display: false
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        return `f(${context.parsed.x.toFixed(2)}) = ${context.parsed.y.toFixed(2)}`;
-                                    }
-                                }
-                            },
-                            legend: {
-                                display: false
-                            }
-                        }
-                    }
-                });
-                
-                console.log('Graphique créé avec succès !');
-                
-                // Forcer le redraw
-                setTimeout(() => {
-                    if (chartInstance) {
-                        chartInstance.resize();
-                        chartInstance.update();
-                    }
-                }, 100);
-                
-            } catch (error) {
-                console.error('Erreur lors de la création du graphique:', error);
-                showError('Erreur lors de la création du graphique: ' + error.message);
-            }
-        }
-
-        // Fonction pour tracer via l'API (si disponible)
-        async function plotGraphAPI() {
-            const expression = expressionInput.value;
-            const xMin = parseFloat(xMinInput.value);
-            const xMax = parseFloat(xMaxInput.value);
-            const points = parseInt(pointsInput.value);
-
-            if (!expression || isNaN(xMin) || isNaN(xMax) || isNaN(points) || xMin >= xMax) {
-                showError('Veuillez entrer des valeurs valides');
-                return false;
-            }
-
-            try {
-                plotBtn.disabled = true;
-                plotBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Chargement...';
-
-                const response = await fetch(`${API_URL}/graph`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        expression,
-                        x_min: xMin,
-                        x_max: xMax,
-                        points
-                    })
-                });
-
-                if (!response.ok) {
-                    throw new Error('API indisponible');
-                }
-
-                const data = await response.json();
-
-                if (data.error) {
-                    throw new Error(data.error);
-                }
-
-                // Créer le graphique avec les données de l'API
-                graphTitle.textContent = `Graphique de f(x) = ${data.expression}`;
-
-                if (chartInstance) {
-                    chartInstance.destroy();
-                }
-
-                chartInstance = new Chart(graphCanvas, {
-                    type: 'line',
-                    data: {
-                        datasets: [{
-                            label: data.expression,
-                            data: data.x_values.map((x, i) => ({ x, y: data.y_values[i] })),
-                            borderColor: '#4361ee',
-                            backgroundColor: 'rgba(67, 97, 238, 0.1)',
-                            pointRadius: 0,
-                            borderWidth: 2,
-                            tension: 0.1
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
                         scales: {
                             x: {
                                 type: 'linear',
                                 position: 'bottom',
                                 grid: { color: 'rgba(0, 0, 0, 0.1)' },
-                                ticks: { color: '#6b7280' }
+                                ticks: { color: '#6b7280' },
+                                title: { display: true, text: 'x' }
                             },
                             y: {
                                 type: 'linear',
                                 grid: { color: 'rgba(0, 0, 0, 0.1)' },
-                                ticks: { color: '#6b7280' }
+                                ticks: { color: '#6b7280' },
+                                title: { display: true, text: 'f(x)' }
                             }
                         },
                         plugins: {
@@ -377,39 +237,17 @@
                         }
                     }
                 });
-
-                return true;
+                
+                console.log('Graphique créé avec succès !');
             } catch (error) {
-                console.warn('API non disponible, utilisation du mode local:', error.message);
-                return false;
-            } finally {
-                plotBtn.disabled = false;
-                plotBtn.innerHTML = '<i class="fas fa-chart-line"></i> Tracer le graphique';
+                console.error('Erreur lors de la création du graphique:', error);
             }
         }
 
-        // Fonction principale de tracé
-        async function plotGraph() {
-            console.log('Tentative de tracé du graphique...');
-            
-            // Essayer d'abord l'API
-            const apiSuccess = await plotGraphAPI();
-            
-            // Si l'API échoue, utiliser le mode local
-            if (!apiSuccess) {
-                console.log('Utilisation du mode local');
-                createTestGraph();
-            }
-        }
-
-        // Vérification de la connexion avec l'API
+        // Vérification API
         async function checkApiStatus() {
             try {
-                const response = await fetch(`${API_URL}/docs`, {
-                    method: 'GET',
-                    signal: AbortSignal.timeout(5000)
-                });
-
+                const response = await fetch(`${API_URL}/docs`, { method: 'GET' });
                 if (response.ok) {
                     apiStatusElement.textContent = 'En ligne';
                     apiStatusDot.classList.add('online');
@@ -418,129 +256,43 @@
                     throw new Error('Réponse invalide');
                 }
             } catch (error) {
-                console.warn('API hors ligne:', error.message);
-                apiStatusElement.textContent = 'Hors ligne (mode local)';
+                apiStatusElement.textContent = 'Hors ligne';
                 apiStatusDot.classList.add('offline');
                 apiStatusDot.classList.remove('online');
             }
         }
 
-        // Afficher une erreur
-        function showError(message) {
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: #f87171;
-                color: white;
-                padding: 12px 16px;
-                border-radius: 6px;
-                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-                z-index: 1000;
-                font-weight: 500;
-                max-width: 250px;
-                animation: slideIn 0.3s ease-out;
-                font-size: 0.85rem;
-            `;
-            
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes slideIn {
-                    from { transform: translateX(100%); opacity: 0; }
-                    to { transform: translateX(0); opacity: 1; }
-                }
-            `;
-            document.head.appendChild(style);
-            
-            notification.innerHTML = `
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <span>${message}</span>
-                </div>
-            `;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                if (document.body.contains(notification)) {
-                    notification.remove();
-                }
-                if (document.head.contains(style)) {
-                    style.remove();
-                }
-            }, 4000);
-        }
-
         // Initialisation
         function init() {
-            console.log('Initialisation de l\'application...');
+            console.log('Initialisation...');
             
-            // Vérifier que tous les éléments sont présents
-            if (!expressionInput || !graphCanvas) {
-                console.error('Éléments DOM manquants');
-                setTimeout(init, 100); // Réessayer
-                return;
-            }
-            
-            // Afficher l'URL de l'API
             if (apiUrlContainer) {
                 apiUrlContainer.textContent = API_URL;
             }
-
-            // Vérifier la connexion avec l'API
+            
             checkApiStatus();
-
+            
             // Événements
-            plotBtn.addEventListener('click', plotGraph);
-
-            // Boutons d'exemple
+            plotBtn.addEventListener('click', createGraph);
+            
             functionCards.forEach(card => {
                 card.addEventListener('click', function() {
                     functionCards.forEach(c => c.classList.remove('active'));
                     this.classList.add('active');
-                    
                     expressionInput.value = this.getAttribute('data-expr');
-                    plotGraph();
+                    createGraph();
                 });
             });
-
-            // Touche Entrée
-            document.addEventListener('keydown', function(event) {
-                if (event.key === 'Enter' && (
-                    event.target === expressionInput ||
-                    event.target === xMinInput ||
-                    event.target === xMaxInput ||
-                    event.target === pointsInput
-                )) {
-                    plotGraph();
-                }
-            });
-
-            // Tracer le graphique initial après un délai
-            console.log('Programmation du graphique initial...');
-            setTimeout(() => {
-                console.log('Lancement du graphique initial');
-                plotGraph();
-            }, 1000); // Délai plus long pour s'assurer que tout est chargé
+            
+            // Graphique initial
+            setTimeout(createGraph, 500);
         }
 
-        // Attendre que Chart.js soit chargé
-        function waitForChart() {
-            if (typeof Chart !== 'undefined') {
-                console.log('Chart.js est chargé, initialisation...');
-                init();
-            } else {
-                console.log('Attente de Chart.js...');
-                setTimeout(waitForChart, 100);
-            }
-        }
-
-        // Démarrer quand le DOM est prêt
+        // Démarrage
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', waitForChart);
+            document.addEventListener('DOMContentLoaded', init);
         } else {
-            waitForChart();
+            init();
         }
     </script>
 </body>
