@@ -1,4 +1,4 @@
-/* styles.css - Style unifié pour la calculatrice - Version responsive plein écran */
+/* styles.css - Style unifié pour la calculatrice - Corrections ciblées */
 
 :root {
     --primary-color: #4361ee;
@@ -30,51 +30,39 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
     color: var(--text-dark);
     width: 100%;
-    overflow-x: hidden;
-    padding: 0;
-    margin: 0;
+    overflow-x: auto;
 }
 
-/* Structure principale - Utilise tout l'écran */
+/* Structure principale - CALCULATRICE NORMALE */
 .calculator-container {
     width: 100%;
-    max-width: none; /* Suppression de la limitation */
+    max-width: 1200px; /* Augmenté de 900px à 1200px */
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.5rem;
-    padding: 1rem;
-    flex: 1;
-    min-height: calc(100vh - 60px); /* 60px pour le footer */
+    gap: 2rem;
+    margin-bottom: 2rem;
 }
 
-/* Layout desktop pour calculatrice standard */
 @media (min-width: 768px) {
     .calculator-container {
-        grid-template-columns: 1fr 350px;
-        padding: 1.5rem;
-        gap: 2rem;
+        grid-template-columns: 1fr 350px; /* Légèrement plus large pour l'API */
     }
 }
 
-/* Layout spécial pour la page graphiques */
+/* PAGE GRAPHIQUES - Layout spécial plus large */
 .calculator-container.graph-page {
-    grid-template-columns: 1fr;
-    padding: 1rem;
+    max-width: 95vw; /* Utilise 95% de la largeur viewport */
+    width: 95vw;
 }
 
 @media (min-width: 768px) {
     .calculator-container.graph-page {
-        grid-template-columns: 320px 1fr;
-        padding: 1rem;
-    }
-}
-
-@media (min-width: 1200px) {
-    .calculator-container.graph-page {
-        grid-template-columns: 380px 1fr;
-        padding: 1.5rem;
+        grid-template-columns: 320px 1fr; /* Contrôles fixes, graphique flexible */
     }
 }
 
@@ -83,27 +71,13 @@ body {
     background-color: var(--bg-white);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lg);
-    padding: 1.5rem;
+    padding: 2rem;
     transition: var(--transition);
-    height: fit-content;
-}
-
-@media (min-width: 768px) {
-    .calculator-card, .api-info-card {
-        padding: 2rem;
-    }
 }
 
 .calculator-card:hover, .api-info-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-}
-
-/* Page graphiques - Layout optimisé */
-.graph-page .calculator-card {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
 }
 
 /* En-tête et titres */
@@ -236,7 +210,7 @@ body {
 }
 
 /* Boutons principaux */
-.calculate-btn, .plot-btn {
+.calculate-btn {
     background-color: var(--success-color);
     color: white;
     border: none;
@@ -253,7 +227,7 @@ body {
     transition: var(--transition);
 }
 
-.calculate-btn:hover, .plot-btn:hover {
+.calculate-btn:hover {
     background-color: #22c55e;
 }
 
@@ -275,6 +249,26 @@ body {
     border-top: 2px solid white;
     border-radius: 50%;
     animation: spin 1s linear infinite;
+}
+
+.plot-btn {
+    background-color: var(--success-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 5px;
+}
+
+.plot-btn:hover {
+    background-color: #22c55e;
 }
 
 /* Bouton pour vider l'historique */
@@ -488,26 +482,27 @@ body {
     font-size: 0.9rem;
 }
 
-/* MISE EN PAGE DU GRAPHIQUE - VERSION PLEIN ÉCRAN */
+/* MISE EN PAGE DU GRAPHIQUE - Retour au layout original mais plus large */
 .graph-layout {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.5rem;
-    flex: 1;
-    min-height: 0; /* Important pour le flex */
+    gap: 25px;
+    margin-bottom: 20px;
+    min-height: 500px;
 }
 
 @media (min-width: 768px) {
     .graph-layout {
-        grid-template-columns: 280px 1fr;
-        gap: 1.5rem;
+        grid-template-columns: 300px 1fr;
+        gap: 25px;
     }
 }
 
+/* Graphique plus large sur grands écrans */
 @media (min-width: 1200px) {
     .graph-layout {
         grid-template-columns: 320px 1fr;
-        gap: 2rem;
+        gap: 30px;
     }
 }
 
@@ -515,54 +510,28 @@ body {
     display: flex;
     flex-direction: column;
     gap: 18px;
-    padding: 1.5rem;
+    padding: 20px;
     background-color: #f8f9fa;
     border-radius: 12px;
     border: 1px solid #e5e7eb;
     height: fit-content;
 }
 
-@media (min-width: 1200px) {
-    .graph-controls {
-        padding: 2rem;
-    }
-}
-
 .graph-container {
     background-color: var(--bg-white);
     border-radius: 12px;
-    padding: 1rem;
+    padding: 20px;
+    min-height: 500px;
     border: 1px solid #e5e7eb;
     box-shadow: var(--shadow-sm);
     position: relative;
-    min-height: 400px;
-    display: flex;
-    flex-direction: column;
 }
 
-@media (min-width: 768px) {
-    .graph-container {
-        min-height: calc(100vh - 200px); /* Utilise la hauteur disponible */
-        padding: 1.5rem;
-    }
-}
-
+/* Graphique plus grand sur grands écrans */
 @media (min-width: 1200px) {
     .graph-container {
-        min-height: calc(100vh - 150px);
-        padding: 2rem;
-    }
-}
-
-/* Canvas du graphique - prend tout l'espace disponible */
-#graph-canvas {
-    flex: 1;
-    min-height: 300px;
-}
-
-@media (min-width: 768px) {
-    #graph-canvas {
-        min-height: 400px;
+        min-height: 600px;
+        padding: 25px;
     }
 }
 
@@ -576,22 +545,14 @@ body {
     background-color: #f0f9ff;
     border-radius: 6px;
     border-left: 3px solid var(--primary-color);
-    flex-shrink: 0;
 }
 
 /* Exemples de fonctions */
 .function-examples {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 8px;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
     margin-top: 15px;
-}
-
-@media (min-width: 768px) {
-    .function-examples {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-        gap: 10px;
-    }
 }
 
 .function-card {
@@ -651,8 +612,6 @@ footer {
     text-align: center;
     color: var(--text-light);
     padding: 1rem;
-    background-color: rgba(255, 255, 255, 0.8);
-    margin-top: auto;
 }
 
 /* Animations */
@@ -698,61 +657,42 @@ footer {
     animation: fadeIn 0.5s ease-out;
 }
 
-/* Ajustements pour les petits écrans */
+/* Ajustements pour les appareils mobiles */
 @media (max-width: 480px) {
     .calculator-container {
-        padding: 0.5rem;
-        gap: 1rem;
+        padding: 1rem;
+        max-width: 100%;
     }
     
-    .calculator-card, .api-info-card {
-        padding: 1rem;
+    .calculator-container.graph-page {
+        width: 100%;
+        max-width: 100%;
     }
     
     .operation-selector {
         flex-wrap: wrap;
-        gap: 8px;
     }
     
-    .op-button {
-        width: 35px;
-        height: 35px;
-        font-size: 1.1rem;
+    .input-row label {
+        width: 100%;
+        margin-bottom: 5px;
     }
     
-    .result-value {
-        font-size: 2rem;
+    .input-row input {
+        width: 100%;
+    }
+    
+    .calculator-card, .api-info-card {
+        padding: 1.5rem;
     }
     
     .graph-container {
-        padding: 1rem;
-        min-height: 300px;
-    }
-    
-    #graph-canvas {
-        min-height: 250px;
+        min-height: 400px;
+        padding: 15px;
     }
     
     .function-examples {
-        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-        gap: 6px;
-    }
-}
-
-/* Ajustements pour les très grands écrans */
-@media (min-width: 1600px) {
-    .calculator-container.graph-page {
-        grid-template-columns: 400px 1fr;
-        gap: 2.5rem;
-        padding: 2rem;
-    }
-    
-    .graph-controls {
-        padding: 2.5rem;
-    }
-    
-    .graph-container {
-        padding: 2.5rem;
-        min-height: calc(100vh - 120px);
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 8px;
     }
 }
