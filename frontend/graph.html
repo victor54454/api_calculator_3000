@@ -284,7 +284,7 @@
                     datasets: [{
                         label: data.expression,
                         data: data.x_values.map((x, i) => ({ x, y: data.y_values[i] })),
-                        borderColor: 'var(--primary-color)',
+                        borderColor: '#4361ee', // CORRIGÉ: couleur hexadécimale au lieu de var(--primary-color)
                         backgroundColor: 'rgba(67, 97, 238, 0.1)',
                         pointRadius: 0,
                         borderWidth: 2,
@@ -303,7 +303,7 @@
                     data: chartData,
                     options: {
                         responsive: true,
-                        maintainAspectRatio: false,
+                        maintainAspectRatio: false, // IMPORTANT pour utiliser les dimensions CSS
                         scales: {
                             x: {
                                 type: 'linear',
@@ -362,11 +362,11 @@
                 position: fixed;
                 top: 20px;
                 right: 20px;
-                background: var(--danger-color);
+                background: #f87171;
                 color: white;
                 padding: 15px 20px;
                 border-radius: 8px;
-                box-shadow: var(--shadow-lg);
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
                 z-index: 1000;
                 font-weight: 500;
                 max-width: 300px;
@@ -396,8 +396,12 @@
             setTimeout(() => {
                 notification.style.animation = 'slideIn 0.3s ease-out reverse';
                 setTimeout(() => {
-                    document.body.removeChild(notification);
-                    document.head.removeChild(style);
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                    if (document.head.contains(style)) {
+                        document.head.removeChild(style);
+                    }
                 }, 300);
             }, 4000);
         }
