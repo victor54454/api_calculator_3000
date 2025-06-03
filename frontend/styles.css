@@ -339,6 +339,8 @@ body {
     border-radius: 8px;
     border: 1px solid #e5e7eb;
     height: fit-content;
+    max-height: calc(100vh - 200px); /* Limite la hauteur */
+    overflow-y: auto; /* Scroll si nécessaire */
 }
 
 .graph-container {
@@ -351,15 +353,15 @@ body {
     display: flex;
     flex-direction: column;
     flex: 1;
-    min-height: 0;
+    min-height: calc(100vh - 200px); /* Hauteur minimum */
 }
 
 /* Canvas du graphique - S'adapte à l'espace disponible */
 #graph-canvas {
     width: 100% !important;
-    height: 100% !important;
+    height: calc(100vh - 300px) !important; /* Hauteur fixe basée sur la fenêtre */
+    min-height: 400px !important;
     flex: 1 !important;
-    min-height: 300px !important;
 }
 
 .graph-title {
