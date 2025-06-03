@@ -134,14 +134,29 @@
         function createTestGraph() {
             console.log('Création du graphique de test...');
             
+            // Vérifier que Chart.js est chargé
+            if (typeof Chart === 'undefined') {
+                console.error('Chart.js n\'est pas chargé !');
+                showError('Chart.js non disponible');
+                return;
+            }
+            
+            // Vérifier que le canvas existe
+            if (!graphCanvas) {
+                console.error('Canvas introuvable !');
+                showError('Canvas du graphique introuvable');
+                return;
+            }
+            
             const expression = expressionInput.value || 'x^2';
             const xMin = parseFloat(xMinInput.value) || -10;
             const xMax = parseFloat(xMaxInput.value) || 10;
             const points = parseInt(pointsInput.value) || 100;
             
+            console.log('Paramètres:', { expression, xMin, xMax, points });
+            
             // Générer des données de test
-            const xValues = [];
-            const yValues = [];
+            const data = [];
             const step = (xMax - xMin) / points;
             
             for (let i = 0; i <= points; i++) {
@@ -167,15 +182,14 @@
                     }
                     
                     if (y !== null && !isNaN(y) && isFinite(y)) {
-                        xValues.push(x);
-                        yValues.push(y);
+                        data.push({ x, y });
                     }
                 } catch (e) {
                     console.error('Erreur de calcul:', e);
                 }
             }
             
-            console.log('Données générées:', xValues.length, 'points');
+            console.log('Données générées:', data.length, 'points');
             
             // Mettre à jour le titre
             graphTitle.textContent = `Graphique de f(x) = ${expression}`;
@@ -183,7 +197,12 @@
             // Détruire le graphique existant
             if (chartInstance) {
                 chartInstance.destroy();
+                chartInstance = null;
             }
+            
+            // Forcer les dimensions du canvas
+            graphCanvas.style.width = '100%';
+            graphCanvas.style.height = '400px';
             
             // Créer le nouveau graphique
             try {
@@ -192,7 +211,7 @@
                     data: {
                         datasets: [{
                             label: expression,
-                            data: xValues.map((x, i) => ({ x, y: yValues[i] })),
+                            data: data,
                             borderColor: '#4361ee',
                             backgroundColor: 'rgba(67, 97, 238, 0.1)',
                             pointRadius: 0,
@@ -255,10 +274,19 @@
                     }
                 });
                 
-                console.log('Graphique créé avec succès');
+                console.log('Graphique créé avec succès !');
+                
+                // Forcer le redraw
+                setTimeout(() => {
+                    if (chartInstance) {
+                        chartInstance.resize();
+                        chartInstance.update();
+                    }
+                }, 100);
+                
             } catch (error) {
                 console.error('Erreur lors de la création du graphique:', error);
-                showError('Erreur lors de la création du graphique');
+                showError('Erreur lors de la création du graphique: ' + error.message);
             }
         }
 
@@ -448,8 +476,17 @@
         function init() {
             console.log('Initialisation de l\'application...');
             
+            // Vérifier que tous les éléments sont présents
+            if (!expressionInput || !graphCanvas) {
+                console.error('Éléments DOM manquants');
+                setTimeout(init, 100); // Réessayer
+                return;
+            }
+            
             // Afficher l'URL de l'API
-            apiUrlContainer.textContent = API_URL;
+            if (apiUrlContainer) {
+                apiUrlContainer.textContent = API_URL;
+            }
 
             // Vérifier la connexion avec l'API
             checkApiStatus();
@@ -480,17 +517,30 @@
                 }
             });
 
-            // Tracer le graphique initial
+            // Tracer le graphique initial après un délai
+            console.log('Programmation du graphique initial...');
             setTimeout(() => {
+                console.log('Lancement du graphique initial');
                 plotGraph();
-            }, 500);
+            }, 1000); // Délai plus long pour s'assurer que tout est chargé
+        }
+
+        // Attendre que Chart.js soit chargé
+        function waitForChart() {
+            if (typeof Chart !== 'undefined') {
+                console.log('Chart.js est chargé, initialisation...');
+                init();
+            } else {
+                console.log('Attente de Chart.js...');
+                setTimeout(waitForChart, 100);
+            }
         }
 
         // Démarrer quand le DOM est prêt
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', init);
+            document.addEventListener('DOMContentLoaded', waitForChart);
         } else {
-            init();
+            waitForChart();
         }
     </script>
 </body>
