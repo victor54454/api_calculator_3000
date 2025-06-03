@@ -525,6 +525,15 @@ body {
     border: 1px solid #e5e7eb;
     box-shadow: var(--shadow-sm);
     position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Styles spécifiques pour le canvas Chart.js */
+#graph-canvas {
+    width: 100% !important;
+    height: 450px !important;
+    max-height: 450px;
 }
 
 /* Graphique plus grand sur grands écrans */
@@ -532,6 +541,11 @@ body {
     .graph-container {
         min-height: 600px;
         padding: 25px;
+    }
+    
+    #graph-canvas {
+        height: 550px !important;
+        max-height: 550px;
     }
 }
 
@@ -689,6 +703,11 @@ footer {
     .graph-container {
         min-height: 400px;
         padding: 15px;
+    }
+    
+    #graph-canvas {
+        height: 350px !important;
+        max-height: 350px;
     }
     
     .function-examples {
