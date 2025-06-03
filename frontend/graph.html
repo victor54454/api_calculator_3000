@@ -82,49 +82,26 @@
                             <div class="function-type">Racine</div>
                         </div>
                     </div>
+
+                    <!-- API Info intégrée -->
+                    <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb;">
+                        <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Status API</h4>
+                        <div class="api-status">
+                            <div class="status-indicator">
+                                <span class="status-dot" id="api-status-dot"></span>
+                                <span id="api-status" style="font-size: 0.8rem;">Vérification...</span>
+                            </div>
+                        </div>
+                        <div class="api-url" id="api-url-container" style="font-size: 0.7rem; margin-top: 0.5rem;">
+                            http://217.154.17.85
+                        </div>
+                    </div>
                 </div>
 
                 <div class="graph-container">
                     <canvas id="graph-canvas"></canvas>
                     <div class="graph-title" id="graph-title">Graphique de f(x) = x²</div>
                 </div>
-            </div>
-        </div>
-
-        <div class="api-info-card">
-            <h3>Information API</h3>
-            <p>Cette application utilise l'API FastAPI pour générer des graphiques.</p>
-
-            <div class="api-status">
-                <div class="status-indicator">
-                    <span class="status-dot" id="api-status-dot"></span>
-                    <span id="api-status">Vérification...</span>
-                </div>
-            </div>
-
-            <div class="api-url" id="api-url-container">
-                http://217.154.17.85
-            </div>
-
-            <div class="graph-info">
-                <h4>Fonctions Supportées</h4>
-                <ul>
-                    <li><code>+, -, *, /, ^</code> - Opérations de base</li>
-                    <li><code>sin(x), cos(x), tan(x)</code> - Fonctions trigonométriques</li>
-                    <li><code>sqrt(x)</code> - Racine carrée</li>
-                    <li><code>exp(x)</code> - Exponentielle</li>
-                    <li><code>log(x)</code> - Logarithme naturel</li>
-                    <li><code>pi, e</code> - Constantes</li>
-                </ul>
-            </div>
-
-            <div class="api-routes">
-                <h4 class="route-title">Routes API disponibles</h4>
-                <ul>
-                    <li><code>POST /graph</code> - Génération de graphique</li>
-                    <li><code>GET /docs</code> - Documentation API</li>
-                    <li><code>GET /</code> - Page d'accueil API</li>
-                </ul>
             </div>
         </div>
     </div>
