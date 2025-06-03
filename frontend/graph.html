@@ -30,7 +30,7 @@
                 <div class="graph-controls">
                     <div class="input-row">
                         <label for="expression">Expression mathématique</label>
-                        <input type="text" id="expression" value="sqrt(x^2+4)" placeholder="Exemple: x^2, sin(x), 2*x+3">
+                        <input type="text" id="expression" value="x^2" placeholder="Exemple: x^2, sin(x), 2*x+3">
                         <div class="usage-tips">
                             Utilisez * pour la multiplication et ^ pour les puissances.
                         </div>
@@ -54,51 +54,39 @@
                     <button id="plot-btn" class="plot-btn">
                         <i class="fas fa-chart-line"></i> Tracer le graphique
                     </button>
+
+                    <h3 style="margin-top: 1rem; font-size: 0.9rem;">Exemples d'expressions</h3>
+                    <div class="function-examples">
+                        <div class="function-card" data-expr="x^2">
+                            <div class="function-name">x²</div>
+                            <div class="function-type">Parabole</div>
+                        </div>
+                        <div class="function-card" data-expr="sin(x)">
+                            <div class="function-name">sin(x)</div>
+                            <div class="function-type">Sinus</div>
+                        </div>
+                        <div class="function-card" data-expr="cos(x)">
+                            <div class="function-name">cos(x)</div>
+                            <div class="function-type">Cosinus</div>
+                        </div>
+                        <div class="function-card" data-expr="2*x+3">
+                            <div class="function-name">2x+3</div>
+                            <div class="function-type">Linéaire</div>
+                        </div>
+                        <div class="function-card" data-expr="x^3">
+                            <div class="function-name">x³</div>
+                            <div class="function-type">Cubique</div>
+                        </div>
+                        <div class="function-card" data-expr="sqrt(x+5)">
+                            <div class="function-name">√(x+5)</div>
+                            <div class="function-type">Racine</div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="graph-container">
                     <canvas id="graph-canvas"></canvas>
-                    <div class="graph-title" id="graph-title">Graphique de f(x) = sqrt(x^2+4)</div>
-                </div>
-            </div>
-
-            <h3>Exemples d'expressions</h3>
-            <div class="function-examples">
-                <div class="function-card" data-expr="x^2">
-                    <div class="function-name">x²</div>
-                    <div class="function-type">Parabole</div>
-                </div>
-                <div class="function-card" data-expr="sin(x)">
-                    <div class="function-name">sin(x)</div>
-                    <div class="function-type">Sinusoïde</div>
-                </div>
-                <div class="function-card" data-expr="cos(x)">
-                    <div class="function-name">cos(x)</div>
-                    <div class="function-type">Cosinusoïde</div>
-                </div>
-                <div class="function-card" data-expr="2*x+3">
-                    <div class="function-name">2x+3</div>
-                    <div class="function-type">Linéaire</div>
-                </div>
-                <div class="function-card" data-expr="x^3-5*x">
-                    <div class="function-name">x³-5x</div>
-                    <div class="function-type">Cubique</div>
-                </div>
-                <div class="function-card" data-expr="sqrt(x^2+4)">
-                    <div class="function-name">√(x²+4)</div>
-                    <div class="function-type">Racine</div>
-                </div>
-                <div class="function-card" data-expr="exp(x)">
-                    <div class="function-name">exp(x)</div>
-                    <div class="function-type">Exponentielle</div>
-                </div>
-                <div class="function-card" data-expr="log(x)">
-                    <div class="function-name">log(x)</div>
-                    <div class="function-type">Logarithme</div>
-                </div>
-                <div class="function-card" data-expr="tan(x)">
-                    <div class="function-name">tan(x)</div>
-                    <div class="function-type">Tangente</div>
+                    <div class="graph-title" id="graph-title">Graphique de f(x) = x²</div>
                 </div>
             </div>
         </div>
@@ -146,7 +134,7 @@
     </footer>
 
     <script>
-        // Configuration - Nginx reverse proxy gère le routing
+        // Configuration
         const API_URL = 'http://217.154.17.85';
 
         // Éléments DOM
@@ -165,164 +153,110 @@
         // Variable pour le graphique
         let chartInstance = null;
 
-        // Initialisation
-        function init() {
-            // Afficher l'URL de l'API
-            apiUrlContainer.textContent = API_URL;
-
-            // Vérifier la connexion avec l'API
-            checkApiStatus();
-
-            // Ajouter des écouteurs d'événements
-            plotBtn.addEventListener('click', plotGraph);
-
-            // Ajouter des écouteurs pour les boutons d'exemple
-            functionCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    // Supprimer la classe active de toutes les cartes
-                    functionCards.forEach(c => c.classList.remove('active'));
-                    // Ajouter la classe active à la carte cliquée
-                    this.classList.add('active');
-                    
-                    expressionInput.value = this.getAttribute('data-expr');
-                    plotGraph();
-                });
-            });
-
-            // Tracer le graphique initial
-            plotGraph();
-        }
-
-        // Vérification de la connexion avec l'API
-        async function checkApiStatus() {
-            try {
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 5000);
-
-                const response = await fetch(`${API_URL}/docs`, {
-                    signal: controller.signal,
-                    headers: {
-                        'Accept': 'application/json'
+        // Fonction pour créer un graphique de test
+        function createTestGraph() {
+            console.log('Création du graphique de test...');
+            
+            const expression = expressionInput.value || 'x^2';
+            const xMin = parseFloat(xMinInput.value) || -10;
+            const xMax = parseFloat(xMaxInput.value) || 10;
+            const points = parseInt(pointsInput.value) || 100;
+            
+            // Générer des données de test
+            const xValues = [];
+            const yValues = [];
+            const step = (xMax - xMin) / points;
+            
+            for (let i = 0; i <= points; i++) {
+                const x = xMin + i * step;
+                let y;
+                
+                // Calculer y selon l'expression
+                try {
+                    if (expression === 'x^2') {
+                        y = x * x;
+                    } else if (expression === 'sin(x)') {
+                        y = Math.sin(x);
+                    } else if (expression === 'cos(x)') {
+                        y = Math.cos(x);
+                    } else if (expression === '2*x+3') {
+                        y = 2 * x + 3;
+                    } else if (expression === 'x^3') {
+                        y = x * x * x;
+                    } else if (expression === 'sqrt(x+5)') {
+                        y = x >= -5 ? Math.sqrt(x + 5) : null;
+                    } else {
+                        y = x * x; // Défaut
                     }
-                });
-
-                clearTimeout(timeoutId);
-
-                if (response.ok) {
-                    apiStatusElement.textContent = 'En ligne';
-                    apiStatusDot.classList.add('online');
-                    apiStatusDot.classList.remove('offline');
-                } else {
-                    apiStatusElement.textContent = 'Erreur de connexion';
-                    apiStatusDot.classList.add('offline');
-                    apiStatusDot.classList.remove('online');
+                    
+                    if (y !== null && !isNaN(y) && isFinite(y)) {
+                        xValues.push(x);
+                        yValues.push(y);
+                    }
+                } catch (e) {
+                    console.error('Erreur de calcul:', e);
                 }
-            } catch (error) {
-                console.error('Erreur de connexion à l\'API:', error);
-                apiStatusElement.textContent = 'Hors ligne';
-                apiStatusDot.classList.add('offline');
-                apiStatusDot.classList.remove('online');
             }
-        }
-
-        // Tracer le graphique
-        async function plotGraph() {
-            const expression = expressionInput.value;
-            const xMin = parseFloat(xMinInput.value);
-            const xMax = parseFloat(xMaxInput.value);
-            const points = parseInt(pointsInput.value);
-
-            // Vérifier que les entrées sont valides
-            if (!expression || isNaN(xMin) || isNaN(xMax) || isNaN(points)) {
-                showError('Veuillez entrer des valeurs valides');
-                return;
+            
+            console.log('Données générées:', xValues.length, 'points');
+            
+            // Mettre à jour le titre
+            graphTitle.textContent = `Graphique de f(x) = ${expression}`;
+            
+            // Détruire le graphique existant
+            if (chartInstance) {
+                chartInstance.destroy();
             }
-
-            // Vérifier que xMin < xMax
-            if (xMin >= xMax) {
-                showError('X Minimum doit être inférieur à X Maximum');
-                return;
-            }
-
+            
+            // Créer le nouveau graphique
             try {
-                // Désactiver le bouton pendant le chargement
-                plotBtn.disabled = true;
-                plotBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Chargement...';
-
-                // Envoyer la requête à l'API
-                const response = await fetch(`${API_URL}/graph`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        expression,
-                        x_min: xMin,
-                        x_max: xMax,
-                        points
-                    })
-                });
-
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.detail || 'Erreur lors de la génération du graphique');
-                }
-
-                const data = await response.json();
-
-                // Vérifier s'il y a une erreur
-                if (data.error) {
-                    throw new Error(data.error);
-                }
-
-                // Mettre à jour le titre du graphique
-                graphTitle.textContent = `Graphique de f(x) = ${data.expression}`;
-
-                // Créer les données pour le graphique
-                const chartData = {
-                    labels: data.x_values,
-                    datasets: [{
-                        label: data.expression,
-                        data: data.x_values.map((x, i) => ({ x, y: data.y_values[i] })),
-                        borderColor: '#4361ee', // CORRIGÉ: couleur hexadécimale au lieu de var(--primary-color)
-                        backgroundColor: 'rgba(67, 97, 238, 0.1)',
-                        pointRadius: 0,
-                        borderWidth: 2,
-                        tension: 0.1
-                    }]
-                };
-
-                // Détruire le graphique existant s'il y en a un
-                if (chartInstance) {
-                    chartInstance.destroy();
-                }
-
-                // Créer le nouveau graphique
                 chartInstance = new Chart(graphCanvas, {
                     type: 'line',
-                    data: chartData,
+                    data: {
+                        datasets: [{
+                            label: expression,
+                            data: xValues.map((x, i) => ({ x, y: yValues[i] })),
+                            borderColor: '#4361ee',
+                            backgroundColor: 'rgba(67, 97, 238, 0.1)',
+                            pointRadius: 0,
+                            borderWidth: 2,
+                            tension: 0.1,
+                            fill: false
+                        }]
+                    },
                     options: {
                         responsive: true,
-                        maintainAspectRatio: false, // IMPORTANT pour utiliser les dimensions CSS
+                        maintainAspectRatio: false,
+                        interaction: {
+                            intersect: false,
+                            mode: 'index'
+                        },
                         scales: {
                             x: {
                                 type: 'linear',
-                                position: 'center',
+                                position: 'bottom',
                                 grid: {
                                     color: 'rgba(0, 0, 0, 0.1)'
                                 },
                                 ticks: {
                                     color: '#6b7280'
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'x'
                                 }
                             },
                             y: {
                                 type: 'linear',
-                                position: 'center',
                                 grid: {
                                     color: 'rgba(0, 0, 0, 0.1)'
                                 },
                                 ticks: {
                                     color: '#6b7280'
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'f(x)'
                                 }
                             }
                         },
@@ -343,20 +277,151 @@
                         }
                     }
                 });
-
+                
+                console.log('Graphique créé avec succès');
             } catch (error) {
-                showError(error.message);
-                console.error('Erreur lors du tracé du graphique:', error);
+                console.error('Erreur lors de la création du graphique:', error);
+                showError('Erreur lors de la création du graphique');
+            }
+        }
+
+        // Fonction pour tracer via l'API (si disponible)
+        async function plotGraphAPI() {
+            const expression = expressionInput.value;
+            const xMin = parseFloat(xMinInput.value);
+            const xMax = parseFloat(xMaxInput.value);
+            const points = parseInt(pointsInput.value);
+
+            if (!expression || isNaN(xMin) || isNaN(xMax) || isNaN(points) || xMin >= xMax) {
+                showError('Veuillez entrer des valeurs valides');
+                return false;
+            }
+
+            try {
+                plotBtn.disabled = true;
+                plotBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Chargement...';
+
+                const response = await fetch(`${API_URL}/graph`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        expression,
+                        x_min: xMin,
+                        x_max: xMax,
+                        points
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('API indisponible');
+                }
+
+                const data = await response.json();
+
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+
+                // Créer le graphique avec les données de l'API
+                graphTitle.textContent = `Graphique de f(x) = ${data.expression}`;
+
+                if (chartInstance) {
+                    chartInstance.destroy();
+                }
+
+                chartInstance = new Chart(graphCanvas, {
+                    type: 'line',
+                    data: {
+                        datasets: [{
+                            label: data.expression,
+                            data: data.x_values.map((x, i) => ({ x, y: data.y_values[i] })),
+                            borderColor: '#4361ee',
+                            backgroundColor: 'rgba(67, 97, 238, 0.1)',
+                            pointRadius: 0,
+                            borderWidth: 2,
+                            tension: 0.1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                type: 'linear',
+                                position: 'bottom',
+                                grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                                ticks: { color: '#6b7280' }
+                            },
+                            y: {
+                                type: 'linear',
+                                grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                                ticks: { color: '#6b7280' }
+                            }
+                        },
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `f(${context.parsed.x.toFixed(2)}) = ${context.parsed.y.toFixed(2)}`;
+                                    }
+                                }
+                            },
+                            legend: { display: false }
+                        }
+                    }
+                });
+
+                return true;
+            } catch (error) {
+                console.warn('API non disponible, utilisation du mode local:', error.message);
+                return false;
             } finally {
-                // Réactiver le bouton
                 plotBtn.disabled = false;
                 plotBtn.innerHTML = '<i class="fas fa-chart-line"></i> Tracer le graphique';
             }
         }
 
-        // Afficher une erreur (améliorée pour être plus élégante)
+        // Fonction principale de tracé
+        async function plotGraph() {
+            console.log('Tentative de tracé du graphique...');
+            
+            // Essayer d'abord l'API
+            const apiSuccess = await plotGraphAPI();
+            
+            // Si l'API échoue, utiliser le mode local
+            if (!apiSuccess) {
+                console.log('Utilisation du mode local');
+                createTestGraph();
+            }
+        }
+
+        // Vérification de la connexion avec l'API
+        async function checkApiStatus() {
+            try {
+                const response = await fetch(`${API_URL}/docs`, {
+                    method: 'GET',
+                    signal: AbortSignal.timeout(5000)
+                });
+
+                if (response.ok) {
+                    apiStatusElement.textContent = 'En ligne';
+                    apiStatusDot.classList.add('online');
+                    apiStatusDot.classList.remove('offline');
+                } else {
+                    throw new Error('Réponse invalide');
+                }
+            } catch (error) {
+                console.warn('API hors ligne:', error.message);
+                apiStatusElement.textContent = 'Hors ligne (mode local)';
+                apiStatusDot.classList.add('offline');
+                apiStatusDot.classList.remove('online');
+            }
+        }
+
+        // Afficher une erreur
         function showError(message) {
-            // Créer une notification élégante au lieu d'une alerte
             const notification = document.createElement('div');
             notification.style.cssText = `
                 position: fixed;
@@ -364,16 +429,16 @@
                 right: 20px;
                 background: #f87171;
                 color: white;
-                padding: 15px 20px;
-                border-radius: 8px;
-                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+                padding: 12px 16px;
+                border-radius: 6px;
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
                 z-index: 1000;
                 font-weight: 500;
-                max-width: 300px;
+                max-width: 250px;
                 animation: slideIn 0.3s ease-out;
+                font-size: 0.85rem;
             `;
             
-            // Ajouter l'animation CSS
             const style = document.createElement('style');
             style.textContent = `
                 @keyframes slideIn {
@@ -384,7 +449,7 @@
             document.head.appendChild(style);
             
             notification.innerHTML = `
-                <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
                     <i class="fas fa-exclamation-triangle"></i>
                     <span>${message}</span>
                 </div>
@@ -392,34 +457,64 @@
             
             document.body.appendChild(notification);
             
-            // Supprimer après 4 secondes
             setTimeout(() => {
-                notification.style.animation = 'slideIn 0.3s ease-out reverse';
-                setTimeout(() => {
-                    if (document.body.contains(notification)) {
-                        document.body.removeChild(notification);
-                    }
-                    if (document.head.contains(style)) {
-                        document.head.removeChild(style);
-                    }
-                }, 300);
+                if (document.body.contains(notification)) {
+                    notification.remove();
+                }
+                if (document.head.contains(style)) {
+                    style.remove();
+                }
             }, 4000);
         }
 
-        // Permettre l'utilisation de la touche "Entrée" pour tracer
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter' && (
-                event.target === expressionInput ||
-                event.target === xMinInput ||
-                event.target === xMaxInput ||
-                event.target === pointsInput
-            )) {
-                plotGraph();
-            }
-        });
+        // Initialisation
+        function init() {
+            console.log('Initialisation de l\'application...');
+            
+            // Afficher l'URL de l'API
+            apiUrlContainer.textContent = API_URL;
 
-        // Initialiser
-        document.addEventListener('DOMContentLoaded', init);
+            // Vérifier la connexion avec l'API
+            checkApiStatus();
+
+            // Événements
+            plotBtn.addEventListener('click', plotGraph);
+
+            // Boutons d'exemple
+            functionCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    functionCards.forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    expressionInput.value = this.getAttribute('data-expr');
+                    plotGraph();
+                });
+            });
+
+            // Touche Entrée
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Enter' && (
+                    event.target === expressionInput ||
+                    event.target === xMinInput ||
+                    event.target === xMaxInput ||
+                    event.target === pointsInput
+                )) {
+                    plotGraph();
+                }
+            });
+
+            // Tracer le graphique initial
+            setTimeout(() => {
+                plotGraph();
+            }, 500);
+        }
+
+        // Démarrer quand le DOM est prêt
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
     </script>
 </body>
 </html>
