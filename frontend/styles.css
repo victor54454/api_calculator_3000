@@ -64,7 +64,7 @@ body {
 
 @media (min-width: 768px) {
     .calculator-container.graph-page {
-        grid-template-columns: 280px 1fr 280px; /* Contrôles + Graphique + API */
+        grid-template-columns: 280px 1fr; /* Contrôles + Graphique seulement */
         padding: 1rem;
         gap: 1rem;
     }
