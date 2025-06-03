@@ -68,6 +68,10 @@
                     <div class="function-name">cos(x)</div>
                     <div class="function-type">Cosinus</div>
                 </div>
+                <div class="function-card" data-expr="tan(x)">
+                    <div class="function-name">tan(x)</div>
+                    <div class="function-type">Tangente</div>
+                </div>
                 <div class="function-card" data-expr="2*x+3">
                     <div class="function-name">2x+3</div>
                     <div class="function-type">Linéaire</div>
@@ -76,9 +80,61 @@
                     <div class="function-name">x³</div>
                     <div class="function-type">Cubique</div>
                 </div>
+                <div class="function-card" data-expr="x^4">
+                    <div class="function-name">x⁴</div>
+                    <div class="function-type">Puissance 4</div>
+                </div>
                 <div class="function-card" data-expr="sqrt(x+5)">
                     <div class="function-name">√(x+5)</div>
                     <div class="function-type">Racine</div>
+                </div>
+                <div class="function-card" data-expr="sqrt(x)">
+                    <div class="function-name">√x</div>
+                    <div class="function-type">Racine simple</div>
+                </div>
+                <div class="function-card" data-expr="exp(x)">
+                    <div class="function-name">eˣ</div>
+                    <div class="function-type">Exponentielle</div>
+                </div>
+                <div class="function-card" data-expr="log(x)">
+                    <div class="function-name">ln(x)</div>
+                    <div class="function-type">Logarithme</div>
+                </div>
+                <div class="function-card" data-expr="abs(x)">
+                    <div class="function-name">|x|</div>
+                    <div class="function-type">Valeur absolue</div>
+                </div>
+                <div class="function-card" data-expr="1/x">
+                    <div class="function-name">1/x</div>
+                    <div class="function-type">Inverse</div>
+                </div>
+                <div class="function-card" data-expr="x^3-5*x">
+                    <div class="function-name">x³-5x</div>
+                    <div class="function-type">Polynôme</div>
+                </div>
+                <div class="function-card" data-expr="sin(x)*cos(x)">
+                    <div class="function-name">sin(x)cos(x)</div>
+                    <div class="function-type">Produit trigo</div>
+                </div>
+                <div class="function-card" data-expr="x*sin(x)">
+                    <div class="function-name">x·sin(x)</div>
+                    <div class="function-type">Oscillation</div>
+                </div>
+                <div class="function-card" data-expr="sin(2*x)">
+                    <div class="function-name">sin(2x)</div>
+                    <div class="function-type">Fréquence double</div>
+                </div>
+                <div class="function-card" data-expr="cos(x/2)">
+                    <div class="function-name">cos(x/2)</div>
+                    <div class="function-type">Fréquence moitié</div>
+                </div>
+                <div class="function-card" data-expr="x^2-4*x+3">
+                    <div class="function-name">x²-4x+3</div>
+                    <div class="function-type">Parabole décalée</div>
+                </div>
+                <div class="function-card" data-expr="exp(-x^2)">
+                    <div class="function-name">e^(-x²)</div>
+                    <div class="function-type">Gaussienne</div>
                 </div>
             </div>
 
@@ -156,18 +212,51 @@
                 let y;
                 
                 try {
+                    // Calculs selon l'expression
                     if (expression === 'x^2') {
                         y = x * x;
+                    } else if (expression === 'x^3') {
+                        y = x * x * x;
+                    } else if (expression === 'x^4') {
+                        y = x * x * x * x;
                     } else if (expression === 'sin(x)') {
                         y = Math.sin(x);
                     } else if (expression === 'cos(x)') {
                         y = Math.cos(x);
+                    } else if (expression === 'tan(x)') {
+                        y = Math.tan(x);
+                        // Limiter la tangente pour éviter les valeurs infinies
+                        if (Math.abs(y) > 50) y = null;
                     } else if (expression === '2*x+3') {
                         y = 2 * x + 3;
-                    } else if (expression === 'x^3') {
-                        y = x * x * x;
                     } else if (expression === 'sqrt(x+5)') {
                         y = x >= -5 ? Math.sqrt(x + 5) : null;
+                    } else if (expression === 'sqrt(x)') {
+                        y = x >= 0 ? Math.sqrt(x) : null;
+                    } else if (expression === 'exp(x)') {
+                        y = Math.exp(x);
+                        // Limiter l'exponentielle
+                        if (y > 1000) y = null;
+                    } else if (expression === 'log(x)') {
+                        y = x > 0 ? Math.log(x) : null;
+                    } else if (expression === 'abs(x)') {
+                        y = Math.abs(x);
+                    } else if (expression === '1/x') {
+                        y = x !== 0 ? 1 / x : null;
+                    } else if (expression === 'x^3-5*x') {
+                        y = x * x * x - 5 * x;
+                    } else if (expression === 'sin(x)*cos(x)') {
+                        y = Math.sin(x) * Math.cos(x);
+                    } else if (expression === 'x*sin(x)') {
+                        y = x * Math.sin(x);
+                    } else if (expression === 'sin(2*x)') {
+                        y = Math.sin(2 * x);
+                    } else if (expression === 'cos(x/2)') {
+                        y = Math.cos(x / 2);
+                    } else if (expression === 'x^2-4*x+3') {
+                        y = x * x - 4 * x + 3;
+                    } else if (expression === 'exp(-x^2)') {
+                        y = Math.exp(-x * x);
                     } else {
                         y = x * x; // Défaut
                     }
