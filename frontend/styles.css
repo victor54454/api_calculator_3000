@@ -77,10 +77,10 @@ body {
     box-shadow: var(--shadow-lg);
     padding: 1rem;
     transition: var(--transition);
-    overflow: hidden;
+    overflow-y: auto; /* Scroll si nécessaire */
     display: flex;
     flex-direction: column;
-    min-height: 0;
+    height: calc(100vh - 100px); /* Prend presque toute la hauteur de l'écran */
 }
 
 @media (min-width: 768px) {
@@ -338,8 +338,7 @@ body {
     background-color: #f8f9fa;
     border-radius: 8px;
     border: 1px solid #e5e7eb;
-    height: fit-content;
-    max-height: calc(100vh - 200px); /* Limite la hauteur */
+    height: 100%; /* Prend toute la hauteur disponible */
     overflow-y: auto; /* Scroll si nécessaire */
 }
 
