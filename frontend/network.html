@@ -38,21 +38,13 @@
             </div>
 
             <div class="input-row">
-                <label for="subnet-mask">Masque de sous-réseau</label>
-                <select id="subnet-type">
-                    <option value="cidr">CIDR (/24)</option>
-                    <option value="decimal">Décimal (255.255.255.0)</option>
-                </select>
-            </div>
-
-            <div class="input-row" id="cidr-input">
-                <label for="cidr">CIDR</label>
-                <input type="number" id="cidr" value="24" min="1" max="30" placeholder="24">
-            </div>
-
-            <div class="input-row" id="decimal-input" style="display: none;">
-                <label for="decimal-mask">Masque décimal</label>
-                <input type="text" id="decimal-mask" value="255.255.255.0" placeholder="255.255.255.0">
+                <label for="subnet-input">Masque de sous-réseau</label>
+                <div class="subnet-input-container">
+                    <input type="text" id="subnet-input" value="/24" placeholder="/24 ou 255.255.255.0">
+                    <div class="input-helper">
+                        <span class="helper-text">Tapez /24 ou 255.255.255.0</span>
+                    </div>
+                </div>
             </div>
 
             <button id="calculate-network" class="calculate-btn">
@@ -206,11 +198,7 @@
 
         // Éléments DOM
         const ipAddressInput = document.getElementById('ip-address');
-        const subnetTypeSelect = document.getElementById('subnet-type');
-        const cidrInput = document.getElementById('cidr');
-        const decimalMaskInput = document.getElementById('decimal-mask');
-        const cidrInputRow = document.getElementById('cidr-input');
-        const decimalInputRow = document.getElementById('decimal-input');
+        const subnetInput = document.getElementById('subnet-input');
         const calculateBtn = document.getElementById('calculate-network');
         const networkTitle = document.getElementById('network-title');
         const apiStatusElement = document.getElementById('api-status');
@@ -309,9 +297,35 @@
             return parts.every(part => part >= 0 && part <= 255);
         }
 
+        function parseSubnetInput(input) {
+            input = input.trim();
+            
+            // Si ça commence par /, c'est du CIDR
+            if (input.startsWith('/')) {
+                const cidr = parseInt(input.substring(1));
+                if (cidr >= 1 && cidr <= 30) {
+                    return { cidr, mask: cidrToMask(cidr) };
+                }
+            }
+            
+            // Si ça contient des points, c'est un masque décimal
+            if (input.includes('.')) {
+                if (validateIp(input)) {
+                    return { cidr: maskToCidr(input), mask: input };
+                }
+            }
+            
+            // Si c'est juste un nombre, on assume que c'est du CIDR
+            const num = parseInt(input);
+            if (!isNaN(num) && num >= 1 && num <= 30) {
+                return { cidr: num, mask: cidrToMask(num) };
+            }
+            
+            return null;
+        }
+
         function calculateNetwork() {
             const ip = ipAddressInput.value.trim();
-            let mask, cidr;
             
             // Validation de l'IP
             if (!validateIp(ip)) {
@@ -319,22 +333,14 @@
                 return;
             }
             
-            // Récupération du masque selon le type sélectionné
-            if (subnetTypeSelect.value === 'cidr') {
-                cidr = parseInt(cidrInput.value);
-                if (cidr < 1 || cidr > 30) {
-                    showNotification('CIDR doit être entre 1 et 30', 'error');
-                    return;
-                }
-                mask = cidrToMask(cidr);
-            } else {
-                mask = decimalMaskInput.value.trim();
-                if (!validateIp(mask)) {
-                    showNotification('Masque de sous-réseau invalide', 'error');
-                    return;
-                }
-                cidr = maskToCidr(mask);
+            // Parsing du masque (intelligent)
+            const subnetData = parseSubnetInput(subnetInput.value);
+            if (!subnetData) {
+                showNotification('Masque invalide. Utilisez /24 ou 255.255.255.0', 'error');
+                return;
             }
+            
+            const { cidr, mask } = subnetData;
             
             // Calculs réseau
             const ipInt = ipToInt(ip);
@@ -374,14 +380,23 @@
             showNotification('Calcul effectué avec succès !', 'success');
         }
 
-        // Gestion du changement de type de masque
-        subnetTypeSelect.addEventListener('change', function() {
-            if (this.value === 'cidr') {
-                cidrInputRow.style.display = 'block';
-                decimalInputRow.style.display = 'none';
+        // Gestion intelligente de l'input masque
+        subnetInput.addEventListener('input', function() {
+            const value = this.value.trim();
+            const helper = document.querySelector('.helper-text');
+            
+            if (value.startsWith('/') || !isNaN(parseInt(value))) {
+                helper.textContent = 'Format CIDR détecté';
+                helper.style.color = '#22c55e';
+            } else if (value.includes('.')) {
+                helper.textContent = 'Format décimal détecté';
+                helper.style.color = '#22c55e';
+            } else if (value === '') {
+                helper.textContent = 'Tapez /24 ou 255.255.255.0';
+                helper.style.color = '#6b7280';
             } else {
-                cidrInputRow.style.display = 'none';
-                decimalInputRow.style.display = 'block';
+                helper.textContent = 'Format non reconnu';
+                helper.style.color = '#f87171';
             }
         });
 
@@ -392,10 +407,7 @@
                 this.classList.add('active');
                 
                 ipAddressInput.value = this.getAttribute('data-ip');
-                cidrInput.value = this.getAttribute('data-cidr');
-                subnetTypeSelect.value = 'cidr';
-                cidrInputRow.style.display = 'block';
-                decimalInputRow.style.display = 'none';
+                subnetInput.value = '/' + this.getAttribute('data-cidr');
                 
                 calculateNetwork();
             });

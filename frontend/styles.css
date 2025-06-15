@@ -428,144 +428,148 @@ body {
     color: white;
 }
 
-/* ==================== STYLES SPÉCIFIQUES PAGE RÉSEAU ==================== */
+/* Amélioration pour l'input de masque intelligent */
+.subnet-input-container {
+    position: relative;
+}
 
-/* Cartes d'exemples de réseaux */
+.input-helper {
+    margin-top: 4px;
+}
+
+.helper-text {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    font-style: italic;
+    transition: color 0.3s ease;
+}
+
+/* Amélioration visuelle des sections */
+.result-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px;
+    padding: 1.25rem;
+    border-left: 4px solid var(--primary-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.result-section:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Amélioration des cartes réseau */
 .network-card {
-    background-color: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 4px;
-    padding: 6px;
+    background: linear-gradient(135deg, white 0%, #f8f9fa 100%);
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 8px;
     text-align: center;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.network-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(67, 97, 238, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.network-card:hover::before {
+    left: 100%;
 }
 
 .network-card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px) scale(1.02);
     border-color: var(--primary-color);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 16px rgba(67, 97, 238, 0.2);
 }
 
 .network-card.active {
-    background-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
     color: white;
     border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(67, 97, 238, 0.3);
 }
 
-.network-name {
-    font-weight: 500;
-    font-size: 0.8rem;
-    font-family: monospace;
-}
-
-.network-type {
-    font-size: 0.7rem;
-    margin-top: 2px;
-    background-color: var(--bg-light);
-    border-radius: 8px;
-    padding: 1px 4px;
-    display: inline-block;
-}
-
-.network-card.active .network-type {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-}
-
-/* Conteneur des résultats réseau */
-.network-results {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.network-title {
-    text-align: center;
-    margin-bottom: 1rem;
-    color: var(--primary-color);
-    font-weight: 600;
-    font-size: 1.1rem;
-    padding: 8px 16px;
-    background-color: #f0f9ff;
-    border-radius: 6px;
-    border-left: 3px solid var(--primary-color);
-}
-
-/* Sections de résultats */
-.result-section {
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    padding: 1rem;
-    border-left: 4px solid var(--primary-color);
-}
-
-.result-section h4 {
-    margin-bottom: 1rem;
-    color: var(--primary-color);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 1rem;
-}
-
-/* Grille des résultats */
-.result-grid {
-    display: grid;
-    gap: 0.75rem;
-}
-
+/* Amélioration des éléments de résultat */
 .result-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem;
-    background-color: white;
-    border-radius: 4px;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, white 0%, #f8f9fa 100%);
+    border-radius: 6px;
     border: 1px solid #e5e7eb;
+    transition: all 0.2s ease;
 }
 
-.result-item .label {
-    font-weight: 500;
-    color: var(--text-dark);
-    font-size: 0.9rem;
+.result-item:hover {
+    transform: translateX(2px);
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 4px rgba(67, 97, 238, 0.1);
 }
 
 .result-item .value {
-    font-family: monospace;
-    font-weight: 600;
+    font-family: 'Courier New', monospace;
+    font-weight: 700;
     color: var(--primary-color);
     font-size: 0.9rem;
+    background-color: #f0f9ff;
+    padding: 2px 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-/* Section binaire */
-.binary-section {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+.result-item .value:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: scale(1.05);
 }
 
+/* Amélioration section binaire */
 .binary-item {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
-    padding: 0.5rem;
-    background-color: white;
-    border-radius: 4px;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, white 0%, #f8f9fa 100%);
+    border-radius: 6px;
     border: 1px solid #e5e7eb;
+    transition: all 0.2s ease;
 }
 
-.binary-label {
-    font-weight: 500;
-    color: var(--text-dark);
-    font-size: 0.85rem;
+.binary-item:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 2px 4px rgba(76, 201, 240, 0.1);
 }
 
 .binary-value {
-    font-family: monospace;
-    font-size: 0.8rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
     color: var(--primary-color);
-    letter-spacing: 1px;
+    letter-spacing: 2px;
+    background-color: #f0f9ff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    word-break: break-all;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.binary-value:hover {
+    background-color: var(--primary-color);
+    color: white;
 }
 
 /* ==================== FIN STYLES RÉSEAU ==================== */
