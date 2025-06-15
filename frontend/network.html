@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réseaux - Super Calculatrice</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="calculator-container">
+        <!-- COLONNE 1: CONTRÔLES -->
+        <div class="calculator-card">
+            <div class="calculator-header">
+                <h1>Réseaux 3000</h1>
+                <p class="tagline">Propulsée par Orktk&Co</p>
+            </div>
+
+            <div class="tab-navigation">
+                <a href="index.html" class="tab-button">
+                    <i class="fas fa-calculator"></i> Calculatrice
+                </a>
+                <a href="graph.html" class="tab-button">
+                    <i class="fas fa-chart-line"></i> Graphiques
+                </a>
+                <a href="network.html" class="tab-button active">
+                    <i class="fas fa-network-wired"></i> Réseaux
+                </a>
+            </div>
+
+            <!-- CONTRÔLES RÉSEAU -->
+            <div class="input-row">
+                <label for="ip-address">Adresse IP</label>
+                <input type="text" id="ip-address" value="192.168.1.0" placeholder="192.168.1.0">
+                <div class="usage-tips">
+                    Format: xxx.xxx.xxx.xxx (IPv4)
+                </div>
+            </div>
+
+            <div class="input-row">
+                <label for="subnet-mask">Masque de sous-réseau</label>
+                <select id="subnet-type">
+                    <option value="cidr">CIDR (/24)</option>
+                    <option value="decimal">Décimal (255.255.255.0)</option>
+                </select>
+            </div>
+
+            <div class="input-row" id="cidr-input">
+                <label for="cidr">CIDR</label>
+                <input type="number" id="cidr" value="24" min="1" max="30" placeholder="24">
+            </div>
+
+            <div class="input-row" id="decimal-input" style="display: none;">
+                <label for="decimal-mask">Masque décimal</label>
+                <input type="text" id="decimal-mask" value="255.255.255.0" placeholder="255.255.255.0">
+            </div>
+
+            <button id="calculate-network" class="calculate-btn">
+                <i class="fas fa-network-wired"></i> Calculer le réseau
+            </button>
+
+            <h3 style="margin-top: 1rem; font-size: 0.9rem;">Exemples de réseaux</h3>
+            <div class="function-examples">
+                <div class="network-card" data-ip="192.168.1.0" data-cidr="24">
+                    <div class="network-name">192.168.1.0/24</div>
+                    <div class="network-type">Réseau local</div>
+                </div>
+                <div class="network-card" data-ip="10.0.0.0" data-cidr="8">
+                    <div class="network-name">10.0.0.0/8</div>
+                    <div class="network-type">Classe A</div>
+                </div>
+                <div class="network-card" data-ip="172.16.0.0" data-cidr="12">
+                    <div class="network-name">172.16.0.0/12</div>
+                    <div class="network-type">Classe B</div>
+                </div>
+                <div class="network-card" data-ip="192.168.0.0" data-cidr="16">
+                    <div class="network-name">192.168.0.0/16</div>
+                    <div class="network-type">Privé étendu</div>
+                </div>
+                <div class="network-card" data-ip="10.10.10.0" data-cidr="26">
+                    <div class="network-name">10.10.10.0/26</div>
+                    <div class="network-type">Petit réseau</div>
+                </div>
+                <div class="network-card" data-ip="203.0.113.0" data-cidr="24">
+                    <div class="network-name">203.0.113.0/24</div>
+                    <div class="network-type">Test/Doc</div>
+                </div>
+            </div>
+
+            <!-- Status API -->
+            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb;">
+                <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Status API</h4>
+                <div class="api-status">
+                    <div class="status-indicator">
+                        <span class="status-dot" id="api-status-dot"></span>
+                        <span id="api-status" style="font-size: 0.8rem;">Vérification...</span>
+                    </div>
+                </div>
+                <div class="api-url" id="api-url-container" style="font-size: 0.7rem; margin-top: 0.5rem;">
+                    https://api-calculator.orktk.fr
+                </div>
+            </div>
+        </div>
+
+        <!-- COLONNE 2: RÉSULTATS RÉSEAU -->
+        <div class="api-info-card" style="overflow-y: auto;">
+            <div class="network-title" id="network-title">
+                Informations du réseau 192.168.1.0/24
+            </div>
+            
+            <div class="network-results" id="network-results">
+                <!-- Informations de base -->
+                <div class="result-section">
+                    <h4><i class="fas fa-info-circle"></i> Informations de base</h4>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <span class="label">Adresse réseau:</span>
+                            <span class="value" id="network-address">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Masque de sous-réseau:</span>
+                            <span class="value" id="subnet-mask-result">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Masque générique:</span>
+                            <span class="value" id="wildcard-mask">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Notation CIDR:</span>
+                            <span class="value" id="cidr-notation">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Plage d'adresses -->
+                <div class="result-section">
+                    <h4><i class="fas fa-list"></i> Plage d'adresses</h4>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <span class="label">Première adresse:</span>
+                            <span class="value" id="first-address">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Dernière adresse:</span>
+                            <span class="value" id="last-address">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Adresse de diffusion:</span>
+                            <span class="value" id="broadcast-address">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Nombre d'hôtes:</span>
+                            <span class="value" id="host-count">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Informations binaires -->
+                <div class="result-section">
+                    <h4><i class="fas fa-code"></i> Représentation binaire</h4>
+                    <div class="binary-section">
+                        <div class="binary-item">
+                            <span class="binary-label">Adresse IP:</span>
+                            <span class="binary-value" id="ip-binary">-</span>
+                        </div>
+                        <div class="binary-item">
+                            <span class="binary-label">Masque:</span>
+                            <span class="binary-value" id="mask-binary">-</span>
+                        </div>
+                        <div class="binary-item">
+                            <span class="binary-label">Réseau:</span>
+                            <span class="binary-value" id="network-binary">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Classe et type -->
+                <div class="result-section">
+                    <h4><i class="fas fa-tag"></i> Classification</h4>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <span class="label">Classe IP:</span>
+                            <span class="value" id="ip-class">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Type d'adresse:</span>
+                            <span class="value" id="ip-type">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">RFC:</span>
+                            <span class="value" id="rfc-info">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        © 2025 Calculatrice 3000 - Créée avec FastAPI
+    </footer>
+
+    <script>
+        // Configuration
+        const API_URL = 'https://api-calculator.orktk.fr';
+
+        // Éléments DOM
+        const ipAddressInput = document.getElementById('ip-address');
+        const subnetTypeSelect = document.getElementById('subnet-type');
+        const cidrInput = document.getElementById('cidr');
+        const decimalMaskInput = document.getElementById('decimal-mask');
+        const cidrInputRow = document.getElementById('cidr-input');
+        const decimalInputRow = document.getElementById('decimal-input');
+        const calculateBtn = document.getElementById('calculate-network');
+        const networkTitle = document.getElementById('network-title');
+        const apiStatusElement = document.getElementById('api-status');
+        const apiStatusDot = document.getElementById('api-status-dot');
+        const networkCards = document.querySelectorAll('.network-card');
+
+        // Éléments de résultats
+        const networkAddress = document.getElementById('network-address');
+        const subnetMaskResult = document.getElementById('subnet-mask-result');
+        const wildcardMask = document.getElementById('wildcard-mask');
+        const cidrNotation = document.getElementById('cidr-notation');
+        const firstAddress = document.getElementById('first-address');
+        const lastAddress = document.getElementById('last-address');
+        const broadcastAddress = document.getElementById('broadcast-address');
+        const hostCount = document.getElementById('host-count');
+        const ipBinary = document.getElementById('ip-binary');
+        const maskBinary = document.getElementById('mask-binary');
+        const networkBinary = document.getElementById('network-binary');
+        const ipClass = document.getElementById('ip-class');
+        const ipType = document.getElementById('ip-type');
+        const rfcInfo = document.getElementById('rfc-info');
+
+        // Fonctions utilitaires pour le calcul réseau
+        function ipToInt(ip) {
+            return ip.split('.').reduce((acc, octet) => (acc << 8) + parseInt(octet), 0) >>> 0;
+        }
+
+        function intToIp(int) {
+            return [(int >>> 24), (int >>> 16) & 255, (int >>> 8) & 255, int & 255].join('.');
+        }
+
+        function cidrToMask(cidr) {
+            const mask = (0xFFFFFFFF << (32 - cidr)) >>> 0;
+            return intToIp(mask);
+        }
+
+        function maskToCidr(mask) {
+            const maskInt = ipToInt(mask);
+            let cidr = 0;
+            for (let i = 31; i >= 0; i--) {
+                if ((maskInt >>> i) & 1) cidr++;
+                else break;
+            }
+            return cidr;
+        }
+
+        function ipToBinary(ip) {
+            return ip.split('.').map(octet => 
+                parseInt(octet).toString(2).padStart(8, '0')
+            ).join('.');
+        }
+
+        function getIpClass(ip) {
+            const firstOctet = parseInt(ip.split('.')[0]);
+            if (firstOctet >= 1 && firstOctet <= 126) return 'A';
+            if (firstOctet >= 128 && firstOctet <= 191) return 'B';
+            if (firstOctet >= 192 && firstOctet <= 223) return 'C';
+            if (firstOctet >= 224 && firstOctet <= 239) return 'D (Multicast)';
+            if (firstOctet >= 240 && firstOctet <= 255) return 'E (Réservée)';
+            return 'Invalide';
+        }
+
+        function getIpType(ip) {
+            const parts = ip.split('.').map(x => parseInt(x));
+            const [a, b, c, d] = parts;
+            
+            // Adresses privées RFC 1918
+            if (a === 10) return 'Privée (RFC 1918)';
+            if (a === 172 && b >= 16 && b <= 31) return 'Privée (RFC 1918)';
+            if (a === 192 && b === 168) return 'Privée (RFC 1918)';
+            
+            // Autres types spéciaux
+            if (a === 127) return 'Loopback (RFC 3330)';
+            if (a === 169 && b === 254) return 'Link-Local (RFC 3927)';
+            if (a >= 224 && a <= 239) return 'Multicast (RFC 3171)';
+            if (a === 203 && b === 0 && c === 113) return 'Test/Documentation (RFC 5737)';
+            
+            return 'Publique';
+        }
+
+        function getRfcInfo(ip) {
+            const type = getIpType(ip);
+            if (type.includes('RFC 1918')) return 'RFC 1918 - Adresses privées';
+            if (type.includes('RFC 3330')) return 'RFC 3330 - Adresse de bouclage';
+            if (type.includes('RFC 3927')) return 'RFC 3927 - Auto-configuration';
+            if (type.includes('RFC 3171')) return 'RFC 3171 - Multicast';
+            if (type.includes('RFC 5737')) return 'RFC 5737 - Documentation';
+            return 'RFC 791 - Internet Protocol';
+        }
+
+        function validateIp(ip) {
+            const regex = /^(\d{1,3}\.){3}\d{1,3}$/;
+            if (!regex.test(ip)) return false;
+            
+            const parts = ip.split('.').map(x => parseInt(x));
+            return parts.every(part => part >= 0 && part <= 255);
+        }
+
+        function calculateNetwork() {
+            const ip = ipAddressInput.value.trim();
+            let mask, cidr;
+            
+            // Validation de l'IP
+            if (!validateIp(ip)) {
+                showNotification('Adresse IP invalide', 'error');
+                return;
+            }
+            
+            // Récupération du masque selon le type sélectionné
+            if (subnetTypeSelect.value === 'cidr') {
+                cidr = parseInt(cidrInput.value);
+                if (cidr < 1 || cidr > 30) {
+                    showNotification('CIDR doit être entre 1 et 30', 'error');
+                    return;
+                }
+                mask = cidrToMask(cidr);
+            } else {
+                mask = decimalMaskInput.value.trim();
+                if (!validateIp(mask)) {
+                    showNotification('Masque de sous-réseau invalide', 'error');
+                    return;
+                }
+                cidr = maskToCidr(mask);
+            }
+            
+            // Calculs réseau
+            const ipInt = ipToInt(ip);
+            const maskInt = ipToInt(mask);
+            const networkInt = ipInt & maskInt;
+            const broadcastInt = networkInt | (~maskInt >>> 0);
+            const wildcardInt = ~maskInt >>> 0;
+            
+            const networkAddr = intToIp(networkInt);
+            const broadcastAddr = intToIp(broadcastInt);
+            const wildcardAddr = intToIp(wildcardInt);
+            const firstHost = intToIp(networkInt + 1);
+            const lastHost = intToIp(broadcastInt - 1);
+            const totalHosts = broadcastInt - networkInt - 1;
+            
+            // Mise à jour de l'affichage
+            networkTitle.textContent = `Informations du réseau ${networkAddr}/${cidr}`;
+            
+            networkAddress.textContent = networkAddr;
+            subnetMaskResult.textContent = mask;
+            wildcardMask.textContent = wildcardAddr;
+            cidrNotation.textContent = `/${cidr}`;
+            
+            firstAddress.textContent = firstHost;
+            lastAddress.textContent = lastHost;
+            broadcastAddress.textContent = broadcastAddr;
+            hostCount.textContent = totalHosts.toLocaleString();
+            
+            ipBinary.textContent = ipToBinary(ip);
+            maskBinary.textContent = ipToBinary(mask);
+            networkBinary.textContent = ipToBinary(networkAddr);
+            
+            ipClass.textContent = getIpClass(ip);
+            ipType.textContent = getIpType(ip);
+            rfcInfo.textContent = getRfcInfo(ip);
+            
+            showNotification('Calcul effectué avec succès !', 'success');
+        }
+
+        // Gestion du changement de type de masque
+        subnetTypeSelect.addEventListener('change', function() {
+            if (this.value === 'cidr') {
+                cidrInputRow.style.display = 'block';
+                decimalInputRow.style.display = 'none';
+            } else {
+                cidrInputRow.style.display = 'none';
+                decimalInputRow.style.display = 'block';
+            }
+        });
+
+        // Événements pour les cartes d'exemples
+        networkCards.forEach(card => {
+            card.addEventListener('click', function() {
+                networkCards.forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                
+                ipAddressInput.value = this.getAttribute('data-ip');
+                cidrInput.value = this.getAttribute('data-cidr');
+                subnetTypeSelect.value = 'cidr';
+                cidrInputRow.style.display = 'block';
+                decimalInputRow.style.display = 'none';
+                
+                calculateNetwork();
+            });
+        });
+
+        // Vérification API
+        async function checkApiStatus() {
+            try {
+                const response = await fetch(`${API_URL}/docs`, { method: 'GET' });
+                if (response.ok) {
+                    apiStatusElement.textContent = 'En ligne';
+                    apiStatusDot.classList.add('online');
+                    apiStatusDot.classList.remove('offline');
+                } else {
+                    throw new Error('Réponse invalide');
+                }
+            } catch (error) {
+                apiStatusElement.textContent = 'Hors ligne';
+                apiStatusDot.classList.add('offline');
+                apiStatusDot.classList.remove('online');
+            }
+        }
+
+        // Fonction de notification
+        function showNotification(message, type = 'info') {
+            document.querySelectorAll('.notification').forEach(n => n.remove());
+
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            
+            const icon = type === 'success' ? 'fas fa-check-circle' : 
+                        type === 'error' ? 'fas fa-exclamation-triangle' : 
+                        'fas fa-info-circle';
+            
+            notification.innerHTML = `
+                <i class="${icon}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideInRight 0.3s ease-out reverse';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 4000);
+        }
+
+        // Initialisation
+        function init() {
+            checkApiStatus();
+            
+            calculateBtn.addEventListener('click', calculateNetwork);
+            
+            // Calcul initial
+            setTimeout(calculateNetwork, 500);
+        }
+
+        // Démarrage
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    </script>
+</body>
+</html>
