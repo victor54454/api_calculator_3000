@@ -86,26 +86,44 @@ body {
     }
 }
 
-/* Cartes de contenu - Optimisées pour ne pas déborder */
+/* Cartes de contenu - Hauteurs adaptées selon la page */
 .calculator-card, .api-info-card {
     background-color: var(--bg-white);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lg);
-    padding: 1.25rem;
+    padding: 1rem;
     transition: var(--transition);
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 100px); /* Hauteur calculée pour tenir dans l'écran */
-    max-height: calc(100vh - 100px);
+    height: calc(100vh - 100px); /* Hauteur par défaut pour calculatrice */
 }
 
 @media (min-width: 768px) {
     .calculator-card, .api-info-card {
         padding: 1.5rem;
-        height: calc(100vh - 120px); /* Ajusté pour desktop */
-        max-height: calc(100vh - 120px);
     }
+}
+
+/* Hauteurs spécifiques pour la page réseau */
+.network-page .calculator-card, 
+.network-page .api-info-card {
+    height: calc(100vh - 120px);
+    padding: 1.25rem;
+}
+
+@media (min-width: 768px) {
+    .network-page .calculator-card, 
+    .network-page .api-info-card {
+        padding: 1.5rem;
+        height: calc(100vh - 120px);
+    }
+}
+
+/* Hauteurs spécifiques pour la page graphiques */
+.graph-page .calculator-card, 
+.graph-page .api-info-card {
+    height: calc(100vh - 100px);
 }
 
 .calculator-card:hover, .api-info-card:hover {
