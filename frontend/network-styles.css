@@ -1,0 +1,224 @@
+/* network-styles.css - Styles dédiés uniquement à la page réseau */
+
+/* Layout spécifique pour la page réseau */
+.calculator-container {
+    max-width: 1600px; /* Plus large pour la page réseau */
+    grid-template-columns: 1fr; /* Mobile first */
+}
+
+@media (min-width: 768px) {
+    .calculator-container {
+        grid-template-columns: 500px 1fr; /* Colonne gauche beaucoup plus large */
+        gap: 1.5rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .calculator-container {
+        grid-template-columns: 600px 1fr; /* Encore plus large sur grands écrans */
+        gap: 2rem;
+    }
+}
+
+/* Cartes avec plus d'espace */
+.calculator-card, .api-info-card {
+    padding: 2rem;
+    height: calc(100vh - 120px);
+}
+
+/* Formulaires plus spacieux */
+.input-row {
+    margin-bottom: 1.5rem;
+}
+
+.input-row label {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+.input-row input, .input-row select {
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+    min-height: 50px;
+    border-radius: 10px;
+}
+
+/* Bouton calculer plus grand */
+.calculate-btn {
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    margin: 1.5rem 0;
+}
+
+/* Exemples de réseaux plus grands */
+.function-examples {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.network-card {
+    padding: 1rem;
+    min-height: 80px;
+    border-radius: 12px;
+    border: 2px solid #e5e7eb;
+}
+
+.network-name {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.network-type {
+    font-size: 0.8rem;
+    padding: 3px 8px;
+}
+
+/* Titre du réseau plus visible */
+.network-title {
+    font-size: 1.4rem;
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+    border-radius: 15px;
+}
+
+/* Sections de résultats spacieuses */
+.result-section {
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    border-left: 6px solid var(--primary-color);
+}
+
+.result-section h4 {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+/* Éléments de résultat très lisibles */
+.result-item {
+    padding: 1.5rem 2rem;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    min-height: 80px;
+    border: 2px solid #e2e8f0;
+}
+
+.result-item .label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.result-item .value {
+    font-size: 1.2rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    min-width: 180px;
+    font-weight: 700;
+}
+
+/* Section binaire très spacieuse */
+.binary-item {
+    padding: 2rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    min-height: 100px;
+    border: 2px solid #e2e8f0;
+}
+
+.binary-label {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.binary-value {
+    font-size: 1rem;
+    letter-spacing: 3px;
+    line-height: 1.6;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    border: 2px solid #dbeafe;
+}
+
+/* Helper text plus visible */
+.helper-text {
+    font-size: 0.9rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin-top: 0.75rem;
+}
+
+/* Status API */
+.api-status {
+    margin: 2rem 0;
+}
+
+.status-indicator {
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.api-url {
+    font-size: 0.9rem;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+/* Responsivité mobile améliorée */
+@media (max-width: 767px) {
+    .calculator-card, .api-info-card {
+        padding: 1.5rem;
+        height: calc(100vh - 100px);
+    }
+    
+    .result-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.25rem;
+        min-height: 90px;
+    }
+    
+    .result-item .value {
+        width: 100%;
+        text-align: center;
+        margin-top: 0.75rem;
+        min-width: auto;
+    }
+    
+    .binary-value {
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+    }
+    
+    .function-examples {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 0.75rem;
+    }
+    
+    .network-card {
+        padding: 0.75rem;
+        min-height: 70px;
+    }
+    
+    .network-name {
+        font-size: 0.9rem;
+    }
+    
+    .network-type {
+        font-size: 0.75rem;
+    }
+    
+    .result-section {
+        padding: 1.5rem;
+    }
+    
+    .binary-item {
+        padding: 1.5rem;
+    }
+}
