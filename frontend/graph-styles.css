@@ -1,0 +1,314 @@
+/* graph-styles.css - Styles dédiés uniquement à la page graphiques */
+
+/* Layout spécifique pour la page graphiques */
+.calculator-container {
+    max-width: none; /* Pleine largeur pour les graphiques */
+    width: 100%;
+    padding: 0.5rem;
+    gap: 0.75rem;
+    grid-template-columns: 1fr; /* Mobile first */
+}
+
+@media (min-width: 768px) {
+    .calculator-container {
+        grid-template-columns: 320px 1fr; /* Colonne gauche optimisée + graphique */
+        padding: 1rem;
+        gap: 1rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .calculator-container {
+        grid-template-columns: 350px 1fr; /* Plus d'espace pour les contrôles sur grands écrans */
+        gap: 1.5rem;
+    }
+}
+
+/* Cartes optimisées pour les graphiques */
+.calculator-card, .api-info-card {
+    height: calc(100vh - 100px);
+    padding: 1.25rem;
+}
+
+@media (min-width: 768px) {
+    .calculator-card {
+        padding: 1.5rem;
+        height: calc(100vh - 120px);
+    }
+    
+    .api-info-card {
+        padding: 1rem;
+        height: calc(100vh - 120px);
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+/* Formulaires pour contrôles graphiques */
+.input-row {
+    margin-bottom: 1rem;
+}
+
+.input-row label {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.input-row input {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    border: 2px solid #e5e7eb;
+    min-height: 42px;
+}
+
+.input-row input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+}
+
+/* Bouton tracer le graphique */
+.plot-btn {
+    padding: 0.875rem 1.25rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    margin: 1.25rem 0;
+    background-color: var(--success-color);
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.plot-btn:hover {
+    background-color: #22c55e;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+
+/* Titre du graphique */
+.graph-title {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 8px 16px;
+    background-color: #f0f9ff;
+    border-radius: 6px;
+    border-left: 3px solid var(--primary-color);
+    flex-shrink: 0;
+}
+
+/* Container du graphique */
+.api-info-card {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Canvas du graphique - Optimisé pour prendre tout l'espace */
+#graph-canvas {
+    width: 100% !important;
+    flex: 1 !important;
+    min-height: 400px !important;
+}
+
+@media (min-width: 768px) {
+    #graph-canvas {
+        height: calc(100vh - 220px) !important;
+        min-height: 500px !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    #graph-canvas {
+        height: calc(100vh - 200px) !important;
+        min-height: 600px !important;
+    }
+}
+
+/* Exemples d'expressions - Optimisés pour la page graphiques */
+.function-examples {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+    gap: 6px;
+    margin-top: 1rem;
+    max-height: 200px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.function-card {
+    background-color: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 8px 4px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.function-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(67, 97, 238, 0.15);
+}
+
+.function-card.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    transform: translateY(-1px);
+}
+
+.function-name {
+    font-weight: 500;
+    font-size: 0.8rem;
+    margin-bottom: 2px;
+}
+
+.function-type {
+    font-size: 0.65rem;
+    background-color: var(--bg-light);
+    border-radius: 8px;
+    padding: 1px 4px;
+    display: inline-block;
+}
+
+.function-card.active .function-type {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+/* Astuces d'utilisation */
+.usage-tips {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-top: 6px;
+    padding: 6px 8px;
+    background-color: #f0f9ff;
+    border-left: 2px solid var(--accent-color);
+    border-radius: 3px;
+    font-style: italic;
+}
+
+/* Section Status API */
+.api-status {
+    margin: 1.5rem 0 1rem 0;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #9ca3af;
+}
+
+.status-dot.online {
+    background-color: var(--success-color);
+    box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.2);
+}
+
+.status-dot.offline {
+    background-color: var(--danger-color);
+    box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.2);
+}
+
+.api-url {
+    color: var(--primary-color);
+    font-family: monospace;
+    font-size: 0.7rem;
+    padding: 0.5rem;
+    background-color: var(--bg-light);
+    border-radius: var(--radius);
+    word-break: break-all;
+    margin-top: 0.5rem;
+}
+
+/* Optimisations mobile pour graphiques */
+@media (max-width: 767px) {
+    .calculator-container {
+        padding: 0.5rem;
+        gap: 0.5rem;
+        grid-template-columns: 1fr;
+    }
+    
+    .calculator-card, .api-info-card {
+        padding: 1rem;
+        height: calc(50vh - 50px); /* Divise l'écran en 2 sur mobile */
+    }
+    
+    .api-info-card {
+        height: calc(50vh - 30px);
+    }
+    
+    #graph-canvas {
+        min-height: 300px !important;
+        height: calc(50vh - 100px) !important;
+    }
+    
+    .function-examples {
+        grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+        gap: 4px;
+        max-height: 120px;
+    }
+    
+    .function-name {
+        font-size: 0.7rem;
+    }
+    
+    .function-type {
+        font-size: 0.6rem;
+    }
+    
+    .graph-title {
+        font-size: 1rem;
+        padding: 6px 12px;
+    }
+    
+    .plot-btn {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+        margin: 1rem 0;
+    }
+}
+
+/* Scrollbar personnalisée pour les exemples */
+.function-examples::-webkit-scrollbar {
+    width: 4px;
+}
+
+.function-examples::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.function-examples::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+.function-examples::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
+}

@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Graphiques - Super Calculatrice</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="graph-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="calculator-container graph-page">
+    <div class="calculator-container">
         <!-- COLONNE 1: CONTRÔLES -->
         <div class="calculator-card">
             <div class="calculator-header">
@@ -18,16 +19,16 @@
             </div>
 
             <div class="tab-navigation">
-                <a href="index.html" class="tab-button active">
+                <a href="index.html" class="tab-button">
                     <i class="fas fa-calculator"></i> Calculatrice
                 </a>
-                <a href="graph.html" class="tab-button">
+                <a href="graph.html" class="tab-button active">
                     <i class="fas fa-chart-line"></i> Graphiques
                 </a>
                 <a href="network.html" class="tab-button">
                     <i class="fas fa-network-wired"></i> Réseaux
                 </a>
-            </div>>
+            </div>
 
             <!-- CONTRÔLES SEULEMENT -->
             <div class="input-row">
@@ -142,29 +143,25 @@
             </div>
 
             <!-- Status API -->
-            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb;">
+            <div class="api-status">
                 <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Status API</h4>
-                <div class="api-status">
-                    <div class="status-indicator">
-                        <span class="status-dot" id="api-status-dot"></span>
-                        <span id="api-status" style="font-size: 0.8rem;">Vérification...</span>
-                    </div>
+                <div class="status-indicator">
+                    <span class="status-dot" id="api-status-dot"></span>
+                    <span id="api-status" style="font-size: 0.8rem;">Vérification...</span>
                 </div>
-                <div class="api-url" id="api-url-container" style="font-size: 0.7rem; margin-top: 0.5rem;">
+                <div class="api-url" id="api-url-container">
                     https://api-calculator.orktk.fr
                 </div>
             </div>
         </div>
 
         <!-- COLONNE 2: GRAPHIQUE SEULEMENT -->
-        <div class="api-info-card" style="display: flex; flex-direction: column;">
-            <div class="graph-title" id="graph-title" style="text-align: center; margin-bottom: 1rem; color: var(--primary-color); font-weight: 600; font-size: 1.1rem; padding: 8px 16px; background-color: #f0f9ff; border-radius: 6px; border-left: 3px solid var(--primary-color);">
+        <div class="api-info-card">
+            <div class="graph-title" id="graph-title">
                 Graphique de f(x) = x²
             </div>
             
-            <div style="flex: 1; min-height: 400px; position: relative;">
-                <canvas id="graph-canvas" style="width: 100% !important; height: 100% !important;"></canvas>
-            </div>
+            <canvas id="graph-canvas"></canvas>
         </div>
     </div>
 
