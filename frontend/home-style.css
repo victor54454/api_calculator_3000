@@ -49,11 +49,11 @@ body::before {
     margin-bottom: 2rem;
 }
 
-/* TON LOGO COMME DANS TON IMAGE */
+/* TON LOGO AVEC VRAIE IMAGE */
 .logo-icon {
     width: 120px;
     height: 120px;
-    background: linear-gradient(135deg, #4cc9f0 0%, #00d4ff 100%);
+    background: transparent;
     border-radius: 28px;
     display: flex;
     align-items: center;
@@ -64,6 +64,17 @@ body::before {
     position: relative;
     overflow: hidden;
     animation: float 4s ease-in-out infinite;
+    padding: 10px;
+}
+
+/* Image du logo */
+.logo-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 20px;
+    z-index: 2;
+    position: relative;
 }
 
 /* Animation flottante */
@@ -72,7 +83,13 @@ body::before {
     50% { transform: translateY(-10px); }
 }
 
-/* Effet de brillance */
+/* Animation brillance */
+@keyframes shine {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+/* Effet de brillance derrière l'image */
 .logo-icon::before {
     content: '';
     position: absolute;
@@ -83,44 +100,12 @@ body::before {
     background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
     transform: rotate(45deg);
     animation: shine 4s infinite;
-}
-
-@keyframes shine {
-    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-}
-
-/* VRAIE CALCULATRICE COMME TON LOGO */
-.logo-icon::after {
-    content: '';
-    position: absolute;
-    width: 80%;
-    height: 80%;
-    background: 
-        /* Symbole + */
-        linear-gradient(90deg, transparent 45%, #1e293b 45%, #1e293b 55%, transparent 55%),
-        linear-gradient(0deg, transparent 45%, #1e293b 45%, #1e293b 55%, transparent 55%),
-        /* Symbole - */
-        linear-gradient(90deg, transparent 15%, #1e293b 15%, #1e293b 25%, transparent 25%),
-        /* Symbole × */
-        linear-gradient(45deg, transparent 65%, #1e293b 65%, #1e293b 75%, transparent 75%),
-        linear-gradient(-45deg, transparent 65%, #1e293b 65%, #1e293b 75%, transparent 75%),
-        /* Symbole ÷ avec points */
-        radial-gradient(circle at 85% 15%, #1e293b 2px, transparent 2px),
-        linear-gradient(90deg, transparent 75%, #1e293b 75%, #1e293b 85%, transparent 85%),
-        radial-gradient(circle at 85% 35%, #1e293b 2px, transparent 2px);
-    background-size: 
-        30px 30px, 30px 30px,
-        20px 5px,
-        25px 25px, 25px 25px,
-        10px 10px, 15px 3px, 10px 10px;
-    background-position:
-        10% 25%, 10% 25%,
-        60% 25%,
-        10% 65%, 10% 65%,
-        75% 15%, 75% 25%, 75% 35%;
-    background-repeat: no-repeat;
     z-index: 1;
+}
+
+/* Supprimer le pseudo-élément after car on utilise la vraie image */
+.logo-icon::after {
+    display: none;
 }
 
 .logo-icon i {
