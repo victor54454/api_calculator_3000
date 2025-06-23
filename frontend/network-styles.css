@@ -1,224 +1,361 @@
-/* network-styles.css - Styles dédiés uniquement à la page réseau */
+/* network-styles.css - Styles dédiés uniquement à la page réseau - VERSION CORRIGÉE */
 
 /* Layout spécifique pour la page réseau */
 .calculator-container {
-    max-width: 1600px; /* Plus large pour la page réseau */
+    max-width: 1400px; /* Réduit pour plus de cohérence */
     grid-template-columns: 1fr; /* Mobile first */
 }
 
 @media (min-width: 768px) {
     .calculator-container {
-        grid-template-columns: 500px 1fr; /* Colonne gauche beaucoup plus large */
-        gap: 1.5rem;
+        grid-template-columns: 380px 1fr; /* Réduit - plus cohérent */
+        gap: 1rem; /* Cohérent avec les autres pages */
     }
 }
 
 @media (min-width: 1200px) {
     .calculator-container {
-        grid-template-columns: 600px 1fr; /* Encore plus large sur grands écrans */
-        gap: 2rem;
+        grid-template-columns: 420px 1fr; /* Réduit - plus raisonnable */
+        gap: 1.5rem;
     }
 }
 
-/* Cartes avec plus d'espace */
+/* Cartes avec espacement cohérent */
 .calculator-card, .api-info-card {
-    padding: 2rem;
-    height: calc(100vh - 120px);
+    padding: 1rem; /* Cohérent avec les autres pages */
+    height: calc(100vh - 100px);
 }
 
-/* Formulaires plus spacieux */
+@media (min-width: 768px) {
+    .calculator-card, .api-info-card {
+        padding: 1.5rem; /* Cohérent avec les autres pages */
+        height: calc(100vh - 120px);
+    }
+}
+
+/* Formulaires cohérents */
 .input-row {
-    margin-bottom: 1.5rem;
+    margin-bottom: 12px; /* Cohérent avec la page principale */
 }
 
 .input-row label {
-    font-size: 1rem;
-    margin-bottom: 0.75rem;
-    font-weight: 600;
+    font-size: 0.85rem; /* Cohérent avec la page principale */
+    margin-bottom: 4px; /* Cohérent avec la page principale */
+    font-weight: 500; /* Cohérent avec la page principale */
+    display: block;
+    color: var(--text-dark);
 }
 
 .input-row input, .input-row select {
-    padding: 1rem 1.25rem;
-    font-size: 1rem;
-    min-height: 50px;
-    border-radius: 10px;
+    padding: 8px 12px; /* Cohérent avec la page principale */
+    font-size: 0.9rem; /* Cohérent avec la page principale */
+    border-radius: 6px; /* Cohérent avec la page principale */
+    border: 1px solid #e5e7eb; /* Cohérent avec la page principale */
+    width: 100%;
+    background-color: var(--bg-white);
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
 }
 
-/* Bouton calculer plus grand */
+.input-row input:focus, .input-row select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.1);
+    outline: none;
+}
+
+/* Container pour le masque avec helper */
+.subnet-input-container {
+    position: relative;
+}
+
+.input-helper {
+    margin-top: 4px;
+}
+
+/* Bouton calculer cohérent */
 .calculate-btn {
-    padding: 1rem 1.5rem;
-    font-size: 1.1rem;
-    border-radius: 10px;
-    margin: 1.5rem 0;
+    background-color: var(--success-color);
+    color: white;
+    border: none;
+    border-radius: 6px; /* Cohérent avec la page principale */
+    padding: 10px; /* Cohérent avec la page principale */
+    font-size: 0.9rem; /* Cohérent avec la page principale */
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px; /* Cohérent avec la page principale */
+    transition: var(--transition);
+    margin: 15px 0; /* Cohérent avec la page principale */
 }
 
-/* Exemples de réseaux plus grands */
+.calculate-btn:hover {
+    background-color: #22c55e;
+}
+
+/* Exemples de réseaux cohérents */
 .function-examples {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 1rem;
-    margin-top: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); /* Réduit */
+    gap: 6px; /* Réduit */
+    margin-top: 0.75rem; /* Cohérent */
 }
 
 .network-card {
-    padding: 1rem;
-    min-height: 80px;
-    border-radius: 12px;
-    border: 2px solid #e5e7eb;
+    padding: 8px; /* Réduit */
+    min-height: 60px; /* Réduit */
+    border-radius: 6px; /* Cohérent */
+    border: 1px solid #e5e7eb; /* Cohérent */
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.network-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(67, 97, 238, 0.15);
+}
+
+.network-card.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    transform: translateY(-1px);
 }
 
 .network-name {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
+    font-size: 0.8rem; /* Réduit */
+    margin-bottom: 4px; /* Réduit */
+    font-weight: 500;
 }
 
 .network-type {
-    font-size: 0.8rem;
-    padding: 3px 8px;
+    font-size: 0.7rem; /* Réduit */
+    padding: 2px 6px; /* Réduit */
+    background-color: var(--bg-light);
+    border-radius: 8px;
+    display: inline-block;
 }
 
-/* Titre du réseau plus visible */
+.network-card.active .network-type {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+/* Titre du réseau cohérent */
 .network-title {
-    font-size: 1.4rem;
-    padding: 1.5rem 2rem;
-    margin-bottom: 2rem;
-    border-radius: 15px;
+    font-size: 1.1rem; /* Réduit */
+    padding: 12px 16px; /* Réduit */
+    margin-bottom: 1rem; /* Réduit */
+    border-radius: 6px; /* Cohérent */
+    text-align: center;
+    color: var(--primary-color);
+    font-weight: 600;
+    background-color: #f0f9ff;
+    border-left: 3px solid var(--primary-color);
+    flex-shrink: 0;
 }
 
-/* Sections de résultats spacieuses */
+/* Sections de résultats cohérentes */
 .result-section {
-    padding: 2rem;
-    border-radius: 15px;
-    margin-bottom: 2rem;
-    border-left: 6px solid var(--primary-color);
+    padding: 1rem; /* Réduit */
+    border-radius: 6px; /* Cohérent */
+    margin-bottom: 1rem; /* Réduit */
+    border-left: 3px solid var(--primary-color); /* Réduit */
+    background-color: #f9fafb;
 }
 
 .result-section h4 {
-    font-size: 1.3rem;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid #e2e8f0;
+    font-size: 1rem; /* Réduit */
+    margin-bottom: 0.75rem; /* Réduit */
+    padding-bottom: 0.5rem; /* Réduit */
+    border-bottom: 1px solid #e2e8f0; /* Réduit */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-dark);
 }
 
-/* Éléments de résultat très lisibles */
+/* Grille de résultats */
+.result-grid {
+    display: grid;
+    gap: 0.75rem; /* Réduit */
+}
+
+/* Éléments de résultat cohérents */
 .result-item {
-    padding: 1.5rem 2rem;
-    margin-bottom: 1rem;
-    border-radius: 12px;
-    min-height: 80px;
-    border: 2px solid #e2e8f0;
+    padding: 0.75rem 1rem; /* Réduit */
+    margin-bottom: 0; /* Supprimé la marge */
+    border-radius: 6px; /* Cohérent */
+    border: 1px solid #e2e8f0; /* Réduit */
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: auto; /* Supprimé la hauteur minimale */
 }
 
 .result-item .label {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
+    font-size: 0.85rem; /* Réduit */
+    font-weight: 500; /* Réduit */
+    color: var(--text-dark);
 }
 
 .result-item .value {
-    font-size: 1.2rem;
-    padding: 0.75rem 1.5rem;
-    border-radius: 10px;
-    min-width: 180px;
-    font-weight: 700;
+    font-size: 0.9rem; /* Réduit */
+    padding: 4px 8px; /* Réduit */
+    border-radius: 4px; /* Réduit */
+    background-color: var(--bg-light);
+    font-weight: 600; /* Réduit */
+    font-family: monospace;
+    color: var(--primary-color);
 }
 
-/* Section binaire très spacieuse */
+/* Section binaire cohérente */
+.binary-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem; /* Réduit */
+}
+
 .binary-item {
-    padding: 2rem;
-    border-radius: 12px;
-    margin-bottom: 1rem;
-    min-height: 100px;
-    border: 2px solid #e2e8f0;
+    padding: 1rem; /* Réduit */
+    border-radius: 6px; /* Cohérent */
+    margin-bottom: 0; /* Supprimé */
+    border: 1px solid #e2e8f0; /* Réduit */
+    background-color: white;
 }
 
 .binary-label {
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-    font-weight: 600;
+    font-size: 0.85rem; /* Réduit */
+    margin-bottom: 0.5rem; /* Réduit */
+    font-weight: 500; /* Réduit */
+    color: var(--text-dark);
+    display: block;
 }
 
 .binary-value {
-    font-size: 1rem;
-    letter-spacing: 3px;
-    line-height: 1.6;
-    padding: 1rem 1.5rem;
-    border-radius: 10px;
-    border: 2px solid #dbeafe;
+    font-size: 0.8rem; /* Réduit */
+    letter-spacing: 1px; /* Réduit */
+    line-height: 1.4; /* Réduit */
+    padding: 8px 12px; /* Réduit */
+    border-radius: 4px; /* Réduit */
+    border: 1px solid #dbeafe; /* Réduit */
+    background-color: #f0f9ff;
+    font-family: monospace;
+    color: var(--primary-color);
+    word-break: break-all;
 }
 
-/* Helper text plus visible */
+/* Helper text cohérent */
 .helper-text {
-    font-size: 0.9rem;
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    margin-top: 0.75rem;
+    font-size: 0.75rem;
+    color: var(--text-light);
+    padding: 4px 8px; /* Réduit */
+    background-color: #f0f9ff;
+    border-left: 2px solid var(--accent-color);
+    border-radius: 3px;
+    font-style: italic;
 }
 
-/* Status API */
+/* Status API cohérent */
 .api-status {
-    margin: 2rem 0;
+    margin: 1rem 0; /* Cohérent */
 }
 
 .status-indicator {
-    gap: 1rem;
-    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #9ca3af;
+}
+
+.status-dot.online {
+    background-color: var(--success-color);
+    box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.2);
+}
+
+.status-dot.offline {
+    background-color: var(--danger-color);
+    box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.2);
 }
 
 .api-url {
-    font-size: 0.9rem;
-    padding: 1rem;
-    border-radius: 8px;
+    color: var(--primary-color);
+    font-family: monospace;
+    font-size: 0.8rem; /* Cohérent */
+    padding: 0.5rem;
+    background-color: var(--bg-light);
+    border-radius: var(--radius);
+    word-break: break-all;
 }
 
-/* Responsivité mobile améliorée */
+/* Responsivité mobile cohérente */
 @media (max-width: 767px) {
     .calculator-card, .api-info-card {
-        padding: 1.5rem;
+        padding: 0.75rem; /* Cohérent */
         height: calc(100vh - 100px);
     }
     
     .result-item {
         flex-direction: column;
         align-items: flex-start;
-        padding: 1.25rem;
-        min-height: 90px;
+        padding: 0.75rem; /* Réduit */
+        gap: 0.5rem;
     }
     
     .result-item .value {
         width: 100%;
         text-align: center;
-        margin-top: 0.75rem;
-        min-width: auto;
+        font-size: 0.85rem; /* Réduit */
     }
     
     .binary-value {
-        font-size: 0.9rem;
-        letter-spacing: 2px;
+        font-size: 0.75rem; /* Réduit */
+        letter-spacing: 0.5px; /* Réduit */
     }
     
     .function-examples {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-        gap: 0.75rem;
+        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); /* Réduit */
+        gap: 4px; /* Réduit */
     }
     
     .network-card {
-        padding: 0.75rem;
-        min-height: 70px;
+        padding: 6px; /* Réduit */
+        min-height: 50px; /* Réduit */
     }
     
     .network-name {
-        font-size: 0.9rem;
+        font-size: 0.75rem; /* Réduit */
     }
     
     .network-type {
-        font-size: 0.75rem;
+        font-size: 0.65rem; /* Réduit */
     }
     
     .result-section {
-        padding: 1.5rem;
+        padding: 0.75rem; /* Réduit */
     }
     
     .binary-item {
-        padding: 1.5rem;
+        padding: 0.75rem; /* Réduit */
+    }
+    
+    .network-title {
+        font-size: 1rem; /* Réduit */
+        padding: 8px 12px; /* Réduit */
     }
 }
