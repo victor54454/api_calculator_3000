@@ -24,23 +24,26 @@
     }
 }
 
-/* Cartes optimisées pour les graphiques */
+/* Cartes optimisées pour les graphiques - SCROLL AJOUTÉ */
 .calculator-card, .api-info-card {
     height: calc(100vh - 100px);
-    padding: 1rem; /* Cohérent avec la page principale */
+    padding: 1rem;
+    overflow-y: auto; /* AJOUTÉ pour permettre le scroll dans la colonne gauche */
 }
 
 @media (min-width: 768px) {
     .calculator-card {
-        padding: 1.5rem; /* Cohérent avec la page principale */
+        padding: 1.5rem;
         height: calc(100vh - 120px);
+        overflow-y: auto; /* AJOUTÉ */
     }
     
     .api-info-card {
-        padding: 1.5rem; /* Cohérent avec la page principale */
+        padding: 1.5rem;
         height: calc(100vh - 120px);
         display: flex;
         flex-direction: column;
+        overflow: hidden; /* Pour que le graphique ne déborde pas */
     }
 }
 
@@ -117,50 +120,53 @@
     flex-direction: column;
 }
 
-/* Canvas du graphique - Optimisé pour prendre tout l'espace */
+/* Canvas du graphique - CORRIGÉ POUR ÉVITER LE DÉBORDEMENT */
 #graph-canvas {
     width: 100% !important;
     flex: 1 !important;
-    min-height: 400px !important;
+    min-height: 300px !important;
+    max-width: 100% !important; /* AJOUTÉ pour éviter le débordement */
 }
 
 @media (min-width: 768px) {
     #graph-canvas {
-        height: calc(100vh - 220px) !important;
-        min-height: 500px !important;
+        height: calc(100vh - 280px) !important; /* Plus de marge pour éviter débordement */
+        min-height: 400px !important;
+        max-width: 100% !important; /* AJOUTÉ */
     }
 }
 
 @media (min-width: 1200px) {
     #graph-canvas {
-        height: calc(100vh - 200px) !important;
-        min-height: 600px !important;
+        height: calc(100vh - 260px) !important; /* Ajusté */
+        min-height: 500px !important;
+        max-width: 100% !important; /* AJOUTÉ */
     }
 }
 
-/* Exemples d'expressions - CORRIGÉ ET VISIBLE */
+/* Exemples d'expressions - VRAIMENT VISIBLE MAINTENANT */
 .function-examples {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(75px, 1fr)); /* Plus petit */
-    gap: 4px; /* Plus petit */
-    margin-top: 0.75rem; /* Réduit */
-    max-height: 140px; /* Réduit mais visible */
+    grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+    gap: 6px;
+    margin-top: 0.75rem;
+    height: 200px; /* HAUTEUR FIXE au lieu de max-height */
     overflow-y: auto;
-    padding-right: 4px;
-    border: 1px solid #e5e7eb; /* Ajouté pour la visibilité */
+    border: 2px solid #e5e7eb; /* Bordure plus visible */
     border-radius: 6px;
-    padding: 8px; /* Ajouté */
+    padding: 10px;
+    background-color: #fafafa; /* Fond visible */
 }
 
 .function-card {
     background-color: white;
     border: 1px solid #e5e7eb;
     border-radius: 6px;
-    padding: 6px 4px; /* Réduit */
+    padding: 8px 6px; /* Augmenté */
     text-align: center;
     cursor: pointer;
     transition: all 0.2s ease;
-    min-height: 50px; /* Réduit */
+    min-height: 65px; /* Augmenté pour être visible */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -275,10 +281,12 @@
     }
     
     .function-examples {
-        grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
-        gap: 3px;
-        max-height: 100px; /* Réduit sur mobile */
-        padding: 6px;
+        grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+        gap: 4px;
+        height: 150px; /* HAUTEUR FIXE même sur mobile */
+        padding: 8px;
+        border: 2px solid #e5e7eb; /* Bordure visible */
+        background-color: #fafafa;
     }
     
     .function-name {
