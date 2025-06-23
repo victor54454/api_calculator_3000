@@ -2,7 +2,7 @@
 
 /* Layout spécifique pour la page graphiques */
 .calculator-container {
-    max-width: none; /* Pleine largeur pour les graphiques */
+    max-width: none;
     width: 100%;
     padding: 0.5rem;
     gap: 0.75rem;
@@ -11,7 +11,7 @@
 
 @media (min-width: 768px) {
     .calculator-container {
-        grid-template-columns: 320px 1fr; /* Colonne gauche optimisée + graphique */
+        grid-template-columns: 380px 1fr; /* PLUS LARGE pour contenir les 3 onglets */
         padding: 1rem;
         gap: 1rem;
     }
@@ -19,7 +19,7 @@
 
 @media (min-width: 1200px) {
     .calculator-container {
-        grid-template-columns: 350px 1fr; /* Plus d'espace pour les contrôles sur grands écrans */
+        grid-template-columns: 420px 1fr; /* ENCORE PLUS LARGE sur grands écrans */
         gap: 1.5rem;
     }
 }
@@ -231,6 +231,25 @@ h3 {
     font-size: 0.9rem !important;
     font-weight: 600 !important;
     color: var(--primary-color) !important;
+}
+
+/* ONGLETS ADAPTÉS POUR LA PAGE GRAPHIQUES */
+.tab-navigation {
+    max-width: 100% !important; /* Prendre toute la largeur disponible */
+    margin: 1rem 0 !important; /* Réduire les marges */
+}
+
+.tab-button {
+    font-size: 0.8rem !important; /* Texte plus petit */
+    padding: 6px 8px !important; /* Padding réduit */
+    gap: 3px !important; /* Espace réduit entre icône et texte */
+    white-space: nowrap !important; /* Éviter le retour à la ligne */
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.tab-button i {
+    font-size: 0.75rem !important; /* Icônes plus petites */
 }
 
 /* Section Status API - COHÉRENTE */
