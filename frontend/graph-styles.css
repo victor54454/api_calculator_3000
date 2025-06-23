@@ -24,26 +24,26 @@
     }
 }
 
-/* Cartes optimisées pour les graphiques - SCROLL AJOUTÉ */
+/* Cartes optimisées pour les graphiques - PLUS D'ESPACE POUR LES EXEMPLES */
 .calculator-card, .api-info-card {
-    height: calc(100vh - 100px);
+    height: calc(100vh - 80px); /* PLUS DE HAUTEUR */
     padding: 1rem;
-    overflow-y: auto; /* AJOUTÉ pour permettre le scroll dans la colonne gauche */
+    overflow-y: auto;
 }
 
 @media (min-width: 768px) {
     .calculator-card {
         padding: 1.5rem;
-        height: calc(100vh - 120px);
-        overflow-y: auto; /* AJOUTÉ */
+        height: calc(100vh - 100px); /* PLUS DE HAUTEUR */
+        overflow-y: auto;
     }
     
     .api-info-card {
         padding: 1.5rem;
-        height: calc(100vh - 120px);
+        height: calc(100vh - 100px); /* PLUS DE HAUTEUR */
         display: flex;
         flex-direction: column;
-        overflow: hidden; /* Pour que le graphique ne déborde pas */
+        overflow: hidden;
     }
 }
 
@@ -144,32 +144,34 @@
     }
 }
 
-/* Exemples d'expressions - VRAIMENT VISIBLE MAINTENANT */
+/* Exemples d'expressions - FORCER LA VISIBILITÉ */
 .function-examples {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
-    gap: 6px;
-    margin-top: 0.75rem;
-    height: 200px; /* HAUTEUR FIXE au lieu de max-height */
-    overflow-y: auto;
-    border: 2px solid #e5e7eb; /* Bordure plus visible */
-    border-radius: 6px;
-    padding: 10px;
-    background-color: #fafafa; /* Fond visible */
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)) !important;
+    gap: 8px !important;
+    margin-top: 1rem !important;
+    height: 220px !important; /* ENCORE PLUS DE HAUTEUR */
+    overflow-y: auto !important;
+    border: 3px solid #4361ee !important; /* Bordure BLEUE ÉPAISSE pour debug */
+    border-radius: 8px !important;
+    padding: 12px !important;
+    background-color: #f8fafc !important; /* Fond GRIS CLAIR visible */
+    min-height: 220px !important; /* Force la hauteur minimum */
 }
 
 .function-card {
-    background-color: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 6px;
-    padding: 8px 6px; /* Augmenté */
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    min-height: 65px; /* Augmenté pour être visible */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    background-color: white !important;
+    border: 2px solid #e5e7eb !important;
+    border-radius: 8px !important;
+    padding: 12px 8px !important; /* PLUS DE PADDING */
+    text-align: center !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    min-height: 75px !important; /* PLUS HAUT */
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important; /* OMBRE pour visibilité */
 }
 
 .function-card:hover {
@@ -186,17 +188,21 @@
 }
 
 .function-name {
-    font-weight: 500;
-    font-size: 0.75rem; /* Réduit */
-    margin-bottom: 2px;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important; /* PLUS GROS */
+    margin-bottom: 4px !important;
+    color: #1f2937 !important; /* COULEUR FONCÉE */
+    display: block !important;
 }
 
 .function-type {
-    font-size: 0.6rem; /* Réduit */
-    background-color: var(--bg-light);
-    border-radius: 8px;
-    padding: 1px 3px; /* Réduit */
-    display: inline-block;
+    font-size: 0.7rem !important; /* PLUS GROS */
+    background-color: #e5e7eb !important;
+    border-radius: 6px !important;
+    padding: 3px 6px !important; /* PLUS DE PADDING */
+    display: inline-block !important;
+    color: #6b7280 !important;
+    font-weight: 500 !important;
 }
 
 .function-card.active .function-type {
@@ -214,6 +220,17 @@
     border-left: 2px solid var(--accent-color);
     border-radius: 3px;
     font-style: italic;
+}
+
+/* TITRE DES EXEMPLES - FORCER L'AFFICHAGE */
+h3 {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    margin: 1rem 0 0.5rem 0 !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    color: var(--primary-color) !important;
 }
 
 /* Section Status API - COHÉRENTE */
@@ -281,12 +298,26 @@
     }
     
     .function-examples {
-        grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
-        gap: 4px;
-        height: 150px; /* HAUTEUR FIXE même sur mobile */
-        padding: 8px;
-        border: 2px solid #e5e7eb; /* Bordure visible */
-        background-color: #fafafa;
+        grid-template-columns: repeat(auto-fill, minmax(85px, 1fr)) !important;
+        gap: 6px !important;
+        height: 180px !important; /* HAUTEUR FIXE même sur mobile */
+        padding: 10px !important;
+        border: 3px solid #4361ee !important; /* Bordure BLEUE ÉPAISSE */
+        background-color: #f8fafc !important;
+        min-height: 180px !important;
+    }
+    
+    .function-card {
+        min-height: 65px !important;
+        padding: 8px 6px !important;
+    }
+    
+    .function-name {
+        font-size: 0.75rem !important;
+    }
+    
+    .function-type {
+        font-size: 0.65rem !important;
     }
     
     .function-name {
