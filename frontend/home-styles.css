@@ -32,7 +32,10 @@ body {
     background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
     min-height: 100vh;
     overflow-x: hidden;
+    overflow-y: auto;
     position: relative;
+    margin: 0;
+    padding: 1rem 0;
 }
 
 body::before {
@@ -53,11 +56,12 @@ body::before {
 .home-container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 2rem 1rem;
-    min-height: calc(100vh - 60px);
+    padding: 2rem 1rem 4rem 1rem;
+    min-height: 100vh;
     background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
     border-radius: 20px;
     box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    overflow: visible;
 }
 
 /* Header avec logo - TON LOGO EXACTEMENT */
@@ -179,8 +183,8 @@ body::before {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2rem;
-    margin-bottom: 4rem;
-    padding: 0 1rem;
+    margin-bottom: 6rem;
+    padding: 2rem 1rem;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -223,13 +227,14 @@ body::before {
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     transform-style: preserve-3d;
     height: auto;
-    min-height: 400px;
+    min-height: 420px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin-bottom: 2rem;
 }
 
 .tool-card::before {
