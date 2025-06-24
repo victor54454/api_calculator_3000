@@ -235,6 +235,24 @@ body::before {
     flex-direction: column;
     justify-content: space-between;
     margin-bottom: 2rem;
+    user-select: none;
+}
+
+.tool-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 
+        0 40px 80px rgba(67, 97, 238, 0.2),
+        0 0 0 1px rgba(76, 201, 240, 0.4);
+}
+
+.tool-card:active {
+    transform: translateY(-10px) scale(0.98);
+    transition: all 0.1s ease;
+}
+
+.tool-card:focus {
+    outline: 3px solid rgba(76, 201, 240, 0.5);
+    outline-offset: 4px;
 }
 
 .tool-card::before {
@@ -376,6 +394,7 @@ body::before {
 
 .tool-card:hover .tool-footer i {
     transform: translateX(8px);
+    color: var(--accent-color);
 }
 
 /* Section informations - MODERNE */

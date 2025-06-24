@@ -32,8 +32,8 @@
 
     <!-- Grille des outils -->
     <section class="tools-grid">
-      <!-- Outil 1 -->
-      <div class="tool-card">
+      <!-- Outil 1 - Calculatrice -->
+      <div class="tool-card" data-tool="calculator" data-url="calculator.html">
         <div class="tool-icon calculator-icon">
           <i class="fas fa-calculator"></i>
         </div>
@@ -45,13 +45,13 @@
           <li><i class="fas fa-check"></i> Historique des requêtes</li>
         </ul>
         <div class="tool-footer">
-          <span class="tool-badge">Nouveau</span>
+          <span class="tool-badge">Stable</span>
           <i class="fas fa-arrow-right"></i>
         </div>
       </div>
 
-      <!-- Outil 2 -->
-      <div class="tool-card">
+      <!-- Outil 2 - Visualiseur -->
+      <div class="tool-card" data-tool="graphs" data-url="graphs.html">
         <div class="tool-icon graphs-icon">
           <i class="fas fa-chart-line"></i>
         </div>
@@ -68,8 +68,8 @@
         </div>
       </div>
 
-      <!-- Outil 3 -->
-      <div class="tool-card">
+      <!-- Outil 3 - Analyse Réseau -->
+      <div class="tool-card" data-tool="network" data-url="network.html">
         <div class="tool-icon network-icon">
           <i class="fas fa-network-wired"></i>
         </div>
@@ -123,5 +123,62 @@
       &copy; 2025 Orktk&Co. Tous droits réservés.
     </footer>
   </div>
+
+  <!-- Script pour rendre les cartes cliquables -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Sélectionner toutes les tool cards
+      const toolCards = document.querySelectorAll('.tool-card');
+      
+      // Ajouter un événement de clic à chaque carte
+      toolCards.forEach(card => {
+        card.addEventListener('click', function() {
+          const toolUrl = this.getAttribute('data-url');
+          const toolName = this.getAttribute('data-tool');
+          
+          // Effet visuel au clic
+          this.style.transform = 'scale(0.95)';
+          setTimeout(() => {
+            this.style.transform = '';
+          }, 150);
+          
+          // Redirection vers l'outil
+          if (toolUrl) {
+            console.log(`Redirection vers: ${toolUrl} (${toolName})`);
+            window.location.href = toolUrl;
+          }
+        });
+        
+        // Ajouter un curseur pointer pour indiquer que c'est cliquable
+        card.style.cursor = 'pointer';
+        
+        // Effet d'accessibilité - support du clavier
+        card.setAttribute('tabindex', '0');
+        card.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            this.click();
+          }
+        });
+      });
+      
+      // Animation de la flèche au hover
+      const arrows = document.querySelectorAll('.tool-footer i');
+      arrows.forEach(arrow => {
+        arrow.parentElement.addEventListener('mouseenter', () => {
+          arrow.style.transform = 'translateX(8px)';
+        });
+        arrow.parentElement.addEventListener('mouseleave', () => {
+          arrow.style.transform = 'translateX(0)';
+        });
+      });
+      
+      console.log('✅ Cartes d\'outils rendues cliquables !');
+      console.log('📄 URLs configurées:');
+      console.log('  • Calculatrice → calculator.html');
+      console.log('  • Visualiseur → graphs.html'); 
+      console.log('  • Analyse Réseau → network.html');
+    });
+  </script>
 </body>
 </html>
