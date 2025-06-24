@@ -331,7 +331,7 @@
     .function-examples {
         grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); /* Réduit */
         gap: 4px; /* Réduit */
-    }
+    }   
     
     .network-card {
         padding: 6px; /* Réduit */

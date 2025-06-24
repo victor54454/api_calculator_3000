@@ -1,77 +1,56 @@
 /* graph-styles.css - Styles dédiés uniquement à la page graphiques - VERSION CORRIGÉE */
 
-/* BOUTON HOME FLOTTANT - MODERNE ET STYLÉ */
+/* BOUTON HOME FLOTTANT - VERSION MINIMALISTE ET ÉLÉGANTE */
 .floating-home-btn {
     position: fixed;
-    top: 20px;
-    left: 20px;
-    width: 56px;
-    height: 56px;
-    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-    border-radius: 50%;
+    top: 24px;
+    left: 24px;
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: #4361ee;
     text-decoration: none;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     box-shadow: 
-        0 8px 32px rgba(67, 97, 238, 0.3),
-        0 4px 16px rgba(0, 0, 0, 0.1);
+        0 4px 20px rgba(0, 0, 0, 0.08),
+        0 1px 3px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.2s ease;
     backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(67, 97, 238, 0.1);
 }
 
 .floating-home-btn:hover {
-    transform: translateY(-4px) scale(1.05);
+    transform: translateY(-2px);
     box-shadow: 
-        0 12px 40px rgba(67, 97, 238, 0.4),
-        0 8px 24px rgba(0, 0, 0, 0.15);
-    background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+        0 8px 30px rgba(0, 0, 0, 0.12),
+        0 4px 8px rgba(0, 0, 0, 0.15);
+    background: #4361ee;
+    color: white;
+    border-color: #4361ee;
 }
 
 .floating-home-btn:active {
-    transform: translateY(-2px) scale(1.02);
+    transform: translateY(0);
     transition: all 0.1s ease;
 }
 
 .floating-home-btn i {
-    transition: all 0.3s ease;
-}
-
-.floating-home-btn:hover i {
-    transform: scale(1.1);
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
-}
-
-/* Animation de pulsation subtile */
-@keyframes homePulse {
-    0%, 100% { 
-        box-shadow: 
-            0 8px 32px rgba(67, 97, 238, 0.3),
-            0 4px 16px rgba(0, 0, 0, 0.1);
-    }
-    50% { 
-        box-shadow: 
-            0 8px 32px rgba(67, 97, 238, 0.5),
-            0 4px 16px rgba(0, 0, 0, 0.1);
-    }
-}
-
-.floating-home-btn {
-    animation: homePulse 3s ease-in-out infinite;
+    transition: all 0.2s ease;
 }
 
 /* Responsive pour mobile */
 @media (max-width: 768px) {
     .floating-home-btn {
-        top: 15px;
-        left: 15px;
-        width: 48px;
-        height: 48px;
-        font-size: 1.2rem;
+        top: 20px;
+        left: 20px;
+        width: 44px;
+        height: 44px;
+        font-size: 1.1rem;
     }
 }
 
