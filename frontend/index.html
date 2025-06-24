@@ -14,172 +14,122 @@
         <header class="home-header">
             <div class="logo-container">
                 <div class="logo-icon">
-                    <img src="logo.png" alt="API Calculator Logo" class="logo-image">
+                    <img src="logo.png" alt="Logo Orktk&Co" class="logo-image">
                 </div>
                 <div class="logo-text">
-                    <h1>api-calculator</h1>
-                    <p class="domain">orktk.fr</p>
+                    <h1>Orktk Tools</h1>
+                    <p class="domain">api-calculator.orktk.fr</p>
                 </div>
             </div>
-            <p class="tagline">Suite d'outils techniques développée par Orktk&Co</p>
+            <p class="tagline">Une suite d’outils modernes et open-source pour vos calculs et analyses.</p>
             <div class="api-status-home">
                 <div class="status-indicator">
-                    <span class="status-dot" id="api-status-dot"></span>
-                    <span id="api-status">Vérification de l'API...</span>
+                    <span class="status-dot online"></span>
+                    <span>API en ligne</span>
                 </div>
             </div>
         </header>
 
-        <!-- Cards des outils -->
-        <main class="tools-grid">
-            <div class="tool-card" onclick="window.location.href='calculator.html'">
+        <!-- Grille des outils -->
+        <section class="tools-grid">
+            <!-- Carte 1 -->
+            <a href="/calculator" class="tool-card">
                 <div class="tool-icon calculator-icon">
                     <i class="fas fa-calculator"></i>
                 </div>
-                <h3>Calculatrice 3000</h3>
-                <p class="tool-description">
-                    Effectuez vos calculs mathématiques de base avec une interface moderne et intuitive.
-                </p>
+                <h3>Calculatrice API</h3>
+                <p class="tool-description">Effectuez des opérations mathématiques simples et avancées grâce à notre calculatrice connectée.</p>
                 <ul class="tool-features">
-                    <li><i class="fas fa-plus"></i> Addition, soustraction, multiplication</li>
-                    <li><i class="fas fa-percent"></i> Division et modulo</li>
-                    <li><i class="fas fa-history"></i> Historique des calculs</li>
+                    <li><i class="fas fa-check"></i> Calculs de base</li>
+                    <li><i class="fas fa-check"></i> Support des expressions</li>
+                    <li><i class="fas fa-check"></i> Résultats en JSON</li>
                 </ul>
                 <div class="tool-footer">
-                    <span class="tool-badge">Outil principal</span>
+                    <span class="tool-badge">API REST</span>
                     <i class="fas fa-arrow-right"></i>
                 </div>
-            </div>
+            </a>
 
-            <div class="tool-card" onclick="window.location.href='graph.html'">
+            <!-- Carte 2 -->
+            <a href="/grapher" class="tool-card">
                 <div class="tool-icon graphs-icon">
                     <i class="fas fa-chart-line"></i>
                 </div>
-                <h3>Graphiques 3000</h3>
-                <p class="tool-description">
-                    Visualisez vos fonctions mathématiques avec un générateur de graphiques interactif.
-                </p>
+                <h3>Grapheur</h3>
+                <p class="tool-description">Tracez vos fonctions mathématiques en temps réel avec des graphiques dynamiques.</p>
                 <ul class="tool-features">
-                    <li><i class="fas fa-function"></i> Fonctions trigonométriques</li>
-                    <li><i class="fas fa-square-root-alt"></i> Polynômes et racines</li>
-                    <li><i class="fas fa-cog"></i> Paramètres personnalisables</li>
+                    <li><i class="fas fa-check"></i> Fonctions personnalisées</li>
+                    <li><i class="fas fa-check"></i> Zoom et déplacement</li>
+                    <li><i class="fas fa-check"></i> Export PNG</li>
                 </ul>
                 <div class="tool-footer">
-                    <span class="tool-badge">Visualisation</span>
+                    <span class="tool-badge">Graphiques</span>
                     <i class="fas fa-arrow-right"></i>
                 </div>
-            </div>
+            </a>
 
-            <div class="tool-card" onclick="window.location.href='network.html'">
+            <!-- Carte 3 -->
+            <a href="/network-tools" class="tool-card">
                 <div class="tool-icon network-icon">
                     <i class="fas fa-network-wired"></i>
                 </div>
-                <h3>Réseaux 3000</h3>
-                <p class="tool-description">
-                    Calculez et analysez vos configurations réseau IP avec des outils professionnels.
-                </p>
+                <h3>Outils Réseau</h3>
+                <p class="tool-description">Analysez et surveillez vos connexions réseau avec nos outils dédiés (ping, traceroute...)</p>
                 <ul class="tool-features">
-                    <li><i class="fas fa-globe"></i> Calculs CIDR et masques</li>
-                    <li><i class="fas fa-binary"></i> Représentation binaire</li>
-                    <li><i class="fas fa-info-circle"></i> Classification RFC</li>
+                    <li><i class="fas fa-check"></i> Vérification IP</li>
+                    <li><i class="fas fa-check"></i> DNS Lookup</li>
+                    <li><i class="fas fa-check"></i> Vitesse de connexion</li>
                 </ul>
                 <div class="tool-footer">
-                    <span class="tool-badge">Administration</span>
+                    <span class="tool-badge">Network</span>
                     <i class="fas fa-arrow-right"></i>
                 </div>
-            </div>
-        </main>
+            </a>
+        </section>
 
-        <!-- Informations supplémentaires -->
+        <!-- Informations techniques -->
         <section class="home-info">
             <div class="info-card">
-                <h4><i class="fas fa-rocket"></i> Technologies utilisées</h4>
+                <h4><i class="fas fa-cogs"></i> Technologies utilisées</h4>
                 <div class="tech-list">
-                    <span class="tech-badge">FastAPI</span>
-                    <span class="tech-badge">Chart.js</span>
-                    <span class="tech-badge">JavaScript</span>
+                    <span class="tech-badge">HTML5</span>
                     <span class="tech-badge">CSS3</span>
+                    <span class="tech-badge">JavaScript</span>
+                    <span class="tech-badge">API REST</span>
+                    <span class="tech-badge">Express.js</span>
+                    <span class="tech-badge">Node.js</span>
                 </div>
             </div>
-            
             <div class="info-card">
-                <h4><i class="fas fa-chart-bar"></i> Statistiques</h4>
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <span class="stat-number">3</span>
-                        <span class="stat-label">Outils</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">5</span>
-                        <span class="stat-label">API Routes</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">20+</span>
-                        <span class="stat-label">Fonctions</span>
-                    </div>
-                </div>
+                <h4><i class="fas fa-lock"></i> Sécurité & Confidentialité</h4>
+                <p>Nous ne stockons aucune donnée. Vos calculs sont traités en temps réel, de manière éphémère.</p>
+            </div>
+            <div class="info-card">
+                <h4><i class="fas fa-bolt"></i> Performances</h4>
+                <p>Notre API est optimisée pour des réponses instantanées avec une latence minimale sur serveur dédié.</p>
             </div>
         </section>
+
+        <!-- Statistiques -->
+        <section class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-number">100K+</span>
+                <span class="stat-label">Calculs effectués</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">99.99%</span>
+                <span class="stat-label">Disponibilité</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">50+</span>
+                <span class="stat-label">Endpoints</span>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            © 2025 Orktk&Co — Tous droits réservés.
+        </footer>
     </div>
-
-    <footer>
-        © 2025 API Calculator - Développé par Orktk&Co avec FastAPI
-    </footer>
-
-    <script>
-        // Configuration API
-        const API_URL = 'https://api-calculator.orktk.fr';
-
-        // Vérification du status de l'API
-        async function checkApiStatus() {
-            const apiStatusElement = document.getElementById('api-status');
-            const apiStatusDot = document.getElementById('api-status-dot');
-            
-            try {
-                const response = await fetch(`${API_URL}/docs`, { method: 'GET' });
-                if (response.ok) {
-                    apiStatusElement.textContent = 'API en ligne';
-                    apiStatusDot.classList.add('online');
-                    apiStatusDot.classList.remove('offline');
-                } else {
-                    throw new Error('Réponse invalide');
-                }
-            } catch (error) {
-                apiStatusElement.textContent = 'API hors ligne';
-                apiStatusDot.classList.add('offline');
-                apiStatusDot.classList.remove('online');
-            }
-        }
-
-        // Animation et interactions des cartes - VERSION CORRIGÉE
-        document.addEventListener('DOMContentLoaded', function() {
-            checkApiStatus();
-            
-            const toolCards = document.querySelectorAll('.tool-card');
-            
-            // Animation d'apparition corrigée avec setTimeout
-            toolCards.forEach((card, index) => {
-                // État initial : cartes cachées
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                card.style.transition = 'all 0.6s ease';
-                
-                // Animation en cascade avec délai
-                setTimeout(() => {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, index * 200); // 200ms entre chaque carte
-                
-                // Effets hover
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-8px) scale(1.02)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0) scale(1)';
-                });
-            });
-        });
-    </script>
 </body>
 </html>
