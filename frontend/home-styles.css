@@ -27,9 +27,9 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* CORPS DE PAGE MODERNE - VERSION COMPACTE */
+/* CORPS DE PAGE MODERNE - VERSION UNIFORME */
 body {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
     min-height: 100vh;
     overflow-x: hidden;
     overflow-y: auto;
@@ -46,8 +46,8 @@ body::before {
     width: 100%;
     height: 100%;
     background: 
-        radial-gradient(circle at 20% 20%, rgba(76, 201, 240, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(67, 97, 238, 0.1) 0%, transparent 50%);
+        radial-gradient(circle at 50% 30%, rgba(76, 201, 240, 0.08) 0%, transparent 60%),
+        radial-gradient(circle at 50% 70%, rgba(67, 97, 238, 0.06) 0%, transparent 60%);
     pointer-events: none;
     z-index: -1;
 }
