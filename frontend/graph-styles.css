@@ -1,5 +1,80 @@
 /* graph-styles.css - Styles dédiés uniquement à la page graphiques - VERSION CORRIGÉE */
 
+/* BOUTON HOME FLOTTANT - MODERNE ET STYLÉ */
+.floating-home-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    font-size: 1.4rem;
+    box-shadow: 
+        0 8px 32px rgba(67, 97, 238, 0.3),
+        0 4px 16px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.floating-home-btn:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 
+        0 12px 40px rgba(67, 97, 238, 0.4),
+        0 8px 24px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+}
+
+.floating-home-btn:active {
+    transform: translateY(-2px) scale(1.02);
+    transition: all 0.1s ease;
+}
+
+.floating-home-btn i {
+    transition: all 0.3s ease;
+}
+
+.floating-home-btn:hover i {
+    transform: scale(1.1);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+/* Animation de pulsation subtile */
+@keyframes homePulse {
+    0%, 100% { 
+        box-shadow: 
+            0 8px 32px rgba(67, 97, 238, 0.3),
+            0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+    50% { 
+        box-shadow: 
+            0 8px 32px rgba(67, 97, 238, 0.5),
+            0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.floating-home-btn {
+    animation: homePulse 3s ease-in-out infinite;
+}
+
+/* Responsive pour mobile */
+@media (max-width: 768px) {
+    .floating-home-btn {
+        top: 15px;
+        left: 15px;
+        width: 48px;
+        height: 48px;
+        font-size: 1.2rem;
+    }
+}
+
 /* Layout spécifique pour la page graphiques */
 .calculator-container {
     max-width: none;
