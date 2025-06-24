@@ -38,7 +38,7 @@
             <!-- CONTRÔLES SEULEMENT -->
             <div class="input-row">
                 <label for="expression">Expression mathématique</label>
-                <input type="text" id="expression" value="x^2" placeholder="Exemple: x^2, sin(x), 2*x+3">
+                <input type="text" id="expression" value="x^2" placeholder="Exemple: x^2, sin(x), 2*x+3" inputmode="text">
                 <div class="usage-tips">
                     Utilisez * pour la multiplication et ^ pour les puissances.
                 </div>
@@ -46,17 +46,17 @@
 
             <div class="input-row">
                 <label for="x-min">X Minimum</label>
-                <input type="number" id="x-min" value="-10">
+                <input type="number" id="x-min" value="-10" inputmode="decimal">
             </div>
 
             <div class="input-row">
                 <label for="x-max">X Maximum</label>
-                <input type="number" id="x-max" value="10">
+                <input type="number" id="x-max" value="10" inputmode="decimal">
             </div>
 
             <div class="input-row">
                 <label for="points">Nombre de points</label>
-                <input type="number" id="points" value="100" min="10" max="1000">
+                <input type="number" id="points" value="100" min="10" max="1000" inputmode="numeric">
             </div>
 
             <button id="plot-btn" class="plot-btn">
@@ -375,12 +375,28 @@
                     this.classList.add('active');
                     expressionInput.value = this.getAttribute('data-expr');
                     createGraph();
+                    
+                    // Feedback tactile sur mobile
+                    if ('vibrate' in navigator) {
+                        navigator.vibrate(50);
+                    }
                 });
             });
             
             // Graphique initial
             setTimeout(createGraph, 500);
         }
+
+        // Gestion du redimensionnement responsif
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                if (chartInstance) {
+                    chartInstance.resize();
+                }
+            }, 250);
+        });
 
         // Démarrage
         if (document.readyState === 'loading') {

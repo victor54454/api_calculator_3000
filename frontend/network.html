@@ -37,7 +37,7 @@
             <!-- CONTRÔLES RÉSEAU -->
             <div class="input-row">
                 <label for="ip-address">Adresse IP</label>
-                <input type="text" id="ip-address" value="192.168.1.0" placeholder="192.168.1.0">
+                <input type="text" id="ip-address" value="192.168.1.0" placeholder="192.168.1.0" inputmode="decimal">
                 <div class="usage-tips">
                     Format: xxx.xxx.xxx.xxx (IPv4)
                 </div>
@@ -46,7 +46,7 @@
             <div class="input-row">
                 <label for="subnet-input">Masque de sous-réseau</label>
                 <div class="subnet-input-container">
-                    <input type="text" id="subnet-input" value="/24" placeholder="/24 ou 255.255.255.0">
+                    <input type="text" id="subnet-input" value="/24" placeholder="/24 ou 255.255.255.0" inputmode="text">
                     <div class="input-helper">
                         <span class="helper-text">Tapez /24 ou 255.255.255.0</span>
                     </div>
@@ -384,6 +384,11 @@
             rfcInfo.textContent = getRfcInfo(ip);
             
             showNotification('Calcul effectué avec succès !', 'success');
+            
+            // Feedback tactile sur mobile
+            if ('vibrate' in navigator) {
+                navigator.vibrate([100, 50, 100]);
+            }
         }
 
         // Gestion intelligente de l'input masque
@@ -416,6 +421,11 @@
                 subnetInput.value = '/' + this.getAttribute('data-cidr');
                 
                 calculateNetwork();
+                
+                // Feedback tactile sur mobile
+                if ('vibrate' in navigator) {
+                    navigator.vibrate(50);
+                }
             });
         });
 
@@ -465,6 +475,29 @@
             }, 4000);
         }
 
+        // Copie des résultats au clic
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('value') || e.target.classList.contains('binary-value')) {
+                const text = e.target.textContent;
+                if (text !== '-') {
+                    navigator.clipboard.writeText(text).then(() => {
+                        showNotification('Valeur copiée !', 'success');
+                        e.target.style.animation = 'pulse 0.5s ease-out';
+                        setTimeout(() => {
+                            e.target.style.animation = '';
+                        }, 500);
+                        
+                        // Feedback tactile
+                        if ('vibrate' in navigator) {
+                            navigator.vibrate(50);
+                        }
+                    }).catch(() => {
+                        showNotification('Impossible de copier', 'error');
+                    });
+                }
+            }
+        });
+
         // Initialisation
         function init() {
             checkApiStatus();
@@ -474,6 +507,15 @@
             // Calcul initial
             setTimeout(calculateNetwork, 500);
         }
+
+        // Gestion du redimensionnement responsif
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                // Réajustements responsive si nécessaire
+            }, 250);
+        });
 
         // Démarrage
         if (document.readyState === 'loading') {
