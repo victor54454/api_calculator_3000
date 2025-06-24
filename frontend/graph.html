@@ -35,10 +35,10 @@
                 </a>
             </div>
 
-            <!-- CONTRÔLES SEULEMENT -->
+            <!-- CONTRÔLES -->
             <div class="input-row">
                 <label for="expression">Expression mathématique</label>
-                <input type="text" id="expression" value="x^2" placeholder="Exemple: x^2, sin(x), 2*x+3" inputmode="text">
+                <input type="text" id="expression" value="x^2" placeholder="Exemple: x^2, sin(x), 2*x+3">
                 <div class="usage-tips">
                     Utilisez * pour la multiplication et ^ pour les puissances.
                 </div>
@@ -46,113 +46,115 @@
 
             <div class="input-row">
                 <label for="x-min">X Minimum</label>
-                <input type="number" id="x-min" value="-10" inputmode="decimal">
+                <input type="number" id="x-min" value="-10">
             </div>
 
             <div class="input-row">
                 <label for="x-max">X Maximum</label>
-                <input type="number" id="x-max" value="10" inputmode="decimal">
+                <input type="number" id="x-max" value="10">
             </div>
 
             <div class="input-row">
                 <label for="points">Nombre de points</label>
-                <input type="number" id="points" value="100" min="10" max="1000" inputmode="numeric">
+                <input type="number" id="points" value="100" min="10" max="1000">
             </div>
 
             <button id="plot-btn" class="plot-btn">
                 <i class="fas fa-chart-line"></i> Tracer le graphique
             </button>
 
-            <h3 style="margin-top: 1rem; font-size: 0.9rem; margin-bottom: 0.5rem; color: var(--primary-color); font-weight: 600;">📊 Exemples d'expressions</h3>
-            <div class="function-examples">
-                <div class="function-card" data-expr="x^2">
-                    <div class="function-name">x²</div>
-                    <div class="function-type">Parabole</div>
-                </div>
-                <div class="function-card" data-expr="sin(x)">
-                    <div class="function-name">sin(x)</div>
-                    <div class="function-type">Sinus</div>
-                </div>
-                <div class="function-card" data-expr="cos(x)">
-                    <div class="function-name">cos(x)</div>
-                    <div class="function-type">Cosinus</div>
-                </div>
-                <div class="function-card" data-expr="tan(x)">
-                    <div class="function-name">tan(x)</div>
-                    <div class="function-type">Tangente</div>
-                </div>
-                <div class="function-card" data-expr="2*x+3">
-                    <div class="function-name">2x+3</div>
-                    <div class="function-type">Linéaire</div>
-                </div>
-                <div class="function-card" data-expr="x^3">
-                    <div class="function-name">x³</div>
-                    <div class="function-type">Cubique</div>
-                </div>
-                <div class="function-card" data-expr="x^4">
-                    <div class="function-name">x⁴</div>
-                    <div class="function-type">Puissance 4</div>
-                </div>
-                <div class="function-card" data-expr="sqrt(x+5)">
-                    <div class="function-name">√(x+5)</div>
-                    <div class="function-type">Racine</div>
-                </div>
-                <div class="function-card" data-expr="sqrt(x)">
-                    <div class="function-name">√x</div>
-                    <div class="function-type">Racine simple</div>
-                </div>
-                <div class="function-card" data-expr="exp(x)">
-                    <div class="function-name">eˣ</div>
-                    <div class="function-type">Exponentielle</div>
-                </div>
-                <div class="function-card" data-expr="log(x)">
-                    <div class="function-name">ln(x)</div>
-                    <div class="function-type">Logarithme</div>
-                </div>
-                <div class="function-card" data-expr="abs(x)">
-                    <div class="function-name">|x|</div>
-                    <div class="function-type">Valeur absolue</div>
-                </div>
-                <div class="function-card" data-expr="1/x">
-                    <div class="function-name">1/x</div>
-                    <div class="function-type">Inverse</div>
-                </div>
-                <div class="function-card" data-expr="x^3-5*x">
-                    <div class="function-name">x³-5x</div>
-                    <div class="function-type">Polynôme</div>
-                </div>
-                <div class="function-card" data-expr="sin(x)*cos(x)">
-                    <div class="function-name">sin(x)cos(x)</div>
-                    <div class="function-type">Produit trigo</div>
-                </div>
-                <div class="function-card" data-expr="x*sin(x)">
-                    <div class="function-name">x·sin(x)</div>
-                    <div class="function-type">Oscillation</div>
-                </div>
-                <div class="function-card" data-expr="sin(2*x)">
-                    <div class="function-name">sin(2x)</div>
-                    <div class="function-type">Fréquence double</div>
-                </div>
-                <div class="function-card" data-expr="cos(x/2)">
-                    <div class="function-name">cos(x/2)</div>
-                    <div class="function-type">Fréquence moitié</div>
-                </div>
-                <div class="function-card" data-expr="x^2-4*x+3">
-                    <div class="function-name">x²-4x+3</div>
-                    <div class="function-type">Parabole décalée</div>
-                </div>
-                <div class="function-card" data-expr="exp(-x^2)">
-                    <div class="function-name">e^(-x²)</div>
-                    <div class="function-type">Gaussienne</div>
+            <div class="examples-section">
+                <h3>📊 Exemples d'expressions</h3>
+                <div class="function-examples">
+                    <div class="function-card" data-expr="x^2">
+                        <div class="function-name">x²</div>
+                        <div class="function-type">Parabole</div>
+                    </div>
+                    <div class="function-card" data-expr="sin(x)">
+                        <div class="function-name">sin(x)</div>
+                        <div class="function-type">Sinus</div>
+                    </div>
+                    <div class="function-card" data-expr="cos(x)">
+                        <div class="function-name">cos(x)</div>
+                        <div class="function-type">Cosinus</div>
+                    </div>
+                    <div class="function-card" data-expr="tan(x)">
+                        <div class="function-name">tan(x)</div>
+                        <div class="function-type">Tangente</div>
+                    </div>
+                    <div class="function-card" data-expr="2*x+3">
+                        <div class="function-name">2x+3</div>
+                        <div class="function-type">Linéaire</div>
+                    </div>
+                    <div class="function-card" data-expr="x^3">
+                        <div class="function-name">x³</div>
+                        <div class="function-type">Cubique</div>
+                    </div>
+                    <div class="function-card" data-expr="x^4">
+                        <div class="function-name">x⁴</div>
+                        <div class="function-type">Puissance 4</div>
+                    </div>
+                    <div class="function-card" data-expr="sqrt(x+5)">
+                        <div class="function-name">√(x+5)</div>
+                        <div class="function-type">Racine</div>
+                    </div>
+                    <div class="function-card" data-expr="sqrt(x)">
+                        <div class="function-name">√x</div>
+                        <div class="function-type">Racine simple</div>
+                    </div>
+                    <div class="function-card" data-expr="exp(x)">
+                        <div class="function-name">eˣ</div>
+                        <div class="function-type">Exponentielle</div>
+                    </div>
+                    <div class="function-card" data-expr="log(x)">
+                        <div class="function-name">ln(x)</div>
+                        <div class="function-type">Logarithme</div>
+                    </div>
+                    <div class="function-card" data-expr="abs(x)">
+                        <div class="function-name">|x|</div>
+                        <div class="function-type">Valeur absolue</div>
+                    </div>
+                    <div class="function-card" data-expr="1/x">
+                        <div class="function-name">1/x</div>
+                        <div class="function-type">Inverse</div>
+                    </div>
+                    <div class="function-card" data-expr="x^3-5*x">
+                        <div class="function-name">x³-5x</div>
+                        <div class="function-type">Polynôme</div>
+                    </div>
+                    <div class="function-card" data-expr="sin(x)*cos(x)">
+                        <div class="function-name">sin(x)cos(x)</div>
+                        <div class="function-type">Produit trigo</div>
+                    </div>
+                    <div class="function-card" data-expr="x*sin(x)">
+                        <div class="function-name">x·sin(x)</div>
+                        <div class="function-type">Oscillation</div>
+                    </div>
+                    <div class="function-card" data-expr="sin(2*x)">
+                        <div class="function-name">sin(2x)</div>
+                        <div class="function-type">Fréquence double</div>
+                    </div>
+                    <div class="function-card" data-expr="cos(x/2)">
+                        <div class="function-name">cos(x/2)</div>
+                        <div class="function-type">Fréquence moitié</div>
+                    </div>
+                    <div class="function-card" data-expr="x^2-4*x+3">
+                        <div class="function-name">x²-4x+3</div>
+                        <div class="function-type">Parabole décalée</div>
+                    </div>
+                    <div class="function-card" data-expr="exp(-x^2)">
+                        <div class="function-name">e^(-x²)</div>
+                        <div class="function-type">Gaussienne</div>
+                    </div>
                 </div>
             </div>
 
             <!-- Status API -->
             <div class="api-status">
-                <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Status API</h4>
+                <h4>Status API</h4>
                 <div class="status-indicator">
                     <span class="status-dot" id="api-status-dot"></span>
-                    <span id="api-status" style="font-size: 0.8rem;">Vérification...</span>
+                    <span id="api-status">Vérification...</span>
                 </div>
                 <div class="api-url" id="api-url-container">
                     https://api-calculator.orktk.fr
@@ -160,13 +162,15 @@
             </div>
         </div>
 
-        <!-- COLONNE 2: GRAPHIQUE SEULEMENT -->
-        <div class="api-info-card">
+        <!-- COLONNE 2: GRAPHIQUE -->
+        <div class="api-info-card graph-card">
             <div class="graph-title" id="graph-title">
                 Graphique de f(x) = x²
             </div>
             
-            <canvas id="graph-canvas"></canvas>
+            <div class="graph-container">
+                <canvas id="graph-canvas"></canvas>
+            </div>
         </div>
     </div>
 
@@ -375,11 +379,6 @@
                     this.classList.add('active');
                     expressionInput.value = this.getAttribute('data-expr');
                     createGraph();
-                    
-                    // Feedback tactile sur mobile
-                    if ('vibrate' in navigator) {
-                        navigator.vibrate(50);
-                    }
                 });
             });
             
@@ -387,7 +386,7 @@
             setTimeout(createGraph, 500);
         }
 
-        // Gestion du redimensionnement responsif
+        // Gestion du redimensionnement
         let resizeTimeout;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimeout);
