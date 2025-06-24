@@ -27,7 +27,7 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* CORPS DE PAGE MODERNE */
+/* CORPS DE PAGE MODERNE - VERSION COMPACTE */
 body {
     background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
     min-height: 100vh;
@@ -35,7 +35,7 @@ body {
     overflow-y: auto;
     position: relative;
     margin: 0;
-    padding: 1rem 0;
+    padding: 0.5rem 0;
 }
 
 body::before {
@@ -52,11 +52,11 @@ body::before {
     z-index: -1;
 }
 
-/* Container principal */
+/* Container principal - VERSION COMPACTE */
 .home-container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 2rem 1rem 4rem 1rem;
+    padding: 1rem 1rem 2rem 1rem;
     min-height: 100vh;
     background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
     border-radius: 20px;
@@ -64,11 +64,11 @@ body::before {
     overflow: visible;
 }
 
-/* Header avec logo - TON LOGO EXACTEMENT */
+/* Header avec logo - VERSION COMPACTE */
 .home-header {
     text-align: center;
-    margin-bottom: 4rem;
-    padding: 4rem 0;
+    margin-bottom: 2rem;
+    padding: 2rem 0;
     color: white;
 }
 
@@ -80,22 +80,22 @@ body::before {
     margin-bottom: 2rem;
 }
 
-/* TON LOGO AVEC VRAIE IMAGE */
+/* TON LOGO AVEC VRAIE IMAGE - VERSION COMPACTE */
 .logo-icon {
-    width: 120px;
-    height: 120px;
+    width: 80px;
+    height: 80px;
     background: transparent;
-    border-radius: 28px;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 
-        0 0 50px rgba(76, 201, 240, 0.6),
-        0 20px 40px rgba(0, 0, 0, 0.4);
+        0 0 30px rgba(76, 201, 240, 0.6),
+        0 15px 30px rgba(0, 0, 0, 0.4);
     position: relative;
     overflow: hidden;
     animation: float 4s ease-in-out infinite;
-    padding: 10px;
+    padding: 8px;
 }
 
 /* Image du logo */
@@ -178,13 +178,13 @@ body::before {
     color: white;
 }
 
-/* Grille des outils - AMÉLIORÉE POUR TOUTES LES CARTES VISIBLES */
+/* Grille des outils - VERSION COMPACTE */
 .tools-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2rem;
-    margin-bottom: 6rem;
-    padding: 2rem 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    padding: 0 1rem;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -218,10 +218,10 @@ body::before {
 .tool-card {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
-    border-radius: 24px;
-    padding: 2rem;
+    border-radius: 20px;
+    padding: 1.5rem;
     box-shadow: 
-        0 20px 40px rgba(0, 0, 0, 0.1),
+        0 15px 30px rgba(0, 0, 0, 0.1),
         0 0 0 1px rgba(255, 255, 255, 0.2);
     border: none;
     cursor: pointer;
@@ -230,11 +230,11 @@ body::before {
     overflow: visible;
     transform-style: preserve-3d;
     height: auto;
-    min-height: 420px;
+    min-height: 280px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin-bottom: 2rem;
+    margin-bottom: 0;
     user-select: none;
 }
 
@@ -397,12 +397,12 @@ body::before {
     color: var(--accent-color);
 }
 
-/* Section informations - MODERNE */
+/* Section informations - VERSION COMPACTE */
 .home-info {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-bottom: 3rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
     padding: 0 1rem;
     max-width: 1200px;
     margin-left: auto;
@@ -412,8 +412,8 @@ body::before {
 .info-card {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(20px);
-    border-radius: 20px;
-    padding: 2rem;
+    border-radius: 16px;
+    padding: 1.5rem;
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: white;
     transition: all 0.3s ease;
@@ -531,14 +531,14 @@ body::before {
     box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.2);
 }
 
-/* Footer moderne */
+/* Footer moderne - VERSION COMPACTE */
 footer {
     text-align: center;
     color: #94a3b8;
-    padding: 2rem;
-    font-size: 1rem;
+    padding: 1.5rem;
+    font-size: 0.9rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-    margin-top: 3rem;
+    margin-top: 1rem;
     background: rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(10px);
     font-weight: 300;
