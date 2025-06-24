@@ -1,6 +1,6 @@
-/* home-styles.css - VERSION ULTRA-RESPONSIVE */
+/* home-styles.css - Styles spécifiques à la page d'accueil */
 
-/* Variables CSS adaptatives */
+/* Variables CSS nécessaires */
 :root {
     --primary-color: #4361ee;
     --secondary-color: #3a0ca3;
@@ -17,25 +17,17 @@
     --radius: 0.5rem;
     --radius-lg: 1rem;
     --transition: all 0.3s ease;
-    
-    /* Variables responsive */
-    --container-padding: 1rem;
-    --card-gap: 1rem;
-    --logo-size: 60px;
-    --title-size: 1.75rem;
 }
 
-/* Reset avec optimisations mobile */
+/* Reset de base pour éviter les conflits */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
 }
 
-/* Body responsive avec fond uniforme */
+/* CORPS DE PAGE MODERNE - VERSION PARFAITEMENT UNIFORME */
 body {
     background: #1e293b;
     min-height: 100vh;
@@ -44,7 +36,6 @@ body {
     position: relative;
     margin: 0;
     padding: 0.5rem 0;
-    font-size: 16px; /* Base pour rem */
 }
 
 body::before {
@@ -54,28 +45,29 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at center, rgba(76, 201, 240, 0.03) 0%, transparent 70%);
+    background: 
+        radial-gradient(circle at center, rgba(76, 201, 240, 0.03) 0%, transparent 70%);
     pointer-events: none;
     z-index: -1;
 }
 
-/* Container principal responsive */
+/* Container principal - VERSION COMPACTE */
 .home-container {
-    max-width: 100%;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: var(--container-padding);
+    padding: 1rem 1rem 2rem 1rem;
     min-height: 100vh;
     background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-    border-radius: 0;
-    box-shadow: none;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
     overflow: visible;
 }
 
-/* Header responsive */
+/* Header avec logo - VERSION COMPACTE */
 .home-header {
     text-align: center;
-    margin-bottom: 1.5rem;
-    padding: 1.5rem 0;
+    margin-bottom: 2rem;
+    padding: 2rem 0;
     color: white;
 }
 
@@ -83,50 +75,51 @@ body::before {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    gap: 1rem;
-    margin-bottom: 1rem;
+    gap: 2rem;
+    margin-bottom: 2rem;
 }
 
-/* Logo responsive */
+/* TON LOGO AVEC VRAIE IMAGE - VERSION COMPACTE */
 .logo-icon {
-    width: var(--logo-size);
-    height: var(--logo-size);
+    width: 80px;
+    height: 80px;
     background: transparent;
-    border-radius: 16px;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 
-        0 0 20px rgba(76, 201, 240, 0.4),
-        0 8px 20px rgba(0, 0, 0, 0.3);
+        0 0 30px rgba(76, 201, 240, 0.6),
+        0 15px 30px rgba(0, 0, 0, 0.4);
     position: relative;
     overflow: hidden;
     animation: float 4s ease-in-out infinite;
-    padding: 6px;
-    flex-shrink: 0;
+    padding: 8px;
 }
 
+/* Image du logo */
 .logo-image {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    border-radius: 12px;
+    border-radius: 20px;
     z-index: 2;
     position: relative;
 }
 
-/* Animations */
+/* Animation flottante */
 @keyframes float {
     0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-8px); }
+    50% { transform: translateY(-10px); }
 }
 
+/* Animation brillance */
 @keyframes shine {
     0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
     100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
 }
 
+/* Effet de brillance derrière l'image */
 .logo-icon::before {
     content: '';
     position: absolute;
@@ -140,41 +133,37 @@ body::before {
     z-index: 1;
 }
 
+/* Supprimer le pseudo-élément after car on utilise la vraie image */
 .logo-icon::after {
     display: none;
 }
 
 .logo-icon i {
-    display: none;
+    display: none; /* Cacher l'icône FontAwesome */
 }
 
-/* Texte du logo responsive */
 .logo-text h1 {
-    font-size: var(--title-size);
+    font-size: 3rem;
     color: #4cc9f0;
     margin: 0;
     font-weight: 700;
-    text-shadow: 0 0 15px rgba(76, 201, 240, 0.5);
-    letter-spacing: -1px;
-    line-height: 1.1;
+    text-shadow: 0 0 20px rgba(76, 201, 240, 0.5);
+    letter-spacing: -2px;
 }
 
 .logo-text .domain {
-    font-size: 0.9rem;
+    font-size: 1.4rem;
     color: #94a3b8;
-    margin: 0.25rem 0 0 0;
+    margin: 0.5rem 0 0 0;
     font-weight: 400;
-    word-break: break-all;
 }
 
 .tagline {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     color: #cbd5e1;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     font-weight: 300;
     opacity: 0.9;
-    line-height: 1.4;
-    padding: 0 1rem;
 }
 
 .api-status-home {
@@ -182,59 +171,87 @@ body::before {
     align-items: center;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
-    padding: 0.75rem 1.5rem;
+    padding: 1rem 2rem;
     border-radius: 50px;
     border: 1px solid rgba(76, 201, 240, 0.3);
     color: white;
-    font-size: 0.85rem;
 }
 
-/* Grille des outils ultra-responsive */
+/* Grille des outils - VERSION COMPACTE */
 .tools-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--card-gap);
-    margin-bottom: 2rem;
-    padding: 0;
-    max-width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    padding: 0 1rem;
+    max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
 }
 
-/* Tool cards mobiles d'abord */
+/* Force 3 colonnes sur les grands écrans */
+@media (min-width: 1200px) {
+    .tools-grid {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 1400px;
+    }
+}
+
+/* 2 colonnes sur les tablettes */
+@media (min-width: 768px) and (max-width: 1199px) {
+    .tools-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+/* 1 colonne sur mobile */
+@media (max-width: 767px) {
+    .tools-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0;
+    }
+}
+
 .tool-card {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
-    border-radius: 16px;
-    padding: 1.25rem;
+    border-radius: 20px;
+    padding: 1.5rem;
     box-shadow: 
-        0 8px 25px rgba(0, 0, 0, 0.1),
+        0 15px 30px rgba(0, 0, 0, 0.1),
         0 0 0 1px rgba(255, 255, 255, 0.2);
     border: none;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: visible;
+    transform-style: preserve-3d;
     height: auto;
-    min-height: 240px;
+    min-height: 280px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin-bottom: 0;
     user-select: none;
-    touch-action: manipulation;
 }
 
-.tool-card:hover, .tool-card:focus {
-    transform: translateY(-8px);
+.tool-card:hover {
+    transform: translateY(-15px);
     box-shadow: 
-        0 20px 40px rgba(67, 97, 238, 0.15),
-        0 0 0 1px rgba(76, 201, 240, 0.3);
+        0 40px 80px rgba(67, 97, 238, 0.2),
+        0 0 0 1px rgba(76, 201, 240, 0.4);
 }
 
 .tool-card:active {
-    transform: translateY(-4px) scale(0.98);
+    transform: translateY(-10px) scale(0.98);
     transition: all 0.1s ease;
+}
+
+.tool-card:focus {
+    outline: 3px solid rgba(76, 201, 240, 0.5);
+    outline-offset: 4px;
 }
 
 .tool-card::before {
@@ -243,30 +260,35 @@ body::before {
     top: 0;
     left: 0;
     right: 0;
-    height: 4px;
+    height: 6px;
     background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
     transform: scaleX(0);
-    transition: transform 0.3s ease;
+    transition: transform 0.4s ease;
     transform-origin: left;
-    border-radius: 16px 16px 0 0;
 }
 
 .tool-card:hover::before {
     transform: scaleX(1);
 }
 
-/* Icônes responsive */
+.tool-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 
+        0 40px 80px rgba(67, 97, 238, 0.2),
+        0 0 0 1px rgba(76, 201, 240, 0.4);
+}
+
 .tool-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 12px;
+    width: 70px;
+    height: 70px;
+    border-radius: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
     color: white;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
     position: relative;
     flex-shrink: 0;
 }
@@ -276,7 +298,7 @@ body::before {
     position: absolute;
     inset: -2px;
     background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-    border-radius: 14px;
+    border-radius: 20px;
     animation: rotate 3s linear infinite;
 }
 
@@ -297,59 +319,56 @@ body::before {
     background: linear-gradient(135deg, #0ea5e9, #0284c7);
 }
 
-/* Contenu des cartes responsive */
 .tool-card h3 {
     color: var(--text-dark);
-    font-size: 1.1rem;
-    margin-bottom: 0.75rem;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
     font-weight: 700;
     letter-spacing: -0.5px;
-    line-height: 1.2;
 }
 
 .tool-description {
     color: #64748b;
-    font-size: 0.85rem;
-    line-height: 1.5;
-    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
     font-weight: 400;
     flex-grow: 1;
 }
 
 .tool-features {
     list-style: none;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     flex-shrink: 0;
 }
 
 .tool-features li {
-    padding: 0.4rem 0;
+    padding: 0.6rem 0;
     color: var(--text-dark);
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem;
     font-weight: 500;
     transition: all 0.3s ease;
 }
 
 .tool-features li:hover {
     color: var(--primary-color);
-    transform: translateX(3px);
+    transform: translateX(5px);
 }
 
 .tool-features i {
     color: var(--primary-color);
-    width: 12px;
-    font-size: 0.75rem;
-    flex-shrink: 0;
+    width: 16px;
+    font-size: 0.9rem;
 }
 
 .tool-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 1rem;
+    padding-top: 1.5rem;
     border-top: 2px solid #f1f5f9;
     flex-shrink: 0;
 }
@@ -357,34 +376,34 @@ body::before {
 .tool-badge {
     background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
     color: white;
-    padding: 0.4rem 1rem;
-    border-radius: 16px;
-    font-size: 0.7rem;
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
+    box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
 }
 
 .tool-footer i {
     color: var(--primary-color);
-    font-size: 1rem;
+    font-size: 1.2rem;
     transition: transform 0.3s ease;
 }
 
 .tool-card:hover .tool-footer i {
-    transform: translateX(6px);
+    transform: translateX(8px);
     color: var(--accent-color);
 }
 
-/* Section informations responsive */
+/* Section informations - VERSION COMPACTE */
 .home-info {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    padding: 0;
-    max-width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+    max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -392,47 +411,46 @@ body::before {
 .info-card {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(20px);
-    border-radius: 12px;
-    padding: 1.25rem;
+    border-radius: 16px;
+    padding: 1.5rem;
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: white;
     transition: all 0.3s ease;
 }
 
 .info-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px);
     background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
 }
 
 .info-card h4 {
     color: #4cc9f0;
-    margin-bottom: 1rem;
-    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem;
     font-weight: 600;
 }
 
 .info-card h4 i {
     color: #4cc9f0;
-    font-size: 1.1rem;
-    flex-shrink: 0;
+    font-size: 1.3rem;
 }
 
 .tech-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 0.75rem;
 }
 
 .tech-badge {
     background: rgba(76, 201, 240, 0.2);
     color: #4cc9f0;
-    padding: 0.4rem 0.8rem;
-    border-radius: 10px;
-    font-size: 0.75rem;
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    font-size: 0.9rem;
     font-weight: 500;
     border: 1px solid rgba(76, 201, 240, 0.3);
     backdrop-filter: blur(10px);
@@ -447,13 +465,13 @@ body::before {
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 0.75rem;
+    gap: 1.5rem;
 }
 
 .stat-item {
     text-align: center;
-    padding: 0.75rem 0;
-    border-radius: 10px;
+    padding: 1.5rem 0;
+    border-radius: 15px;
     background: rgba(255, 255, 255, 0.05);
     transition: all 0.3s ease;
 }
@@ -465,62 +483,59 @@ body::before {
 
 .stat-number {
     display: block;
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     font-weight: 800;
     color: #4cc9f0;
-    margin-bottom: 0.25rem;
-    text-shadow: 0 0 15px rgba(76, 201, 240, 0.5);
-    line-height: 1;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 20px rgba(76, 201, 240, 0.5);
 }
 
 .stat-label {
-    font-size: 0.7rem;
+    font-size: 0.9rem;
     color: #cbd5e1;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    line-height: 1.2;
+    letter-spacing: 1px;
 }
 
-/* Status API */
+/* Status API - MODERNE */
 .status-indicator {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem;
 }
 
 .status-dot {
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     background-color: #64748b;
-    flex-shrink: 0;
 }
 
 .status-dot.online {
     background-color: #10b981;
     box-shadow: 
-        0 0 0 3px rgba(16, 185, 129, 0.2),
-        0 0 15px rgba(16, 185, 129, 0.5);
+        0 0 0 4px rgba(16, 185, 129, 0.2),
+        0 0 20px rgba(16, 185, 129, 0.5);
     animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
     0%, 100% { opacity: 1; }
-    50% { opacity: 0.6; }
+    50% { opacity: 0.5; }
 }
 
 .status-dot.offline {
     background-color: #ef4444;
-    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.2);
 }
 
-/* Footer responsive */
+/* Footer moderne - VERSION COMPACTE */
 footer {
     text-align: center;
     color: #94a3b8;
-    padding: 1rem;
-    font-size: 0.8rem;
+    padding: 1.5rem;
+    font-size: 0.9rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     margin-top: 1rem;
     background: rgba(0, 0, 0, 0.2);
@@ -528,194 +543,97 @@ footer {
     font-weight: 300;
 }
 
-/* BREAKPOINTS RESPONSIVE */
-
-/* Small Mobile (320px - 480px) */
-@media (max-width: 480px) {
-    :root {
-        --container-padding: 0.75rem;
-        --card-gap: 0.75rem;
-        --logo-size: 50px;
-        --title-size: 1.5rem;
-    }
-    
+/* Responsive Design - AMÉLIORÉ */
+@media (max-width: 768px) {
     .home-container {
-        padding: var(--container-padding);
-        border-radius: 0;
-        background: transparent;
+        padding: 1rem 0.5rem;
+        background: none; /* Le background sera sur le body */
+    }
+    
+    .home-header {
+        margin-bottom: 3rem;
+        padding: 2rem 0;
     }
     
     .logo-container {
-        gap: 0.75rem;
-    }
-    
-    .logo-text .domain {
-        font-size: 0.8rem;
-    }
-    
-    .tagline {
-        font-size: 0.8rem;
-        padding: 0 0.5rem;
-    }
-    
-    .api-status-home {
-        padding: 0.6rem 1.2rem;
-        font-size: 0.8rem;
-    }
-    
-    .tool-card {
-        padding: 1rem;
-        min-height: 220px;
-        border-radius: 12px;
-    }
-    
-    .tool-card h3 {
-        font-size: 1rem;
-    }
-    
-    .tool-description {
-        font-size: 0.8rem;
-    }
-    
-    .tool-icon {
-        width: 45px;
-        height: 45px;
-        font-size: 1.3rem;
-    }
-    
-    .info-card {
-        padding: 1rem;
-    }
-    
-    .stat-number {
-        font-size: 1.3rem;
-    }
-    
-    .stat-label {
-        font-size: 0.65rem;
-    }
-}
-
-/* Large Mobile (481px - 767px) */
-@media (min-width: 481px) and (max-width: 767px) {
-    :root {
-        --container-padding: 1rem;
-        --card-gap: 1rem;
-        --logo-size: 65px;
-        --title-size: 1.75rem;
-    }
-    
-    .tool-card {
-        min-height: 260px;
-    }
-    
-    .logo-container {
-        gap: 1rem;
-    }
-}
-
-/* Tablet (768px - 1023px) */
-@media (min-width: 768px) and (max-width: 1023px) {
-    :root {
-        --container-padding: 1.5rem;
-        --card-gap: 1.25rem;
-        --logo-size: 80px;
-        --title-size: 2.25rem;
-    }
-    
-    .home-container {
-        border-radius: 16px;
-        box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-    }
-    
-    .logo-container {
-        flex-direction: row;
+        flex-direction: column;
         gap: 1.5rem;
     }
     
-    .tools-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: var(--card-gap);
-        max-width: 700px;
+    .logo-icon {
+        width: 100px;
+        height: 100px;
+        border-radius: 24px;
     }
     
-    .home-info {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.25rem;
+    .logo-text h1 {
+        font-size: 2.5rem;
+    }
+    
+    .logo-text .domain {
+        font-size: 1.2rem;
+    }
+    
+    .tagline {
+        font-size: 1.1rem;
     }
     
     .tool-card {
-        min-height: 280px;
         padding: 1.5rem;
+        border-radius: 20px;
+        min-height: 350px;
+    }
+    
+    .tool-card:hover {
+        transform: translateY(-8px);
     }
     
     .tool-icon {
         width: 60px;
         height: 60px;
-        font-size: 1.75rem;
+        font-size: 1.8rem;
     }
     
-    .stat-number {
-        font-size: 2rem;
-    }
-}
-
-/* Desktop (1024px - 1439px) */
-@media (min-width: 1024px) and (max-width: 1439px) {
-    :root {
-        --container-padding: 2rem;
-        --card-gap: 1.5rem;
-        --logo-size: 90px;
-        --title-size: 2.5rem;
+    .home-info {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0;
     }
     
-    .home-container {
-        max-width: 1200px;
-        border-radius: 20px;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.25);
-    }
-    
-    .tools-grid {
+    .stats-grid {
         grid-template-columns: repeat(3, 1fr);
-        max-width: 1000px;
-    }
-    
-    .tool-card {
-        min-height: 320px;
-        padding: 1.75rem;
-    }
-    
-    .tool-icon {
-        width: 70px;
-        height: 70px;
-        font-size: 2rem;
+        gap: 1rem;
     }
     
     .stat-number {
-        font-size: 2.25rem;
+        font-size: 2rem;
     }
 }
 
-/* Large Desktop (1440px+) */
-@media (min-width: 1440px) {
-    :root {
-        --container-padding: 2.5rem;
-        --card-gap: 2rem;
-        --logo-size: 100px;
-        --title-size: 3rem;
+@media (max-width: 480px) {
+    .logo-container {
+        gap: 1rem;
     }
     
-    .home-container {
-        max-width: 1400px;
+    .logo-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 20px;
     }
     
-    .tools-grid {
-        max-width: 1200px;
+    .logo-text h1 {
+        font-size: 2rem;
+    }
+    
+    .api-status-home {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.9rem;
     }
     
     .tool-card {
-        min-height: 350px;
-        padding: 2rem;
+        padding: 1.5rem;
+        border-radius: 16px;
+        min-height: 320px;
     }
     
     .tool-card h3 {
@@ -723,65 +641,24 @@ footer {
     }
     
     .tool-description {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
     }
     
     .tool-icon {
-        width: 80px;
-        height: 80px;
-        font-size: 2.25rem;
-    }
-    
-    .stat-number {
-        font-size: 2.5rem;
+        width: 60px;
+        height: 60px;
+        font-size: 1.8rem;
     }
     
     .info-card {
-        padding: 1.75rem;
-    }
-}
-
-/* High DPI / Retina displays */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    .logo-image {
-        image-rendering: -webkit-optimize-contrast;
-        image-rendering: crisp-edges;
+        padding: 1.5rem;
     }
     
-    .tool-icon {
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-    }
-}
-
-/* Touch devices optimizations */
-@media (hover: none) and (pointer: coarse) {
-    .tool-card:hover {
-        transform: none;
+    .stat-item {
+        padding: 1rem 0;
     }
     
-    .tool-card:active {
-        transform: scale(0.97);
-    }
-    
-    .stat-item:hover {
-        transform: none;
-    }
-}
-
-/* Reduced motion accessibility */
-@media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
-    
-    .logo-icon::before {
-        animation: none;
-    }
-    
-    .tool-icon::before {
-        animation: none;
+    .stat-number {
+        font-size: 1.8rem;
     }
 }
