@@ -1,135 +1,127 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Calculator - Suite d'outils Orktk&Co</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="home-styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>API Calculator - Suite d'outils Orktk&Co</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="home-styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 </head>
 <body>
-    <div class="home-container">
-        <!-- Header avec logo -->
-        <header class="home-header">
-            <div class="logo-container">
-                <div class="logo-icon">
-                    <img src="logo.png" alt="Logo Orktk&Co" class="logo-image">
-                </div>
-                <div class="logo-text">
-                    <h1>Orktk Tools</h1>
-                    <p class="domain">api-calculator.orktk.fr</p>
-                </div>
-            </div>
-            <p class="tagline">Une suite d’outils modernes et open-source pour vos calculs et analyses.</p>
-            <div class="api-status-home">
-                <div class="status-indicator">
-                    <span class="status-dot online"></span>
-                    <span>API en ligne</span>
-                </div>
-            </div>
-        </header>
+  <div class="home-container">
+    <!-- Header avec logo -->
+    <header class="home-header">
+      <div class="logo-container">
+        <div class="logo-icon">
+          <img src="logo.png" alt="Logo Orktk&Co" class="logo-image">
+        </div>
+        <div class="logo-text">
+          <h1>Orktk Tools</h1>
+          <p class="domain">api-calculator.orktk.fr</p>
+        </div>
+      </div>
+      <p class="tagline">Une suite d'outils dédiée aux développeurs, par Orktk&Co.</p>
+      <div class="api-status-home">
+        <div class="status-indicator">
+          <div class="status-dot online"></div>
+          <span>API en ligne</span>
+        </div>
+      </div>
+    </header>
 
-        <!-- Grille des outils -->
-        <section class="tools-grid">
-            <!-- Carte 1 -->
-            <a href="/calculator" class="tool-card">
-                <div class="tool-icon calculator-icon">
-                    <i class="fas fa-calculator"></i>
-                </div>
-                <h3>Calculatrice API</h3>
-                <p class="tool-description">Effectuez des opérations mathématiques simples et avancées grâce à notre calculatrice connectée.</p>
-                <ul class="tool-features">
-                    <li><i class="fas fa-check"></i> Calculs de base</li>
-                    <li><i class="fas fa-check"></i> Support des expressions</li>
-                    <li><i class="fas fa-check"></i> Résultats en JSON</li>
-                </ul>
-                <div class="tool-footer">
-                    <span class="tool-badge">API REST</span>
-                    <i class="fas fa-arrow-right"></i>
-                </div>
-            </a>
+    <!-- Grille des outils -->
+    <section class="tools-grid">
+      <!-- Outil 1 -->
+      <div class="tool-card">
+        <div class="tool-icon calculator-icon">
+          <i class="fas fa-calculator"></i>
+        </div>
+        <h3>Calculatrice d'API</h3>
+        <p class="tool-description">Effectuez des calculs techniques et convertissez des valeurs entre différents formats rapidement.</p>
+        <ul class="tool-features">
+          <li><i class="fas fa-check"></i> Précision mathématique</li>
+          <li><i class="fas fa-check"></i> Support JSON</li>
+          <li><i class="fas fa-check"></i> Historique des requêtes</li>
+        </ul>
+        <div class="tool-footer">
+          <span class="tool-badge">Nouveau</span>
+          <i class="fas fa-arrow-right"></i>
+        </div>
+      </div>
 
-            <!-- Carte 2 -->
-            <a href="/grapher" class="tool-card">
-                <div class="tool-icon graphs-icon">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <h3>Grapheur</h3>
-                <p class="tool-description">Tracez vos fonctions mathématiques en temps réel avec des graphiques dynamiques.</p>
-                <ul class="tool-features">
-                    <li><i class="fas fa-check"></i> Fonctions personnalisées</li>
-                    <li><i class="fas fa-check"></i> Zoom et déplacement</li>
-                    <li><i class="fas fa-check"></i> Export PNG</li>
-                </ul>
-                <div class="tool-footer">
-                    <span class="tool-badge">Graphiques</span>
-                    <i class="fas fa-arrow-right"></i>
-                </div>
-            </a>
+      <!-- Outil 2 -->
+      <div class="tool-card">
+        <div class="tool-icon graphs-icon">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <h3>Visualiseur de Graphes</h3>
+        <p class="tool-description">Analysez vos flux de données via une interface graphique claire et interactive.</p>
+        <ul class="tool-features">
+          <li><i class="fas fa-check"></i> Graphe en temps réel</li>
+          <li><i class="fas fa-check"></i> Données API brutes</li>
+          <li><i class="fas fa-check"></i> Export CSV / PNG</li>
+        </ul>
+        <div class="tool-footer">
+          <span class="tool-badge">Stable</span>
+          <i class="fas fa-arrow-right"></i>
+        </div>
+      </div>
 
-            <!-- Carte 3 -->
-            <a href="/network-tools" class="tool-card">
-                <div class="tool-icon network-icon">
-                    <i class="fas fa-network-wired"></i>
-                </div>
-                <h3>Outils Réseau</h3>
-                <p class="tool-description">Analysez et surveillez vos connexions réseau avec nos outils dédiés (ping, traceroute...)</p>
-                <ul class="tool-features">
-                    <li><i class="fas fa-check"></i> Vérification IP</li>
-                    <li><i class="fas fa-check"></i> DNS Lookup</li>
-                    <li><i class="fas fa-check"></i> Vitesse de connexion</li>
-                </ul>
-                <div class="tool-footer">
-                    <span class="tool-badge">Network</span>
-                    <i class="fas fa-arrow-right"></i>
-                </div>
-            </a>
-        </section>
+      <!-- Outil 3 -->
+      <div class="tool-card">
+        <div class="tool-icon network-icon">
+          <i class="fas fa-network-wired"></i>
+        </div>
+        <h3>Analyse Réseau</h3>
+        <p class="tool-description">Obtenez des métriques réseau sur vos appels API pour une performance optimale.</p>
+        <ul class="tool-features">
+          <li><i class="fas fa-check"></i> Ping, DNS, Traceroute</li>
+          <li><i class="fas fa-check"></i> API monitoring</li>
+          <li><i class="fas fa-check"></i> Alerte d'erreurs</li>
+        </ul>
+        <div class="tool-footer">
+          <span class="tool-badge">Beta</span>
+          <i class="fas fa-arrow-right"></i>
+        </div>
+      </div>
+    </section>
 
-        <!-- Informations techniques -->
-        <section class="home-info">
-            <div class="info-card">
-                <h4><i class="fas fa-cogs"></i> Technologies utilisées</h4>
-                <div class="tech-list">
-                    <span class="tech-badge">HTML5</span>
-                    <span class="tech-badge">CSS3</span>
-                    <span class="tech-badge">JavaScript</span>
-                    <span class="tech-badge">API REST</span>
-                    <span class="tech-badge">Express.js</span>
-                    <span class="tech-badge">Node.js</span>
-                </div>
-            </div>
-            <div class="info-card">
-                <h4><i class="fas fa-lock"></i> Sécurité & Confidentialité</h4>
-                <p>Nous ne stockons aucune donnée. Vos calculs sont traités en temps réel, de manière éphémère.</p>
-            </div>
-            <div class="info-card">
-                <h4><i class="fas fa-bolt"></i> Performances</h4>
-                <p>Notre API est optimisée pour des réponses instantanées avec une latence minimale sur serveur dédié.</p>
-            </div>
-        </section>
+    <!-- Section d'informations -->
+    <section class="home-info">
+      <div class="info-card">
+        <h4><i class="fas fa-code"></i> Technologies utilisées</h4>
+        <div class="tech-list">
+          <span class="tech-badge">HTML5</span>
+          <span class="tech-badge">CSS3</span>
+          <span class="tech-badge">JavaScript</span>
+          <span class="tech-badge">API REST</span>
+          <span class="tech-badge">FontAwesome</span>
+        </div>
+      </div>
+      <div class="info-card">
+        <h4><i class="fas fa-bolt"></i> Performances</h4>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span class="stat-number">99.9%</span>
+            <span class="stat-label">Uptime</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">200ms</span>
+            <span class="stat-label">Temps moyen</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">20K</span>
+            <span class="stat-label">Requêtes/mois</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <!-- Statistiques -->
-        <section class="stats-grid">
-            <div class="stat-item">
-                <span class="stat-number">100K+</span>
-                <span class="stat-label">Calculs effectués</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">99.99%</span>
-                <span class="stat-label">Disponibilité</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">50+</span>
-                <span class="stat-label">Endpoints</span>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer>
-            © 2025 Orktk&Co — Tous droits réservés.
-        </footer>
-    </div>
+    <!-- Pied de page -->
+    <footer>
+      &copy; 2025 Orktk&Co. Tous droits réservés.
+    </footer>
+  </div>
 </body>
 </html>
