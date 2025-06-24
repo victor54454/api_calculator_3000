@@ -51,7 +51,7 @@ body::before {
 
 /* Container principal */
 .home-container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 2rem 1rem;
     min-height: calc(100vh - 60px);
@@ -174,20 +174,48 @@ body::before {
     color: white;
 }
 
-/* Grille des outils - PLUS MODERNE */
+/* Grille des outils - AMÉLIORÉE POUR TOUTES LES CARTES VISIBLES */
 .tools-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2.5rem;
-    margin-bottom: 5rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
     padding: 0 1rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Force 3 colonnes sur les grands écrans */
+@media (min-width: 1200px) {
+    .tools-grid {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 1400px;
+    }
+}
+
+/* 2 colonnes sur les tablettes */
+@media (min-width: 768px) and (max-width: 1199px) {
+    .tools-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+/* 1 colonne sur mobile */
+@media (max-width: 767px) {
+    .tools-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0;
+    }
 }
 
 .tool-card {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
     border-radius: 24px;
-    padding: 2.5rem;
+    padding: 2rem;
     box-shadow: 
         0 20px 40px rgba(0, 0, 0, 0.1),
         0 0 0 1px rgba(255, 255, 255, 0.2);
@@ -197,6 +225,11 @@ body::before {
     position: relative;
     overflow: hidden;
     transform-style: preserve-3d;
+    height: auto;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .tool-card::before {
@@ -217,24 +250,25 @@ body::before {
 }
 
 .tool-card:hover {
-    transform: translateY(-20px) rotateX(5deg) rotateY(5deg);
+    transform: translateY(-15px);
     box-shadow: 
         0 40px 80px rgba(67, 97, 238, 0.2),
         0 0 0 1px rgba(76, 201, 240, 0.4);
 }
 
 .tool-icon {
-    width: 80px;
-    height: 80px;
-    border-radius: 20px;
+    width: 70px;
+    height: 70px;
+    border-radius: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 2rem;
-    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
     color: white;
     box-shadow: 0 15px 30px rgba(0,0,0,0.2);
     position: relative;
+    flex-shrink: 0;
 }
 
 .tool-icon::before {
@@ -242,7 +276,7 @@ body::before {
     position: absolute;
     inset: -2px;
     background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-    border-radius: 22px;
+    border-radius: 20px;
     animation: rotate 3s linear infinite;
 }
 
@@ -265,32 +299,34 @@ body::before {
 
 .tool-card h3 {
     color: var(--text-dark);
-    font-size: 1.6rem;
-    margin-bottom: 1.2rem;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
     font-weight: 700;
     letter-spacing: -0.5px;
 }
 
 .tool-description {
     color: #64748b;
-    font-size: 1rem;
-    line-height: 1.7;
-    margin-bottom: 2rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
     font-weight: 400;
+    flex-grow: 1;
 }
 
 .tool-features {
     list-style: none;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
+    flex-shrink: 0;
 }
 
 .tool-features li {
-    padding: 0.75rem 0;
+    padding: 0.6rem 0;
     color: var(--text-dark);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
     font-weight: 500;
     transition: all 0.3s ease;
 }
@@ -302,8 +338,8 @@ body::before {
 
 .tool-features i {
     color: var(--primary-color);
-    width: 18px;
-    font-size: 1rem;
+    width: 16px;
+    font-size: 0.9rem;
 }
 
 .tool-footer {
@@ -312,14 +348,15 @@ body::before {
     align-items: center;
     padding-top: 1.5rem;
     border-top: 2px solid #f1f5f9;
+    flex-shrink: 0;
 }
 
 .tool-badge {
     background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
     color: white;
-    padding: 0.6rem 1.5rem;
-    border-radius: 25px;
-    font-size: 0.85rem;
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -328,7 +365,7 @@ body::before {
 
 .tool-footer i {
     color: var(--primary-color);
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     transition: transform 0.3s ease;
 }
 
@@ -343,6 +380,9 @@ body::before {
     gap: 2rem;
     margin-bottom: 3rem;
     padding: 0 1rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .info-card {
@@ -515,26 +555,20 @@ footer {
         font-size: 1.1rem;
     }
     
-    .tools-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-        margin-bottom: 3rem;
-        padding: 0;
-    }
-    
     .tool-card {
-        padding: 2rem;
+        padding: 1.5rem;
         border-radius: 20px;
+        min-height: 350px;
     }
     
     .tool-card:hover {
-        transform: translateY(-10px) rotateX(0deg) rotateY(0deg);
+        transform: translateY(-8px);
     }
     
     .tool-icon {
-        width: 70px;
-        height: 70px;
-        font-size: 2rem;
+        width: 60px;
+        height: 60px;
+        font-size: 1.8rem;
     }
     
     .home-info {
@@ -576,6 +610,7 @@ footer {
     .tool-card {
         padding: 1.5rem;
         border-radius: 16px;
+        min-height: 320px;
     }
     
     .tool-card h3 {
