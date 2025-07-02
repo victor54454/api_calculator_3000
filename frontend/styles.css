@@ -1,6 +1,7 @@
-/* styles.css - Version finale - Calculatrice uniquement */
+/* styles.css - Version complète avec support dark mode */
 
 :root {
+    /* Mode clair (par défaut) */
     --primary-color: #4361ee;
     --secondary-color: #3a0ca3;
     --accent-color: #4cc9f0;
@@ -16,6 +17,33 @@
     --radius: 0.5rem;
     --radius-lg: 1rem;
     --transition: all 0.3s ease;
+    
+    /* Nouvelles variables pour dark mode */
+    --border-color: #e5e7eb;
+    --hover-bg: #f3f4f6;
+    --card-bg: #ffffff;
+    --body-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+/* MODE SOMBRE */
+[data-theme="dark"] {
+    --primary-color: #6366f1;
+    --secondary-color: #4338ca;
+    --accent-color: #06b6d4;
+    --success-color: #10b981;
+    --danger-color: #ef4444;
+    --text-dark: #f9fafb;
+    --text-light: #d1d5db;
+    --bg-light: #374151;
+    --bg-white: #1f2937;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+    
+    --border-color: #4b5563;
+    --hover-bg: #4b5563;
+    --card-bg: #1f2937;
+    --body-bg: linear-gradient(135deg, #111827 0%, #1f2937 100%);
 }
 
 * {
@@ -23,10 +51,11 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 body {
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    background: var(--body-bg);
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -35,7 +64,7 @@ body {
     overflow: hidden;
 }
 
-/* BOUTON HOME FLOTTANT - VERSION MINIMALISTE ET ÉLÉGANTE */
+/* BOUTONS FLOTTANTS */
 .floating-home-btn {
     position: fixed;
     top: 24px;
@@ -78,6 +107,69 @@ body {
     transition: all 0.2s ease;
 }
 
+/* BOUTON DARK MODE */
+.dark-mode-toggle {
+    position: fixed;
+    top: 24px;
+    left: 84px;
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4361ee;
+    text-decoration: none;
+    font-size: 1.2rem;
+    box-shadow: 
+        0 4px 20px rgba(0, 0, 0, 0.08),
+        0 1px 3px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(67, 97, 238, 0.1);
+    cursor: pointer;
+}
+
+.dark-mode-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 8px 30px rgba(0, 0, 0, 0.12),
+        0 4px 8px rgba(0, 0, 0, 0.15);
+    background: #4361ee;
+    color: white;
+    border-color: #4361ee;
+}
+
+.dark-mode-toggle:active {
+    transform: translateY(0);
+    transition: all 0.1s ease;
+}
+
+.dark-mode-toggle i {
+    transition: all 0.3s ease;
+}
+
+.dark-mode-toggle.rotating i {
+    transform: rotate(180deg);
+}
+
+/* Boutons en mode sombre */
+[data-theme="dark"] .floating-home-btn,
+[data-theme="dark"] .dark-mode-toggle {
+    background: rgba(31, 41, 55, 0.95);
+    color: #6366f1;
+    border-color: rgba(99, 102, 241, 0.2);
+}
+
+[data-theme="dark"] .floating-home-btn:hover,
+[data-theme="dark"] .dark-mode-toggle:hover {
+    background: #6366f1;
+    color: white;
+    border-color: #6366f1;
+}
+
 /* Responsive pour mobile */
 @media (max-width: 768px) {
     .floating-home-btn {
@@ -87,14 +179,17 @@ body {
         height: 44px;
         font-size: 1.1rem;
     }
+    
+    .dark-mode-toggle {
+        top: 20px;
+        left: 76px;
+        width: 44px;
+        height: 44px;
+        font-size: 1.1rem;
+    }
 }
 
-/* S'assurer que le bouton est au-dessus des notifications */
-.notification {
-    z-index: 999;
-}
-
-/* Structure principale - CALCULATRICE NORMALE */
+/* Structure principale */
 .calculator-container {
     width: 100%;
     max-width: 1200px;
@@ -115,7 +210,7 @@ body {
 
 /* Cartes de contenu */
 .calculator-card, .api-info-card {
-    background-color: var(--bg-white);
+    background-color: var(--card-bg);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lg);
     padding: 1rem;
@@ -124,6 +219,7 @@ body {
     display: flex;
     flex-direction: column;
     height: calc(100vh - 100px);
+    border: 1px solid var(--border-color);
 }
 
 @media (min-width: 768px) {
@@ -165,6 +261,7 @@ body {
     border-radius: 8px;
     padding: 4px;
     max-width: 350px;
+    border: 1px solid var(--border-color);
 }
 
 .tab-button {
@@ -191,7 +288,7 @@ body {
 }
 
 .tab-button:hover:not(.active) {
-    background-color: #e5e7eb;
+    background-color: var(--hover-bg);
 }
 
 /* Formulaires et entrées */
@@ -210,10 +307,11 @@ body {
 .input-row input, .input-row select {
     width: 100%;
     padding: 8px 12px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--border-color);
     border-radius: 6px;
     font-size: 0.9rem;
-    background-color: var(--bg-white);
+    background-color: var(--card-bg);
+    color: var(--text-dark);
     transition: var(--transition);
     box-shadow: var(--shadow-sm);
 }
@@ -245,9 +343,10 @@ body {
     background-color: var(--bg-light);
     border-radius: 6px;
     font-size: 1.1rem;
-    border: none;
+    border: 1px solid var(--border-color);
     cursor: pointer;
     transition: all 0.2s ease;
+    color: var(--text-dark);
 }
 
 .op-button.active {
@@ -256,7 +355,7 @@ body {
 }
 
 .op-button:hover:not(.active) {
-    background-color: #e5e7eb;
+    background-color: var(--hover-bg);
 }
 
 /* Boutons principaux */
@@ -288,6 +387,7 @@ body {
     padding: 12px;
     text-align: center;
     margin: 15px 0;
+    border: 1px solid var(--border-color);
 }
 
 .result-label {
@@ -320,7 +420,7 @@ body {
 .history-section {
     margin-top: 1rem;
     padding-top: 1rem;
-    border-top: 1px solid #e5e7eb;
+    border-top: 1px solid var(--border-color);
     flex: 1;
     min-height: 0;
 }
@@ -337,19 +437,21 @@ body {
 .history-list {
     max-height: 150px;
     overflow-y: auto;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--border-color);
     border-radius: var(--radius);
+    background-color: var(--card-bg);
 }
 
 .history-item {
     padding: 0.5rem 0.75rem;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid var(--border-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
     transition: all 0.2s ease;
     font-size: 0.85rem;
+    color: var(--text-dark);
 }
 
 .history-item:last-child {
@@ -357,18 +459,20 @@ body {
 }
 
 .history-item:hover:not(.empty-message) {
-    background-color: var(--bg-light);
+    background-color: var(--hover-bg);
 }
 
 /* Informations sur l'API */
 .api-info-card h3 {
     margin-bottom: 0.75rem;
     font-size: 1.1rem;
+    color: var(--text-dark);
 }
 
 .api-info-card p {
     font-size: 0.85rem;
     margin-bottom: 1rem;
+    color: var(--text-dark);
 }
 
 .api-status {
@@ -407,6 +511,7 @@ body {
     background-color: var(--bg-light);
     border-radius: var(--radius);
     word-break: break-all;
+    border: 1px solid var(--border-color);
 }
 
 .api-routes, .keyboard-shortcuts {
@@ -417,6 +522,7 @@ body {
     margin-bottom: 0.5rem;
     font-weight: 500;
     font-size: 0.9rem;
+    color: var(--text-dark);
 }
 
 .api-routes ul, .keyboard-shortcuts ul {
@@ -428,6 +534,7 @@ body {
     padding-left: 0.75rem;
     border-left: 2px solid var(--primary-color);
     font-size: 0.8rem;
+    color: var(--text-dark);
 }
 
 .api-routes code, .keyboard-shortcuts code {
@@ -475,6 +582,10 @@ footer {
     color: white;
 }
 
+[data-theme="dark"] .notification {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
 /* Animations */
 @keyframes slideInRight {
     from { transform: translateX(100%); opacity: 0; }
@@ -511,4 +622,27 @@ footer {
         font-size: 0.8rem;
         padding: 6px 12px;
     }
+}
+
+/* États de focus améliorés pour le mode sombre */
+[data-theme="dark"] input:focus,
+[data-theme="dark"] select:focus,
+[data-theme="dark"] button:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Scrollbars pour le mode sombre */
+[data-theme="dark"] ::-webkit-scrollbar {
+    width: 8px;
+    background-color: var(--bg-light);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 4px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--text-light);
 }
