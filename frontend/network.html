@@ -1,528 +1,193 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Réseaux - Super Calculatrice</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="network-styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
-    <!-- Bouton Home Flottant -->
-    <a href="index.html" class="floating-home-btn" title="Retour à l'accueil">
-        <i class="fas fa-home"></i>
-    </a>
+<!-- NOUVELLE PARTIE DROITE pour remplacer dans ton network.html -->
+<div class="api-info-card" style="overflow-y: auto;">
+    <div class="network-title" id="network-title">
+        Informations du réseau 192.168.1.0/24
+    </div>
+    
+    <!-- VUE D'ENSEMBLE - 4 cartes principales -->
+    <div class="network-overview">
+        <div class="overview-card">
+            <div class="icon">🌐</div>
+            <div class="big-value" id="overview-network">192.168.1.0</div>
+            <div class="label">Réseau</div>
+        </div>
+        <div class="overview-card">
+            <div class="icon">📡</div>
+            <div class="big-value" id="overview-hosts">254</div>
+            <div class="label">Hôtes</div>
+        </div>
+        <div class="overview-card">
+            <div class="icon">🎯</div>
+            <div class="big-value" id="overview-cidr">/24</div>
+            <div class="label">CIDR</div>
+        </div>
+        <div class="overview-card">
+            <div class="icon">🔒</div>
+            <div class="big-value" id="overview-mask">255.255.255.0</div>
+            <div class="label">Masque</div>
+        </div>
+    </div>
 
-    <div class="calculator-container">
-        <!-- COLONNE 1: CONTRÔLES -->
-        <div class="calculator-card">
-            <div class="calculator-header">
-                <h1>Réseaux 3000</h1>
-                <p class="tagline">Propulsée par Orktk&Co</p>
-            </div>
+    <!-- ONGLETS POUR ORGANISER LES DÉTAILS -->
+    <div class="details-tabs">
+        <button class="details-tab active" data-tab="basics">
+            <i class="fas fa-info-circle"></i>
+            Essentiel
+        </button>
+        <button class="details-tab" data-tab="advanced">
+            <i class="fas fa-cogs"></i>
+            Avancé
+        </button>
+        <button class="details-tab" data-tab="binary">
+            <i class="fas fa-code"></i>
+            Binaire
+        </button>
+    </div>
 
-            <div class="tab-navigation">
-                <a href="calculator.html" class="tab-button">
-                    <i class="fas fa-calculator"></i> Calculatrice
-                </a>
-                <a href="graph.html" class="tab-button">
-                    <i class="fas fa-chart-line"></i> Graphiques
-                </a>
-                <a href="network.html" class="tab-button active">
-                    <i class="fas fa-network-wired"></i> Réseaux
-                </a>
-            </div>
-
-            <!-- CONTRÔLES RÉSEAU -->
-            <div class="input-row">
-                <label for="ip-address">Adresse IP</label>
-                <input type="text" id="ip-address" value="192.168.1.0" placeholder="192.168.1.0" inputmode="decimal">
-                <div class="usage-tips">
-                    Format: xxx.xxx.xxx.xxx (IPv4)
+    <!-- CONTENU ONGLET ESSENTIEL -->
+    <div class="tab-content active" id="basics-tab">
+        <div class="result-section">
+            <h4><i class="fas fa-list"></i> Plage d'adresses</h4>
+            <div class="result-grid">
+                <div class="result-item" title="Cliquer pour copier">
+                    <div class="label">Première adresse</div>
+                    <div class="value" id="first-address">192.168.1.1</div>
                 </div>
-            </div>
-
-            <div class="input-row">
-                <label for="subnet-input">Masque de sous-réseau</label>
-                <div class="subnet-input-container">
-                    <input type="text" id="subnet-input" value="/24" placeholder="/24 ou 255.255.255.0" inputmode="text">
-                    <div class="input-helper">
-                        <span class="helper-text">Tapez /24 ou 255.255.255.0</span>
-                    </div>
+                <div class="result-item" title="Cliquer pour copier">
+                    <div class="label">Dernière adresse</div>
+                    <div class="value" id="last-address">192.168.1.254</div>
                 </div>
-            </div>
-
-            <button id="calculate-network" class="calculate-btn">
-                <i class="fas fa-network-wired"></i> Calculer le réseau
-            </button>
-
-            <h3 style="margin-top: 1rem; font-size: 0.9rem;">Exemples de réseaux</h3>
-            <div class="function-examples">
-                <div class="network-card" data-ip="192.168.1.0" data-cidr="24">
-                    <div class="network-name">192.168.1.0/24</div>
-                    <div class="network-type">Réseau local</div>
-                </div>
-                <div class="network-card" data-ip="10.0.0.0" data-cidr="8">
-                    <div class="network-name">10.0.0.0/8</div>
-                    <div class="network-type">Classe A</div>
-                </div>
-                <div class="network-card" data-ip="172.16.0.0" data-cidr="12">
-                    <div class="network-name">172.16.0.0/12</div>
-                    <div class="network-type">Classe B</div>
-                </div>
-                <div class="network-card" data-ip="192.168.0.0" data-cidr="16">
-                    <div class="network-name">192.168.0.0/16</div>
-                    <div class="network-type">Privé étendu</div>
-                </div>
-                <div class="network-card" data-ip="10.10.10.0" data-cidr="26">
-                    <div class="network-name">10.10.10.0/26</div>
-                    <div class="network-type">Petit réseau</div>
-                </div>
-                <div class="network-card" data-ip="203.0.113.0" data-cidr="24">
-                    <div class="network-name">203.0.113.0/24</div>
-                    <div class="network-type">Test/Doc</div>
-                </div>
-            </div>
-
-            <!-- Status API -->
-            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb;">
-                <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Status API</h4>
-                <div class="api-status">
-                    <div class="status-indicator">
-                        <span class="status-dot" id="api-status-dot"></span>
-                        <span id="api-status" style="font-size: 0.8rem;">Vérification...</span>
-                    </div>
-                </div>
-                <div class="api-url" id="api-url-container" style="font-size: 0.7rem; margin-top: 0.5rem;">
-                    https://api-calculator.orktk.fr
+                <div class="result-item" title="Cliquer pour copier">
+                    <div class="label">Diffusion</div>
+                    <div class="value" id="broadcast-address">192.168.1.255</div>
                 </div>
             </div>
         </div>
 
-        <!-- COLONNE 2: RÉSULTATS RÉSEAU -->
-        <div class="api-info-card" style="overflow-y: auto;">
-            <div class="network-title" id="network-title">
-                Informations du réseau 192.168.1.0/24
+        <div class="result-section">
+            <h4><i class="fas fa-tag"></i> Classification</h4>
+            <div class="classification-item ip-class">
+                <div class="icon-wrapper">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+                <div class="info">
+                    <div class="label">Classe IP</div>
+                    <div class="value" id="ip-class">C</div>
+                </div>
             </div>
-            
-            <div class="network-results" id="network-results">
-                <!-- Informations de base -->
-                <div class="result-section">
-                    <h4><i class="fas fa-info-circle"></i> Informations de base</h4>
-                    <div class="result-grid">
-                        <div class="result-item">
-                            <span class="label">Adresse réseau:</span>
-                            <span class="value" id="network-address">-</span>
-                        </div>
-                        <div class="result-item">
-                            <span class="label">Masque de sous-réseau:</span>
-                            <span class="value" id="subnet-mask-result">-</span>
-                        </div>
-                        <div class="result-item">
-                            <span class="label">Masque générique:</span>
-                            <span class="value" id="wildcard-mask">-</span>
-                        </div>
-                        <div class="result-item">
-                            <span class="label">Notation CIDR:</span>
-                            <span class="value" id="cidr-notation">-</span>
-                        </div>
-                    </div>
+            <div class="classification-item ip-type">
+                <div class="icon-wrapper">
+                    <i class="fas fa-shield-alt"></i>
                 </div>
-
-                <!-- Plage d'adresses -->
-                <div class="result-section">
-                    <h4><i class="fas fa-list"></i> Plage d'adresses</h4>
-                    <div class="result-grid">
-                        <div class="result-item">
-                            <span class="label">Première adresse:</span>
-                            <span class="value" id="first-address">-</span>
-                        </div>
-                        <div class="result-item">
-                            <span class="label">Dernière adresse:</span>
-                            <span class="value" id="last-address">-</span>
-                        </div>
-                        <div class="result-item">
-                            <span class="label">Adresse de diffusion:</span>
-                            <span class="value" id="broadcast-address">-</span>
-                        </div>
-                        <div class="result-item">
-                            <span class="label">Nombre d'hôtes:</span>
-                            <span class="value" id="host-count">-</span>
-                        </div>
-                    </div>
+                <div class="info">
+                    <div class="label">Type d'adresse</div>
+                    <div class="value" id="ip-type">Privée (RFC 1918)</div>
                 </div>
-
-                <!-- Informations binaires -->
-                <div class="result-section">
-                    <h4><i class="fas fa-code"></i> Représentation binaire</h4>
-                    <div class="binary-section">
-                        <div class="binary-item">
-                            <span class="binary-label">Adresse IP:</span>
-                            <span class="binary-value" id="ip-binary">-</span>
-                        </div>
-                        <div class="binary-item">
-                            <span class="binary-label">Masque:</span>
-                            <span class="binary-value" id="mask-binary">-</span>
-                        </div>
-                        <div class="binary-item">
-                            <span class="binary-label">Réseau:</span>
-                            <span class="binary-value" id="network-binary">-</span>
-                        </div>
-                    </div>
+            </div>
+            <div class="classification-item rfc-info">
+                <div class="icon-wrapper">
+                    <i class="fas fa-book"></i>
                 </div>
-
-                <!-- Classe et type -->
-                <div class="result-section">
-                    <h4><i class="fas fa-tag"></i> Classification</h4>
-                    <div class="result-grid">
-                        <div class="result-item">
-                            <span class="label">Classe IP:</span>
-                            <span class="value" id="ip-class">-</span>
-                        </div>
-                        <div class="result-item">
-                            <span class="label">Type d'adresse:</span>
-                            <span class="value" id="ip-type">-</span>
-                        </div>
-                        <div class="result-item">
-                            <span class="label">RFC:</span>
-                            <span class="value" id="rfc-info">-</span>
-                        </div>
-                    </div>
+                <div class="info">
+                    <div class="label">Standard RFC</div>
+                    <div class="value" id="rfc-info">RFC 1918 - Adresses privées</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer>
-        © 2025 Calculatrice 3000 - Créée avec FastAPI
-    </footer>
+    <!-- CONTENU ONGLET AVANCÉ -->
+    <div class="tab-content" id="advanced-tab">
+        <div class="result-section">
+            <h4><i class="fas fa-info-circle"></i> Informations détaillées</h4>
+            <div class="result-grid">
+                <div class="result-item" title="Cliquer pour copier">
+                    <div class="label">Adresse réseau</div>
+                    <div class="value" id="network-address">192.168.1.0</div>
+                </div>
+                <div class="result-item" title="Cliquer pour copier">
+                    <div class="label">Masque sous-réseau</div>
+                    <div class="value" id="subnet-mask-result">255.255.255.0</div>
+                </div>
+                <div class="result-item" title="Cliquer pour copier">
+                    <div class="label">Masque générique</div>
+                    <div class="value" id="wildcard-mask">0.0.0.255</div>
+                </div>
+                <div class="result-item" title="Cliquer pour copier">
+                    <div class="label">Notation CIDR</div>
+                    <div class="value" id="cidr-notation">/24</div>
+                </div>
+                <div class="result-item" title="Cliquer pour copier">
+                    <div class="label">Nombre d'hôtes</div>
+                    <div class="value" id="host-count">254</div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <script>
-        // Configuration
-        const API_URL = 'https://api-calculator.orktk.fr';
+    <!-- CONTENU ONGLET BINAIRE -->
+    <div class="tab-content" id="binary-tab">
+        <div class="result-section">
+            <h4><i class="fas fa-code"></i> Représentation binaire</h4>
+            <div class="binary-section">
+                <div class="binary-item">
+                    <div class="binary-label">Adresse IP</div>
+                    <div class="binary-value" id="ip-binary">11000000.10101000.00000001.00000000</div>
+                </div>
+                <div class="binary-item">
+                    <div class="binary-label">Masque</div>
+                    <div class="binary-value" id="mask-binary">11111111.11111111.11111111.00000000</div>
+                </div>
+                <div class="binary-item">
+                    <div class="binary-label">Réseau</div>
+                    <div class="binary-value" id="network-binary">11000000.10101000.00000001.00000000</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-        // Éléments DOM
-        const ipAddressInput = document.getElementById('ip-address');
-        const subnetInput = document.getElementById('subnet-input');
-        const calculateBtn = document.getElementById('calculate-network');
-        const networkTitle = document.getElementById('network-title');
-        const apiStatusElement = document.getElementById('api-status');
-        const apiStatusDot = document.getElementById('api-status-dot');
-        const networkCards = document.querySelectorAll('.network-card');
-
-        // Éléments de résultats
-        const networkAddress = document.getElementById('network-address');
-        const subnetMaskResult = document.getElementById('subnet-mask-result');
-        const wildcardMask = document.getElementById('wildcard-mask');
-        const cidrNotation = document.getElementById('cidr-notation');
-        const firstAddress = document.getElementById('first-address');
-        const lastAddress = document.getElementById('last-address');
-        const broadcastAddress = document.getElementById('broadcast-address');
-        const hostCount = document.getElementById('host-count');
-        const ipBinary = document.getElementById('ip-binary');
-        const maskBinary = document.getElementById('mask-binary');
-        const networkBinary = document.getElementById('network-binary');
-        const ipClass = document.getElementById('ip-class');
-        const ipType = document.getElementById('ip-type');
-        const rfcInfo = document.getElementById('rfc-info');
-
-        // Fonctions utilitaires pour le calcul réseau
-        function ipToInt(ip) {
-            return ip.split('.').reduce((acc, octet) => (acc << 8) + parseInt(octet), 0) >>> 0;
-        }
-
-        function intToIp(int) {
-            return [(int >>> 24), (int >>> 16) & 255, (int >>> 8) & 255, int & 255].join('.');
-        }
-
-        function cidrToMask(cidr) {
-            const mask = (0xFFFFFFFF << (32 - cidr)) >>> 0;
-            return intToIp(mask);
-        }
-
-        function maskToCidr(mask) {
-            const maskInt = ipToInt(mask);
-            let cidr = 0;
-            for (let i = 31; i >= 0; i--) {
-                if ((maskInt >>> i) & 1) cidr++;
-                else break;
-            }
-            return cidr;
-        }
-
-        function ipToBinary(ip) {
-            return ip.split('.').map(octet => 
-                parseInt(octet).toString(2).padStart(8, '0')
-            ).join('.');
-        }
-
-        function getIpClass(ip) {
-            const firstOctet = parseInt(ip.split('.')[0]);
-            if (firstOctet >= 1 && firstOctet <= 126) return 'A';
-            if (firstOctet >= 128 && firstOctet <= 191) return 'B';
-            if (firstOctet >= 192 && firstOctet <= 223) return 'C';
-            if (firstOctet >= 224 && firstOctet <= 239) return 'D (Multicast)';
-            if (firstOctet >= 240 && firstOctet <= 255) return 'E (Réservée)';
-            return 'Invalide';
-        }
-
-        function getIpType(ip) {
-            const parts = ip.split('.').map(x => parseInt(x));
-            const [a, b, c, d] = parts;
+<script>
+// JavaScript pour les onglets (à ajouter à ton script existant)
+function initNetworkTabs() {
+    const tabs = document.querySelectorAll('.details-tab');
+    const contents = document.querySelectorAll('.tab-content');
+    
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Retirer active de tous les onglets
+            tabs.forEach(t => t.classList.remove('active'));
+            contents.forEach(c => c.classList.remove('active'));
             
-            // Adresses privées RFC 1918
-            if (a === 10) return 'Privée (RFC 1918)';
-            if (a === 172 && b >= 16 && b <= 31) return 'Privée (RFC 1918)';
-            if (a === 192 && b === 168) return 'Privée (RFC 1918)';
+            // Activer l'onglet cliqué
+            tab.classList.add('active');
+            const targetTab = tab.getAttribute('data-tab');
+            document.getElementById(`${targetTab}-tab`).classList.add('active');
             
-            // Autres types spéciaux
-            if (a === 127) return 'Loopback (RFC 3330)';
-            if (a === 169 && b === 254) return 'Link-Local (RFC 3927)';
-            if (a >= 224 && a <= 239) return 'Multicast (RFC 3171)';
-            if (a === 203 && b === 0 && c === 113) return 'Test/Documentation (RFC 5737)';
-            
-            return 'Publique';
-        }
-
-        function getRfcInfo(ip) {
-            const type = getIpType(ip);
-            if (type.includes('RFC 1918')) return 'RFC 1918 - Adresses privées';
-            if (type.includes('RFC 3330')) return 'RFC 3330 - Adresse de bouclage';
-            if (type.includes('RFC 3927')) return 'RFC 3927 - Auto-configuration';
-            if (type.includes('RFC 3171')) return 'RFC 3171 - Multicast';
-            if (type.includes('RFC 5737')) return 'RFC 5737 - Documentation';
-            return 'RFC 791 - Internet Protocol';
-        }
-
-        function validateIp(ip) {
-            const regex = /^(\d{1,3}\.){3}\d{1,3}$/;
-            if (!regex.test(ip)) return false;
-            
-            const parts = ip.split('.').map(x => parseInt(x));
-            return parts.every(part => part >= 0 && part <= 255);
-        }
-
-        function parseSubnetInput(input) {
-            input = input.trim();
-            
-            // Si ça commence par /, c'est du CIDR
-            if (input.startsWith('/')) {
-                const cidr = parseInt(input.substring(1));
-                if (cidr >= 1 && cidr <= 30) {
-                    return { cidr, mask: cidrToMask(cidr) };
-                }
-            }
-            
-            // Si ça contient des points, c'est un masque décimal
-            if (input.includes('.')) {
-                if (validateIp(input)) {
-                    return { cidr: maskToCidr(input), mask: input };
-                }
-            }
-            
-            // Si c'est juste un nombre, on assume que c'est du CIDR
-            const num = parseInt(input);
-            if (!isNaN(num) && num >= 1 && num <= 30) {
-                return { cidr: num, mask: cidrToMask(num) };
-            }
-            
-            return null;
-        }
-
-        function calculateNetwork() {
-            const ip = ipAddressInput.value.trim();
-            
-            // Validation de l'IP
-            if (!validateIp(ip)) {
-                showNotification('Adresse IP invalide', 'error');
-                return;
-            }
-            
-            // Parsing du masque (intelligent)
-            const subnetData = parseSubnetInput(subnetInput.value);
-            if (!subnetData) {
-                showNotification('Masque invalide. Utilisez /24 ou 255.255.255.0', 'error');
-                return;
-            }
-            
-            const { cidr, mask } = subnetData;
-            
-            // Calculs réseau
-            const ipInt = ipToInt(ip);
-            const maskInt = ipToInt(mask);
-            const networkInt = ipInt & maskInt;
-            const broadcastInt = networkInt | (~maskInt >>> 0);
-            const wildcardInt = ~maskInt >>> 0;
-            
-            const networkAddr = intToIp(networkInt);
-            const broadcastAddr = intToIp(broadcastInt);
-            const wildcardAddr = intToIp(wildcardInt);
-            const firstHost = intToIp(networkInt + 1);
-            const lastHost = intToIp(broadcastInt - 1);
-            const totalHosts = broadcastInt - networkInt - 1;
-            
-            // Mise à jour de l'affichage
-            networkTitle.textContent = `Informations du réseau ${networkAddr}/${cidr}`;
-            
-            networkAddress.textContent = networkAddr;
-            subnetMaskResult.textContent = mask;
-            wildcardMask.textContent = wildcardAddr;
-            cidrNotation.textContent = `/${cidr}`;
-            
-            firstAddress.textContent = firstHost;
-            lastAddress.textContent = lastHost;
-            broadcastAddress.textContent = broadcastAddr;
-            hostCount.textContent = totalHosts.toLocaleString();
-            
-            ipBinary.textContent = ipToBinary(ip);
-            maskBinary.textContent = ipToBinary(mask);
-            networkBinary.textContent = ipToBinary(networkAddr);
-            
-            ipClass.textContent = getIpClass(ip);
-            ipType.textContent = getIpType(ip);
-            rfcInfo.textContent = getRfcInfo(ip);
-            
-            showNotification('Calcul effectué avec succès !', 'success');
-            
-            // Feedback tactile sur mobile
+            // Vibration mobile
             if ('vibrate' in navigator) {
-                navigator.vibrate([100, 50, 100]);
-            }
-        }
-
-        // Gestion intelligente de l'input masque
-        subnetInput.addEventListener('input', function() {
-            const value = this.value.trim();
-            const helper = document.querySelector('.helper-text');
-            
-            if (value.startsWith('/') || !isNaN(parseInt(value))) {
-                helper.textContent = 'Format CIDR détecté';
-                helper.style.color = '#22c55e';
-            } else if (value.includes('.')) {
-                helper.textContent = 'Format décimal détecté';
-                helper.style.color = '#22c55e';
-            } else if (value === '') {
-                helper.textContent = 'Tapez /24 ou 255.255.255.0';
-                helper.style.color = '#6b7280';
-            } else {
-                helper.textContent = 'Format non reconnu';
-                helper.style.color = '#f87171';
+                navigator.vibrate(30);
             }
         });
+    });
+}
 
-        // Événements pour les cartes d'exemples
-        networkCards.forEach(card => {
-            card.addEventListener('click', function() {
-                networkCards.forEach(c => c.classList.remove('active'));
-                this.classList.add('active');
-                
-                ipAddressInput.value = this.getAttribute('data-ip');
-                subnetInput.value = '/' + this.getAttribute('data-cidr');
-                
-                calculateNetwork();
-                
-                // Feedback tactile sur mobile
-                if ('vibrate' in navigator) {
-                    navigator.vibrate(50);
-                }
-            });
-        });
+// Mettre à jour les cartes d'aperçu
+function updateOverviewCards(networkAddr, hostCount, cidr, mask) {
+    document.getElementById('overview-network').textContent = networkAddr;
+    document.getElementById('overview-hosts').textContent = hostCount;
+    document.getElementById('overview-cidr').textContent = `/${cidr}`;
+    document.getElementById('overview-mask').textContent = mask;
+}
 
-        // Vérification API
-        async function checkApiStatus() {
-            try {
-                const response = await fetch(`${API_URL}/docs`, { method: 'GET' });
-                if (response.ok) {
-                    apiStatusElement.textContent = 'En ligne';
-                    apiStatusDot.classList.add('online');
-                    apiStatusDot.classList.remove('offline');
-                } else {
-                    throw new Error('Réponse invalide');
-                }
-            } catch (error) {
-                apiStatusElement.textContent = 'Hors ligne';
-                apiStatusDot.classList.add('offline');
-                apiStatusDot.classList.remove('online');
-            }
-        }
+// Animation de copie
+function animateCopy(element) {
+    element.classList.add('pulse-copy');
+    setTimeout(() => {
+        element.classList.remove('pulse-copy');
+    }, 600);
+}
 
-        // Fonction de notification
-        function showNotification(message, type = 'info') {
-            document.querySelectorAll('.notification').forEach(n => n.remove());
-
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            
-            const icon = type === 'success' ? 'fas fa-check-circle' : 
-                        type === 'error' ? 'fas fa-exclamation-triangle' : 
-                        'fas fa-info-circle';
-            
-            notification.innerHTML = `
-                <i class="${icon}"></i>
-                <span>${message}</span>
-            `;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.animation = 'slideInRight 0.3s ease-out reverse';
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.parentNode.removeChild(notification);
-                    }
-                }, 300);
-            }, 4000);
-        }
-
-        // Copie des résultats au clic
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('value') || e.target.classList.contains('binary-value')) {
-                const text = e.target.textContent;
-                if (text !== '-') {
-                    navigator.clipboard.writeText(text).then(() => {
-                        showNotification('Valeur copiée !', 'success');
-                        e.target.style.animation = 'pulse 0.5s ease-out';
-                        setTimeout(() => {
-                            e.target.style.animation = '';
-                        }, 500);
-                        
-                        // Feedback tactile
-                        if ('vibrate' in navigator) {
-                            navigator.vibrate(50);
-                        }
-                    }).catch(() => {
-                        showNotification('Impossible de copier', 'error');
-                    });
-                }
-            }
-        });
-
-        // Initialisation
-        function init() {
-            checkApiStatus();
-            
-            calculateBtn.addEventListener('click', calculateNetwork);
-            
-            // Calcul initial
-            setTimeout(calculateNetwork, 500);
-        }
-
-        // Gestion du redimensionnement responsif
-        let resizeTimeout;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                // Réajustements responsive si nécessaire
-            }, 250);
-        });
-
-        // Démarrage
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', init);
-        } else {
-            init();
-        }
-    </script>
-</body>
-</html>
+// Initialiser les onglets au chargement
+document.addEventListener('DOMContentLoaded', initNetworkTabs);
+</script>
