@@ -57,7 +57,7 @@
                 <i class="fas fa-network-wired"></i> Calculer le réseau
             </button>
 
-            <h3 style="margin-top: 1rem; font-size: 0.9rem;">Exemples de réseaux</h3>
+            <h3>Exemples de réseaux</h3>
             <div class="function-examples">
                 <div class="network-card" data-ip="192.168.1.0" data-cidr="24">
                     <div class="network-name">192.168.1.0/24</div>
@@ -86,22 +86,20 @@
             </div>
 
             <!-- Status API -->
-            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb;">
-                <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Status API</h4>
-                <div class="api-status">
-                    <div class="status-indicator">
-                        <span class="status-dot" id="api-status-dot"></span>
-                        <span id="api-status" style="font-size: 0.8rem;">Vérification...</span>
-                    </div>
+            <div class="api-status">
+                <h4>Status API</h4>
+                <div class="status-indicator">
+                    <span class="status-dot" id="api-status-dot"></span>
+                    <span id="api-status">Vérification...</span>
                 </div>
-                <div class="api-url" id="api-url-container" style="font-size: 0.7rem; margin-top: 0.5rem;">
+                <div class="api-url" id="api-url-container">
                     https://api-calculator.orktk.fr
                 </div>
             </div>
         </div>
 
         <!-- COLONNE 2: RÉSULTATS RÉSEAU -->
-        <div class="api-info-card" style="overflow-y: auto;">
+        <div class="api-info-card">
             <div class="network-title" id="network-title">
                 Informations du réseau 192.168.1.0/24
             </div>
@@ -198,8 +196,7 @@
         © 2025 Calculatrice 3000 - Créée avec FastAPI
     </footer>
 
-<!-- JS -->
- 
+    <!-- JavaScript harmonisé -->
     <script>
         // Configuration
         const API_URL = 'https://api-calculator.orktk.fr';
@@ -449,7 +446,7 @@
             }
         }
 
-        // Fonction de notification
+        // Fonction de notification harmonisée
         function showNotification(message, type = 'info') {
             document.querySelectorAll('.notification').forEach(n => n.remove());
 
@@ -477,7 +474,7 @@
             }, 4000);
         }
 
-        // Copie des résultats au clic
+        // Copie des résultats au clic - HARMONISÉE
         document.addEventListener('click', function(e) {
             if (e.target.classList.contains('value') || e.target.classList.contains('binary-value')) {
                 const text = e.target.textContent;
@@ -503,7 +500,6 @@
         // Initialisation
         function init() {
             checkApiStatus();
-            
             calculateBtn.addEventListener('click', calculateNetwork);
             
             // Calcul initial
