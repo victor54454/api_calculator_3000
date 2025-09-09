@@ -20,10 +20,10 @@ Une application web de calculatrice et de génération de graphiques utilisant F
 - Python 3.11+
 
 ### Installation avec Docker
-\`\`\`bash
-docker build -t calculator-api .
-docker run -d -p 8000:8000 --name calculator-api calculator-api
-\`\`\`
+
+```docker build -t calculator-api
+docker run -d -p 8000:8000 --name calculator-api calculator-api```
+
 
 ### Utilisation en local
 Ouvrez index.html dans votre navigateur.
