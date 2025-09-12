@@ -4,6 +4,11 @@ FROM docker.io/python:3.13-slim
 RUN groupadd --gid 1000 appuser && \
     useradd --uid 1000 --gid appuser --create-home appuser
 
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    && rm -rf /var/lib/apt/lists
+
 WORKDIR /app
 
 COPY requirements.txt .
