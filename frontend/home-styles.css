@@ -1,4 +1,4 @@
-/* home-styles.css - Styles spécifiques à la page d'accueil */
+/* home-styles.css - Version Responsive Parfaitement Optimisée */
 
 /* Variables CSS nécessaires */
 :root {
@@ -19,7 +19,7 @@
     --transition: all 0.3s ease;
 }
 
-/* Reset de base pour éviter les conflits */
+/* Reset de base */
 * {
     margin: 0;
     padding: 0;
@@ -27,7 +27,7 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* CORPS DE PAGE MODERNE - VERSION PARFAITEMENT UNIFORME */
+/* CORPS DE PAGE MODERNE - OPTIMISÉ RESPONSIVE */
 body {
     background: #1e293b;
     min-height: 100vh;
@@ -45,29 +45,28 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: 
-        radial-gradient(circle at center, rgba(76, 201, 240, 0.03) 0%, transparent 70%);
+    background: radial-gradient(circle at center, rgba(76, 201, 240, 0.03) 0%, transparent 70%);
     pointer-events: none;
     z-index: -1;
 }
 
-/* Container principal - VERSION COMPACTE */
+/* CONTAINER PRINCIPAL - RESPONSIVE FLUIDE */
 .home-container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 1rem 1rem 2rem 1rem;
+    padding: clamp(1rem, 3vw, 2rem) clamp(0.5rem, 2vw, 1rem);
     min-height: 100vh;
     background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-    border-radius: 20px;
+    border-radius: clamp(16px, 2vw, 20px);
     box-shadow: 0 20px 60px rgba(0,0,0,0.3);
     overflow: visible;
 }
 
-/* Header avec logo - VERSION COMPACTE */
+/* HEADER ADAPTATIF */
 .home-header {
     text-align: center;
-    margin-bottom: 2rem;
-    padding: 2rem 0;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+    padding: clamp(1.5rem, 3vw, 2rem) 0;
     color: white;
 }
 
@@ -75,16 +74,17 @@ body::before {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 2rem;
-    margin-bottom: 2rem;
+    gap: clamp(1rem, 3vw, 2rem);
+    margin-bottom: clamp(1.5rem, 3vw, 2rem);
+    flex-wrap: wrap;
 }
 
-/* TON LOGO AVEC VRAIE IMAGE - VERSION COMPACTE */
+/* LOGO RESPONSIVE PARFAIT */
 .logo-icon {
-    width: 80px;
-    height: 80px;
+    width: clamp(70px, 12vw, 100px);
+    height: clamp(70px, 12vw, 100px);
     background: transparent;
-    border-radius: 20px;
+    border-radius: clamp(16px, 2vw, 24px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -94,131 +94,116 @@ body::before {
     position: relative;
     overflow: hidden;
     animation: float 4s ease-in-out infinite;
-    padding: 8px;
+    padding: clamp(6px, 1vw, 8px);
+    flex-shrink: 0;
 }
 
-/* Image du logo */
 .logo-image {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    border-radius: 20px;
+    border-radius: clamp(16px, 2vw, 20px);
     z-index: 2;
     position: relative;
 }
 
-/* Animation flottante */
+/* Animation flottante adaptée */
 @keyframes float {
     0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
+    50% { transform: translateY(clamp(-8px, -1.5vw, -10px)); }
 }
 
-/* Animation brillance */
-@keyframes shine {
-    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-}
-
-/* Effet de brillance derrière l'image */
-.logo-icon::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-    transform: rotate(45deg);
-    animation: shine 4s infinite;
-    z-index: 1;
-}
-
-/* Supprimer le pseudo-élément after car on utilise la vraie image */
-.logo-icon::after {
-    display: none;
-}
-
-.logo-icon i {
-    display: none; /* Cacher l'icône FontAwesome */
-}
-
+/* TEXTE LOGO FLUIDE */
 .logo-text h1 {
-    font-size: 3rem;
+    font-size: clamp(2rem, 6vw, 3rem);
     color: #4cc9f0;
     margin: 0;
     font-weight: 700;
     text-shadow: 0 0 20px rgba(76, 201, 240, 0.5);
-    letter-spacing: -2px;
+    letter-spacing: clamp(-1px, -0.1vw, -2px);
+    line-height: 1.1;
 }
 
 .logo-text .domain {
-    font-size: 1.4rem;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
     color: #94a3b8;
-    margin: 0.5rem 0 0 0;
+    margin: clamp(0.25rem, 1vw, 0.5rem) 0 0 0;
     font-weight: 400;
+    word-break: break-word;
 }
 
 .tagline {
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 2.2vw, 1.2rem);
     color: #cbd5e1;
-    margin-bottom: 2rem;
+    margin-bottom: clamp(1.5rem, 3vw, 2rem);
     font-weight: 300;
     opacity: 0.9;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.4;
 }
 
+/* STATUS API ADAPTATIF */
 .api-status-home {
     display: inline-flex;
     align-items: center;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
-    padding: 1rem 2rem;
+    padding: clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 3vw, 2rem);
     border-radius: 50px;
     border: 1px solid rgba(76, 201, 240, 0.3);
     color: white;
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    gap: clamp(0.5rem, 1vw, 0.75rem);
 }
 
-/* Grille des outils - VERSION COMPACTE */
+/* GRILLE DES OUTILS - RESPONSIVE INTELLIGENT */
 .tools-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 3rem;
-    padding: 0 1rem;
-    max-width: 1200px;
+    gap: clamp(1rem, 2.5vw, 2rem);
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+    padding: 0 clamp(0.5rem, 2vw, 1rem);
+    max-width: 1400px;
     margin-left: auto;
     margin-right: auto;
 }
 
-/* Force 3 colonnes sur les grands écrans */
-@media (min-width: 1200px) {
+/* Breakpoints de grille perfectionnés */
+.tools-grid {
+    grid-template-columns: 1fr; /* Mobile par défaut */
+}
+
+/* Petit mobile paysage */
+@media (min-width: 480px) and (max-width: 767px) {
+    .tools-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        max-width: 600px;
+    }
+}
+
+/* Tablette portrait */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .tools-grid {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 800px;
+    }
+}
+
+/* Tablette paysage et desktop */
+@media (min-width: 1024px) {
     .tools-grid {
         grid-template-columns: repeat(3, 1fr);
         max-width: 1400px;
     }
 }
 
-/* 2 colonnes sur les tablettes */
-@media (min-width: 768px) and (max-width: 1199px) {
-    .tools-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
-    }
-}
-
-/* 1 colonne sur mobile */
-@media (max-width: 767px) {
-    .tools-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-        padding: 0;
-    }
-}
-
+/* CARTES OUTILS RESPONSIVE PARFAITES */
 .tool-card {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
-    border-radius: 20px;
-    padding: 1.5rem;
+    border-radius: clamp(16px, 2vw, 20px);
+    padding: clamp(1.25rem, 3vw, 1.5rem);
     box-shadow: 
         0 15px 30px rgba(0, 0, 0, 0.1),
         0 0 0 1px rgba(255, 255, 255, 0.2);
@@ -228,441 +213,359 @@ body::before {
     position: relative;
     overflow: visible;
     transform-style: preserve-3d;
-    height: auto;
-    min-height: 280px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin-bottom: 0;
     user-select: none;
+    
+    /* Hauteur adaptive */
+    min-height: clamp(280px, 35vw, 320px);
+    height: auto;
+    
+    /* Touch-friendly sur mobile */
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(67, 97, 238, 0.2);
 }
 
 .tool-card:hover {
-    transform: translateY(-15px);
+    transform: translateY(clamp(-10px, -2vw, -15px));
     box-shadow: 
         0 40px 80px rgba(67, 97, 238, 0.2),
         0 0 0 1px rgba(76, 201, 240, 0.4);
 }
 
 .tool-card:active {
-    transform: translateY(-10px) scale(0.98);
+    transform: translateY(clamp(-5px, -1vw, -10px)) scale(0.98);
     transition: all 0.1s ease;
 }
 
-.tool-card:focus {
-    outline: 3px solid rgba(76, 201, 240, 0.5);
-    outline-offset: 4px;
-}
-
-/* SUPPRESSION DE LA BARRE BLEUE - CORRIGÉ */
-.tool-card::before {
-    display: none !important;
-}
-
-/* NOUVELLE STRUCTURE POUR MEILLEUR ALIGNEMENT */
+/* CONTENU DES CARTES RESPONSIVE */
 .tool-content {
     display: flex;
     flex-direction: column;
     height: 100%;
-    gap: 1rem;
-}
-
-.tool-header {
-    flex-shrink: 0;
-}
-
-.tool-body {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.tool-main {
-    flex-grow: 1;
+    gap: clamp(0.75rem, 2vw, 1rem);
 }
 
 .tool-icon {
-    width: 70px;
-    height: 70px;
-    border-radius: 18px;
+    width: clamp(60px, 10vw, 70px);
+    height: clamp(60px, 10vw, 70px);
+    border-radius: clamp(16px, 2vw, 18px);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1.5rem;
-    font-size: 2rem;
+    margin-bottom: clamp(1rem, 2vw, 1.5rem);
+    font-size: clamp(1.6rem, 3vw, 2rem);
     color: white;
     box-shadow: 0 15px 30px rgba(0,0,0,0.2);
     position: relative;
     flex-shrink: 0;
 }
 
-.tool-icon::before {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-    border-radius: 20px;
-    animation: rotate 3s linear infinite;
-}
-
-@keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-.calculator-icon {
-    background: linear-gradient(135deg, #10b981, #059669);
-}
-
-.graphs-icon {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-}
-
-.network-icon {
-    background: linear-gradient(135deg, #0ea5e9, #0284c7);
-}
-
 .tool-card h3 {
     color: var(--text-dark);
-    font-size: 1.4rem;
-    margin-bottom: 1rem;
+    font-size: clamp(1.2rem, 3vw, 1.4rem);
+    margin-bottom: clamp(0.75rem, 2vw, 1rem);
     font-weight: 700;
     letter-spacing: -0.5px;
+    line-height: 1.2;
 }
 
 .tool-description {
     color: #64748b;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
+    font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+    line-height: 1.5;
+    margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
     font-weight: 400;
+    flex-grow: 1;
 }
 
+/* FEATURES LIST RESPONSIVE */
 .tool-features {
     list-style: none;
-    margin-bottom: 1.5rem;
+    margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
     flex-shrink: 0;
 }
 
 .tool-features li {
-    padding: 0.6rem 0;
+    padding: clamp(0.4rem, 1.2vw, 0.6rem) 0;
     color: var(--text-dark);
-    font-size: 0.9rem;
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: clamp(0.5rem, 1.5vw, 0.75rem);
     font-weight: 500;
     transition: all 0.3s ease;
-}
-
-.tool-features li:hover {
-    color: var(--primary-color);
-    transform: translateX(5px);
 }
 
 .tool-features i {
     color: var(--primary-color);
     width: 16px;
-    font-size: 0.9rem;
+    font-size: clamp(0.8rem, 1.8vw, 0.9rem);
+    flex-shrink: 0;
 }
 
+/* FOOTER DES CARTES RESPONSIVE */
 .tool-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 1.5rem;
+    padding-top: clamp(1rem, 2.5vw, 1.5rem);
     border-top: 2px solid #f1f5f9;
     flex-shrink: 0;
     margin-top: auto;
+    gap: clamp(0.5rem, 1vw, 1rem);
 }
 
 .tool-badge {
     background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
     color: white;
-    padding: 0.5rem 1.2rem;
+    padding: clamp(0.4rem, 1vw, 0.5rem) clamp(1rem, 2vw, 1.2rem);
     border-radius: 20px;
-    font-size: 0.8rem;
+    font-size: clamp(0.7rem, 1.5vw, 0.8rem);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+    flex-shrink: 0;
 }
 
 .tool-footer i {
     color: var(--primary-color);
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 2.2vw, 1.2rem);
     transition: transform 0.3s ease;
+    flex-shrink: 0;
 }
 
-.tool-card:hover .tool-footer i {
-    transform: translateX(8px);
-    color: var(--accent-color);
-}
-
-/* Section informations - VERSION COMPACTE */
+/* SECTION INFORMATIONS RESPONSIVE */
 .home-info {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-    padding: 0 1rem;
+    gap: clamp(1rem, 2.5vw, 2rem);
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+    padding: 0 clamp(0.5rem, 2vw, 1rem);
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
 }
 
+/* Grille info adaptative */
+.home-info {
+    grid-template-columns: 1fr; /* Mobile */
+}
+
+@media (min-width: 768px) {
+    .home-info {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 .info-card {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(20px);
-    border-radius: 16px;
-    padding: 1.5rem;
+    border-radius: clamp(12px, 2vw, 16px);
+    padding: clamp(1.25rem, 3vw, 1.5rem);
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: white;
     transition: all 0.3s ease;
-}
-
-.info-card:hover {
-    transform: translateY(-10px);
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    min-height: auto;
 }
 
 .info-card h4 {
     color: #4cc9f0;
-    margin-bottom: 1.5rem;
-    font-size: 1.2rem;
+    margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
+    font-size: clamp(1.1rem, 2.5vw, 1.2rem);
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: clamp(0.5rem, 1.5vw, 0.75rem);
     font-weight: 600;
+    flex-wrap: wrap;
 }
 
-.info-card h4 i {
-    color: #4cc9f0;
-    font-size: 1.3rem;
-}
-
+/* TECHNOLOGIES BADGES RESPONSIVE */
 .tech-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
+    gap: clamp(0.5rem, 1.5vw, 0.75rem);
 }
 
 .tech-badge {
     background: rgba(76, 201, 240, 0.2);
     color: #4cc9f0;
-    padding: 0.5rem 1rem;
-    border-radius: 12px;
-    font-size: 0.9rem;
+    padding: clamp(0.4rem, 1vw, 0.5rem) clamp(0.75rem, 2vw, 1rem);
+    border-radius: clamp(10px, 1.5vw, 12px);
+    font-size: clamp(0.8rem, 1.8vw, 0.9rem);
     font-weight: 500;
     border: 1px solid rgba(76, 201, 240, 0.3);
     backdrop-filter: blur(10px);
     transition: all 0.3s ease;
+    white-space: nowrap;
 }
 
-.tech-badge:hover {
-    background: rgba(76, 201, 240, 0.3);
-    transform: scale(1.05);
-}
-
+/* STATS GRID RESPONSIVE */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+    gap: clamp(0.75rem, 2vw, 1.5rem);
 }
 
 .stat-item {
     text-align: center;
-    padding: 1.5rem 0;
-    border-radius: 15px;
+    padding: clamp(1rem, 2.5vw, 1.5rem) clamp(0.5rem, 1vw, 1rem);
+    border-radius: clamp(12px, 2vw, 15px);
     background: rgba(255, 255, 255, 0.05);
     transition: all 0.3s ease;
 }
 
-.stat-item:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: scale(1.05);
-}
-
 .stat-number {
     display: block;
-    font-size: 2.5rem;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
     font-weight: 800;
     color: #4cc9f0;
-    margin-bottom: 0.5rem;
+    margin-bottom: clamp(0.25rem, 1vw, 0.5rem);
     text-shadow: 0 0 20px rgba(76, 201, 240, 0.5);
+    line-height: 1;
 }
 
 .stat-label {
-    font-size: 0.9rem;
+    font-size: clamp(0.7rem, 1.6vw, 0.9rem);
     color: #cbd5e1;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
 }
 
-/* Status API - MODERNE */
-.status-indicator {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-}
-
+/* STATUS DOT RESPONSIVE */
 .status-dot {
-    width: 12px;
-    height: 12px;
+    width: clamp(10px, 2vw, 12px);
+    height: clamp(10px, 2vw, 12px);
     border-radius: 50%;
     background-color: #64748b;
+    flex-shrink: 0;
 }
 
 .status-dot.online {
     background-color: #10b981;
     box-shadow: 
-        0 0 0 4px rgba(16, 185, 129, 0.2),
+        0 0 0 clamp(3px, 0.5vw, 4px) rgba(16, 185, 129, 0.2),
         0 0 20px rgba(16, 185, 129, 0.5);
     animation: pulse 2s infinite;
 }
 
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-}
-
-.status-dot.offline {
-    background-color: #ef4444;
-    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.2);
-}
-
-/* Footer moderne - VERSION COMPACTE */
+/* FOOTER RESPONSIVE */
 footer {
     text-align: center;
     color: #94a3b8;
-    padding: 1.5rem;
-    font-size: 0.9rem;
+    padding: clamp(1rem, 2.5vw, 1.5rem);
+    font-size: clamp(0.8rem, 1.8vw, 0.9rem);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-    margin-top: 1rem;
+    margin-top: clamp(1rem, 2vw, 2rem);
     background: rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(10px);
     font-weight: 300;
+    line-height: 1.4;
 }
 
-/* Responsive Design - AMÉLIORÉ */
-@media (max-width: 768px) {
+/* BREAKPOINTS SPÉCIFIQUES POUR CORRECTIONS */
+
+/* Mobile portrait très petit */
+@media (max-width: 360px) {
     .home-container {
-        padding: 1rem 0.5rem;
-        background: none; /* Le background sera sur le body */
-    }
-    
-    .home-header {
-        margin-bottom: 3rem;
-        padding: 2rem 0;
+        border-radius: 0;
+        padding: 1rem 0.75rem;
     }
     
     .logo-container {
         flex-direction: column;
-        gap: 1.5rem;
-    }
-    
-    .logo-icon {
-        width: 100px;
-        height: 100px;
-        border-radius: 24px;
-    }
-    
-    .logo-text h1 {
-        font-size: 2.5rem;
-    }
-    
-    .logo-text .domain {
-        font-size: 1.2rem;
-    }
-    
-    .tagline {
-        font-size: 1.1rem;
+        gap: 1rem;
     }
     
     .tool-card {
-        padding: 1.5rem;
-        border-radius: 20px;
-        min-height: 350px;
-    }
-    
-    .tool-card:hover {
-        transform: translateY(-8px);
-    }
-    
-    .tool-icon {
-        width: 60px;
-        height: 60px;
-        font-size: 1.8rem;
-    }
-    
-    .home-info {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-        padding: 0;
-    }
-    
-    .stats-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1rem;
-    }
-    
-    .stat-number {
-        font-size: 2rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .logo-container {
-        gap: 1rem;
-    }
-    
-    .logo-icon {
-        width: 80px;
-        height: 80px;
-        border-radius: 20px;
-    }
-    
-    .logo-text h1 {
-        font-size: 2rem;
+        min-height: 300px;
     }
     
     .api-status-home {
-        padding: 0.75rem 1.5rem;
-        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* Mobile paysage */
+@media (max-width: 767px) and (orientation: landscape) {
+    .home-header {
+        padding: 1rem 0;
+        margin-bottom: 1.5rem;
+    }
+    
+    .logo-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .logo-text h1 {
+        font-size: 2rem;
     }
     
     .tool-card {
-        padding: 1.5rem;
-        border-radius: 16px;
-        min-height: 320px;
+        min-height: 240px;
+    }
+}
+
+/* Tablette portrait */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .logo-container {
+        gap: 1.5rem;
     }
     
-    .tool-card h3 {
-        font-size: 1.3rem;
+    .tool-card:hover {
+        transform: translateY(-12px);
+    }
+}
+
+/* Grande tablette et desktop */
+@media (min-width: 1024px) {
+    .tool-features li:hover {
+        color: var(--primary-color);
+        transform: translateX(5px);
     }
     
-    .tool-description {
-        font-size: 0.9rem;
+    .tool-card:hover .tool-footer i {
+        transform: translateX(8px);
+        color: var(--accent-color);
+    }
+}
+
+/* Support pour les préférences d'accessibilité */
+@media (prefers-reduced-motion: reduce) {
+    .logo-icon {
+        animation: none;
     }
     
-    .tool-icon {
-        width: 60px;
-        height: 60px;
-        font-size: 1.8rem;
+    .tool-card {
+        transition: none;
     }
     
-    .info-card {
-        padding: 1.5rem;
+    .tool-card:hover {
+        transform: none;
     }
     
-    .stat-item {
+    .status-dot.online {
+        animation: none;
+    }
+}
+
+/* Mode paysage spécifique mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    .home-header {
+        margin-bottom: 1rem;
         padding: 1rem 0;
     }
     
-    .stat-number {
-        font-size: 1.8rem;
+    .tagline {
+        margin-bottom: 1rem;
+    }
+    
+    .tool-card {
+        min-height: 200px;
     }
 }
