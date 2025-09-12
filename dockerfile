@@ -1,4 +1,4 @@
-FROM docker.io/python:3.11-slim
+FROM docker.io/python:3.12-slim
 
 # SÉCURITÉ: Créer un utilisateur non-root
 RUN groupadd --gid 1000 appuser && \
