@@ -39,3 +39,5 @@ npm-debug.log*
 .coverage
 htmlcov/
 .pytest_cache/
+
+/docker_config/nginx/nginx_conf_server.conf

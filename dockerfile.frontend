@@ -1,9 +1,20 @@
 FROM docker.io/nginx:alpine
 
-WORKDIR /usr/share/nginx/html
+RUN apk add --no-cache openssl
 
-COPY ./frontend/ .
+# Copier le frontend statique
+COPY ./frontend/ /usr/share/nginx/html
 
-EXPOSE 8080
+# Copier les configurations nginx
+COPY docker_config/nginx/nginx-ssl.conf /etc/nginx/conf.d/default.conf
+COPY docker_config/nginx/nginx.conf /etc/nginx/nginx.conf
+
+# Générer les certificats SSL auto-signés
+COPY docker_config/ssl/generate-ssl.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/generate-ssl.sh && \
+    /usr/local/bin/generate-ssl.sh
+
+# Exposer les ports HTTP et HTTPS
+EXPOSE 80 8080
 
 CMD ["nginx", "-g", "daemon off;"]
